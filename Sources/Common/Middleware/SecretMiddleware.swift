@@ -7,8 +7,8 @@ import Vapor
 
 
 public final class SecretHeaderMiddleware : Middleware {
-    let header : String
-    let secret : String
+    public let header : String
+    public let secret : String
 
     public init(header : String = "X-Secret", secret : String) {
         self.header = header
