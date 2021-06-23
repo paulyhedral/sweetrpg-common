@@ -1,11 +1,13 @@
-import Vapor
 import Foundation
 import Dispatch
 import Foundation // for NSLock
 import ServiceDiscovery
 import ServiceDiscoveryHelpers
 import AsyncHTTPClient
+import Logging
 
+
+fileprivate let logger = Logger(label: "ConsulServiceDiscovery")
 
 /// Provides lookup for service instances that are stored in-memory.
 public class ConsulServiceDiscovery<Service : Hashable, Instance : Hashable> : ServiceDiscovery {
@@ -72,7 +74,8 @@ public class ConsulServiceDiscovery<Service : Hashable, Instance : Hashable> : S
     }
 
     @discardableResult
-    public func subscribe(to service : Service, onNext nextResultHandler : @escaping (Result<[Instance], Error>) -> Void, onComplete completionHandler : @escaping (CompletionReason) -> Void = { _ in }) -> CancellationToken {
+    public func subscribe(to service : Service, onNext nextResultHandler : @escaping (Result<[Instance], Error>) -> Void, onComplete completionHandler : @escaping (CompletionReason) -> Void = { _ in
+    }) -> CancellationToken {
         guard !self.isShutdown else {
             completionHandler(.serviceDiscoveryUnavailable)
             return CancellationToken(isCancelled: true)
@@ -100,38 +103,62 @@ public class ConsulServiceDiscovery<Service : Hashable, Instance : Hashable> : S
             return
         }
 
+        logger.info("Registering service \(service) instances: \(instances)")
+
         var previousInstances : [Instance]?
         do {
             try self.serviceInstancesLock.withLock {
                 previousInstances = self.serviceInstances[service]
                 self.serviceInstances[service] = instances
 
-//            var headers = HTTPHeaders()
-
-                let body = ConsulServiceDefinition(id: "1", name: "2", port: 3, check: ConsulServiceDefinition.Check(name: "1", args: [], interval: "2", status: "3"))
+                guard let registerUrl = URL(string: "/v1/agent/service/register", relativeTo: self.configuration.url) else {
+                    throw Errors.invalidConfiguration(self.configuration.url.absoluteString)
+                }
+                logger.debug("Registration URL: \(registerUrl.absoluteString)")
 
                 let httpClient = HTTPClient(eventLoopGroupProvider: .createNew)
-                var request = try HTTPClient.Request(url: "http://localhost:8500", method: .PUT)
-                request.body = .data(try JSONEncoder().encode(body))
-                httpClient.execute(request: request)
-                          .whenComplete { result in
-                              switch result {
-                              case .failure(let error):
-                                  // process error
-                                  break
+                defer {
+                    try? httpClient.syncShutdown()
+                }
+                var request = try HTTPClient.Request(url: registerUrl, method: .PUT)
 
-                              case .success(let response):
-                                  if response.status == .ok {
-                                      // handle response
-                                  }
-                                  else {
-                                      // handle remote error
-                                  }
-                              }
-                          }
+                for instance in instances {
+                    logger.debug("instance: \(instance)")
+
+                    guard let def = instance as? ConsulServiceDefinition else {
+                        logger.warning("Instance is not a ConsulServiceDefinition; skipping.")
+                        continue
+                    }
+
+                    request.body = .data(try JSONEncoder().encode(def))
+                    logger.debug("Executing request: \(request)...")
+                    let response = try httpClient.execute(request: request)
+                                             .wait()
+//                              .whenComplete { result in
+//                                  switch result {
+//                                  case .failure(let error):
+//                                      // process error
+//                                      logger.error("Error while trying to PUT \(registerUrl.absoluteString): \(error)")
+//                                      break
+//
+//                                  case .success(let response):
+                                      logger.debug("Response: \(response)")
+                                      if response.status == .ok {
+                                          // handle response
+                                          logger.info("Registration succeeded.")
+                                      }
+                                      else {
+                                          logger.error("Unexpected response code while registering instance at \(registerUrl.absoluteString): \(response.status)")
+                                          // handle remote error
+                                      }
+//                                  }
+//                              }
+                }
             }
         }
-        catch {}
+        catch {
+            logger.error("Error while trying to register service instance: \(error)")
+        }
 
         self.serviceSubscriptionsLock.withLock {
             if !self.isShutdown, instances != previousInstances, let subscriptions = self.serviceSubscriptions[service] {
@@ -174,9 +201,11 @@ public class ConsulServiceDiscovery<Service : Hashable, Instance : Hashable> : S
 
 extension ConsulServiceDiscovery {
     public struct Configuration {
+        let url : URL
+
         /// Default configuration
         public static var `default` : Configuration {
-            .init()
+            .init(url: URL(string: "http://localhost:8500")!)
         }
 
         /// Lookup timeout in case `deadline` is not specified
@@ -184,19 +213,20 @@ extension ConsulServiceDiscovery {
 
         internal var serviceInstances : [Service : [Instance]]
 
-        public init() {
-            self.init(serviceInstances: [:])
+        public init(url : URL) {
+            self.init(url: url, serviceInstances: [:])
         }
 
         /// Initializes `InMemoryServiceDiscovery` with the given service to instances mappings.
-        public init(serviceInstances : [Service : [Instance]]) {
+        public init(url : URL, serviceInstances : [Service : [Instance]]) {
+            self.url = url
             self.serviceInstances = serviceInstances
         }
 
-        /// Registers `service` and its `instances`.
-        public mutating func register(service : Service, instances : [Instance]) {
-            self.serviceInstances[service] = instances
-        }
+//        /// Registers `service` and its `instances`.
+//        public mutating func register(service : Service, instances : [Instance]) {
+//            self.serviceInstances[service] = instances
+//        }
     }
 }
 
@@ -211,17 +241,34 @@ extension NSLock {
     }
 }
 
+public struct ConsulServiceDefinition : Codable, Equatable, Hashable {
+    public static func ==(lhs : ConsulServiceDefinition, rhs : ConsulServiceDefinition) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
 
-public struct ConsulServiceDefinition : Content {
     public var id : String
     public var name : String
     public var port : Int
     public var check : Check
 
-    public struct Check : Content {
+    public init(id : String, name : String, port : Int, check : Check) {
+        self.id = id
+        self.name = name
+        self.port = port
+        self.check = check
+    }
+
+    public struct Check : Codable, Equatable, Hashable {
         public var name : String
         public var args : [String]
         public var interval : String
         public var status : String
+
+        public init(name : String, args : [String], interval : String, status : String) {
+            self.name = name
+            self.args = args
+            self.interval = interval
+            self.status = status
+        }
     }
 }
