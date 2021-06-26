@@ -10,7 +10,7 @@ import Logging
 fileprivate let logger = Logger(label: "ConsulServiceDiscovery")
 
 /// Provides lookup for service instances that are stored in-memory.
-public class ConsulServiceDiscovery<Service : Hashable, Instance : Hashable> : ServiceDiscovery {
+public class ConsulServiceDiscovery<Service : Hashable, Instance : Encodable & Hashable> : ServiceDiscovery {
     private let configuration : Configuration
 
     private let serviceInstancesLock = NSLock()
@@ -111,7 +111,7 @@ public class ConsulServiceDiscovery<Service : Hashable, Instance : Hashable> : S
                 previousInstances = self.serviceInstances[service]
                 self.serviceInstances[service] = instances
 
-                guard let registerUrl = URL(string: "/v1/agent/service/register", relativeTo: self.configuration.url) else {
+                guard let registerUrl = URL(string: "/v1/catalog/register", relativeTo: self.configuration.url) else {
                     throw Errors.invalidConfiguration(self.configuration.url.absoluteString)
                 }
                 logger.debug("Registration URL: \(registerUrl.absoluteString)")
@@ -125,15 +125,18 @@ public class ConsulServiceDiscovery<Service : Hashable, Instance : Hashable> : S
                 for instance in instances {
                     logger.debug("instance: \(instance)")
 
-                    guard let def = instance as? ConsulServiceDefinition else {
-                        logger.warning("Instance is not a ConsulServiceDefinition; skipping.")
-                        continue
-                    }
+//                    guard let def = instance as? Encodable else {
+//                        logger.warning("Instance is not a ConsulServiceDefinition; skipping.")
+//                        continue
+//                    }
 
-                    request.body = .data(try JSONEncoder().encode(def))
+                    let data = try JSONEncoder().encode(instance)
+                    let bodyString = String(data: data, encoding: .utf8)
+                    logger.debug("body: \(bodyString)")
+                    request.body = .data(data)
                     logger.debug("Executing request: \(request)...")
                     let response = try httpClient.execute(request: request)
-                                             .wait()
+                                                 .wait()
 //                              .whenComplete { result in
 //                                  switch result {
 //                                  case .failure(let error):
@@ -142,15 +145,15 @@ public class ConsulServiceDiscovery<Service : Hashable, Instance : Hashable> : S
 //                                      break
 //
 //                                  case .success(let response):
-                                      logger.debug("Response: \(response)")
-                                      if response.status == .ok {
-                                          // handle response
-                                          logger.info("Registration succeeded.")
-                                      }
-                                      else {
-                                          logger.error("Unexpected response code while registering instance at \(registerUrl.absoluteString): \(response.status)")
-                                          // handle remote error
-                                      }
+                    logger.debug("Response: \(response)")
+                    if response.status == .ok {
+                        // handle response
+                        logger.info("Registration succeeded.")
+                    }
+                    else {
+                        logger.error("Unexpected response code while registering instance at \(registerUrl.absoluteString): \(response.status)")
+                        // handle remote error
+                    }
 //                                  }
 //                              }
                 }
@@ -241,34 +244,164 @@ extension NSLock {
     }
 }
 
-public struct ConsulServiceDefinition : Codable, Equatable, Hashable {
+public protocol ConsulServiceCheck : Codable, Equatable, Hashable {
+    associatedtype CheckDefinition
+
+//    var id : String { get }
+    var name : String { get }
+    var status : String { get }
+    var definition : CheckDefinition { get }
+}
+
+//public struct ScriptCheck : ConsulServiceCheck {
+//    public var id : String
+//    public var name : String
+//    public var args : [String]
+//    public var interval : String
+//    public var timeout : String
+//    public var status : String
+//
+//    public init(id : String, name : String, args : [String], interval : String, timeout : String, status : String) {
+//        self.id = id
+//        self.name = name
+//        self.args = args
+//        self.interval = interval
+//        self.timeout = timeout
+//        self.status = status
+//    }
+//}
+
+public struct HTTPServiceCheck : ConsulServiceCheck, Codable, Equatable, Hashable {
+    public typealias CheckDefinition = HTTPCheckDefinition
+
+    public var name : String
+    public var status : String
+    public var definition : HTTPCheckDefinition
+
+    public init(name : String, status : String, definition : HTTPCheckDefinition) {
+        self.name = name
+        self.status = status
+        self.definition = definition
+    }
+}
+
+public struct HTTPCheckDefinition : Codable, Equatable, Hashable {
+    public var id : String
+    public var name : String
+    public var http : URL
+    public var tlsServerName : String = ""
+    public var tlsSkipVerify : Bool = false
+    public var method : String = "GET"
+    public var header : [String : [String]] = [:]
+    public var body : String
+    public var interval : String
+    public var timeout : String
+
+    public init(id : String, name : String, http : URL,
+                tlsServerName : String = "", tlsSkipVerify : Bool = false,
+                method : String = "GET", header : [String : [String]] = [:], body : String,
+                interval : String, timeout : String) {
+        self.id = id
+        self.name = name
+        self.http = http
+        self.tlsServerName = tlsServerName
+        self.tlsSkipVerify = tlsSkipVerify
+        self.method = method
+        self.header = header
+        self.body = body
+        self.interval = interval
+        self.timeout = timeout
+    }
+
+    public enum CodingKeys : String, CodingKey {
+        case id
+        case name
+        case http
+        case tlsServerName = "tls_server_name"
+        case tlsSkipVerify = "tls_skip_verify"
+        case method
+        case header
+        case body
+        case interval
+        case timeout
+    }
+}
+
+//public struct TCPCheck {
+//    // TODO
+//}
+//
+//public struct TTLCheck {
+//    // TODO
+//}
+//
+//public struct DockerCheck {
+//    // TODO
+//}
+//
+//public struct gRPCCheck {
+//    // TODO
+//}
+//
+//public struct H2PingCheck {
+//    // TODO
+//}
+//
+//public struct AliasCheck {
+//    // TODO
+//}
+
+public struct ConsulServiceNodeMeta : Codable, Equatable, Hashable {
+    public var externalNode : String
+    public var externalProbe : String
+
+    public init(externalNode : String, externalProbe : String) {
+        self.externalNode = externalNode
+        self.externalProbe = externalProbe
+    }
+
+    public enum CodingKeys : String, CodingKey {
+        case externalNode = "external-node"
+        case externalProbe = "external-probe"
+    }
+}
+
+public struct ConsulServiceDetail : Codable, Equatable, Hashable {
+    public var id : String
+    public var service : String
+    public var port : Int
+
+    public init(id : String, service : String, port : Int) {
+        self.id = id
+        self.service = service
+        self.port = port
+    }
+}
+
+public struct ConsulServiceDefinition<Check : ConsulServiceCheck> : Codable, Equatable, Hashable {
+    public var node : String
+    public var address : String
+    public var nodeMeta : ConsulServiceNodeMeta
+    public var service : ConsulServiceDetail
+    public var checks : [Check]
+
+    public init(node : String, address : String, nodeMeta : ConsulServiceNodeMeta, service : ConsulServiceDetail, checks : [Check]) {
+        self.node = node
+        self.address = address
+        self.nodeMeta = nodeMeta
+        self.service = service
+        self.checks = checks
+    }
+
     public static func ==(lhs : ConsulServiceDefinition, rhs : ConsulServiceDefinition) -> Bool {
         lhs.hashValue == rhs.hashValue
     }
 
-    public var id : String
-    public var name : String
-    public var port : Int
-    public var check : Check
-
-    public init(id : String, name : String, port : Int, check : Check) {
-        self.id = id
-        self.name = name
-        self.port = port
-        self.check = check
-    }
-
-    public struct Check : Codable, Equatable, Hashable {
-        public var name : String
-        public var args : [String]
-        public var interval : String
-        public var status : String
-
-        public init(name : String, args : [String], interval : String, status : String) {
-            self.name = name
-            self.args = args
-            self.interval = interval
-            self.status = status
-        }
+    public enum CodingKeys : String, CodingKey {
+        case node
+        case address
+        case nodeMeta
+        case service
+        case checks
     }
 }
