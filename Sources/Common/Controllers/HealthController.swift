@@ -6,11 +6,14 @@
 import Vapor
 
 
-public struct HealthController : RouteCollection {
+public struct HealthController<H : HealthInfo> : RouteCollection {
 
-    // TODO: health check callback function
+    // health check callback function
+    private let healthCallback : () -> H
 
-    public init() {}
+    public init(healthCallback : @escaping () -> H) {
+        self.healthCallback = healthCallback
+    }
 
     public func boot(routes : RoutesBuilder) throws {
         let healthRoutes = routes.grouped("health")
@@ -18,14 +21,9 @@ public struct HealthController : RouteCollection {
         healthRoutes.get("ping", use: self.pingHandler)
     }
 
-    func healthCheckHandler(_ req : Request) throws -> EventLoopFuture<HealthInfo> {
-//        User.query(on: req.db)
-//            .count()
-//            .map { userCount in
-                let info = HealthInfo(timestamp: Date(),
-                        dbHealthy: true /*userCount > 1*/)
-                return req.eventLoop.future(info)
-//            }
+    func healthCheckHandler(_ req : Request) throws -> EventLoopFuture<H> {
+        let info = healthCallback()
+        return req.eventLoop.future(info)
     }
 
     func pingHandler(_ req : Request) throws -> EventLoopFuture<Pong> {
@@ -34,9 +32,14 @@ public struct HealthController : RouteCollection {
     }
 }
 
-struct HealthInfo : Content {
-    let timestamp : Date
-    let dbHealthy : Bool
+public protocol HealthInfo : Content {}
+
+public struct BasicHealthInfo : HealthInfo {
+    public let timestamp : Date
+
+    public init(timestamp : Date = Date()) {
+        self.timestamp = timestamp
+    }
 }
 
 struct Pong : Content {
