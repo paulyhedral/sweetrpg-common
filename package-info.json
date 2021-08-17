@@ -1,0 +1,6 @@
+{
+    "name": "sweetrpg-common",
+    "ports": [
+        8181
+    ]
+}

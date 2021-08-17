@@ -22,6 +22,7 @@ let package : Package = Package(
 //            .package(url: "https://github.com/vapor/redis.git", from: "4.0.0"),
             // .package(name: "sweetrpg-users-model", path: "../UsersModel"),
             .package(url: "https://github.com/apple/swift-service-discovery.git", from: "1.0.0"),
+             .package(url: "https://github.com/OpenCombine/OpenCombine.git", from: "0.12.0"),
         ],
         targets: [
             .target(
@@ -37,6 +38,7 @@ let package : Package = Package(
 //                        .product(name: "SendGrid", package: "sendgrid"),
 //                        .product(name: "Redis", package: "redis"),
                         .product(name: "ServiceDiscovery", package: "swift-service-discovery"),
+                          "OpenCombine",
                     ],
                     swiftSettings: [
                         // Enable better optimizations when building in Release configuration. Despite the use of
