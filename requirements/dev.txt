@@ -18,6 +18,8 @@ certifi==2021.5.30
     # via requests
 charset-normalizer==2.0.4
     # via requests
+click==8.0.1
+    # via pip-tools
 docutils==0.16
     # via
     #   sphinx
@@ -43,6 +45,10 @@ packaging==21.0
     #   sphinx
 pallets-sphinx-themes==2.0.1
     # via -r requirements/docs.in
+pep517==0.11.0
+    # via pip-tools
+pip-tools==6.2.0
+    # via -r requirements/dev.in
 pluggy==1.0.0
     # via pytest
 py==1.10.0
@@ -51,7 +57,7 @@ pygments==2.10.0
     # via
     #   sphinx
     #   sphinx-tabs
-pymongo==3.12.0
+pymongo[tls]==3.12.0
     # via -r requirements/pkg.in
 pyparsing==2.4.7
     # via packaging
@@ -92,8 +98,13 @@ sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
 toml==0.10.2
     # via pytest
+tomli==1.2.1
+    # via pep517
 urllib3==1.26.6
     # via requests
+wheel==0.37.0
+    # via pip-tools
 
 # The following packages are considered to be unsafe in a requirements file:
+# pip
 # setuptools
