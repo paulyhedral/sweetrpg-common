@@ -20,7 +20,18 @@ on:
 
 jobs:
     build:
-        runs-on: ubuntu-latest
+        runs-on: ${{ matrix.os }}
+        timeout-minutes: 10
+        strategy:
+            fail-fast: false
+            matrix:
+                python-version: [3.9, 3.10-dev]
+                os: [ubuntu-18.04, macOS-latest, windows-latest]
+                include:
+                    # pypy3 on Mac OS currently fails trying to compile
+                    # brotlipy. Moving pypy3 to only test linux.
+                    - python-version: pypy3
+                      os: ubuntu-latest
 
         steps:
             - uses: actions/checkout@v2
@@ -30,8 +41,24 @@ jobs:
               run: |
                   ssh-agent -a $SSH_AUTH_SOCK > /dev/null
                   ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
+            - name: Test packaging
+              env:
+                  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+              run: |
+                  python setup.py sdist bdist_wheel
+            - name: Set up Python ${{ matrix.python-version }}
+              uses: actions/setup-python@v2
+              env:
+                  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+              with:
+                  python-version: ${{ matrix.python-version }}
+            - name: Install dependencies
+              env:
+                  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+              run: |
+                  make
             - name: Run tests
               env:
                   SSH_AUTH_SOCK: /tmp/ssh_agent.sock
               run: |
-                  echo "TODO"
+                  make ci
