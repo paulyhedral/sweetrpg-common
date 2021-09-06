@@ -38,14 +38,14 @@ if sys.argv[-1] == 'publish':
 
 requires = [
     'PyMongo~=3.13',
-    'marshmallow~=3.12'
+    'marshmallow~=3.12',
     'charset_normalizer~=2.0.0; python_version >= "3"',
 ]
 test_requirements = [
     'pytest-cov',
     'pytest-mock',
     'pytest-xdist',
-    'pytest>=3'
+    'pytest>=3',
 ]
 
 about = {}
