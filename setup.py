@@ -37,7 +37,7 @@ if sys.argv[-1] == 'publish':
     sys.exit()
 
 requires = [
-    'PyMongo~=3.13',
+    'PyMongo[tls]~=3.12',
     'marshmallow~=3.12',
     'charset_normalizer~=2.0.0; python_version >= "3"',
 ]
