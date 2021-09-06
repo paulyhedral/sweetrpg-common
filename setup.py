@@ -2,10 +2,8 @@
 # Learn more: https://github.com/kennethreitz/setup.py
 import os
 import sys
-
 from codecs import open
-
-from setuptools import setup
+from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -38,11 +36,16 @@ if sys.argv[-1] == 'publish':
     os.system('twine upload dist/*')
     sys.exit()
 
-packages = setuptools.find_packages(where='src')
-
 requires = [
+    'PyMongo~=3.13',
+    'marshmallow~=3.12'
     'charset_normalizer~=2.0.0; python_version >= "3"',
-
+]
+test_requirements = [
+    'pytest-cov',
+    'pytest-mock',
+    'pytest-xdist',
+    'pytest>=3'
 ]
 
 about = {}
