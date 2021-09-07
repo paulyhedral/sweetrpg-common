@@ -31,16 +31,21 @@ class MongoDataRepository(object):
         print(f"record: {record}")
         if not record:
             raise ObjectNotFound(f'Record not found where \'{self.id_attr}\' = \'{record_id}\'')
+        modified_record = {}
         for k,v in record.items():
             print(f"k: {k}, v: {v}")
+            if k == self.id_attr:
+                k = 'id'
             if isinstance(v, ObjectId):
-                record[k] = str(v)
+                modified_record[k] = str(v)
             elif isinstance(v, datetime.datetime):
                 d = v.replace(tzinfo=datetime.timezone.utc)
-                record[k] = d.isoformat(timespec='milliseconds')
-        print(f"record: {record}")
+                modified_record[k] = d.isoformat(timespec='milliseconds')
+            else:
+                modified_record[k] = v
+        print(f"modified_record: {modified_record}")
         schema = self.schema_class()
         print(f"schema: {schema}")
-        obj = schema.load(record)
+        obj = schema.load(modified_record)
         print(f"obj: {obj}")
         return obj
