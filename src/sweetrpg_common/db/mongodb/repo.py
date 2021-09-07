@@ -34,7 +34,7 @@ class MongoDataRepository(object):
         modified_record = {}
         for k,v in record.items():
             print(f"k: {k}, v: {v}")
-            if k == self.id_attr:
+            if k == '_id':
                 k = 'id'
             if isinstance(v, ObjectId):
                 modified_record[k] = str(v)
