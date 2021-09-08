@@ -42,6 +42,9 @@ class QueryOptions(object):
         self.limit = limit
         self.sort = sort
 
+    def __repr__(self):
+        return f"<QueryOptions(filters={self.filters}, projection={self.projection}, skip={self.skip}, limit={self.limit}, sort={self.sort})>"
+
     def _process_filter(filter:dict):
         name = filter['name']
         value = filter['val']
