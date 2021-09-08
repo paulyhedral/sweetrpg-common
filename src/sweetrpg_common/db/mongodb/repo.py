@@ -28,6 +28,7 @@ class MongoDataRepository(object):
     def _modify_record(self, record:dict) -> dict:
         """
         """
+        modified_record = {}
         for k,v in record.items():
             print(f"k: {k}, v: {v}")
             if k == '_id':
