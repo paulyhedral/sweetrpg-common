@@ -8,6 +8,7 @@ class QueryOptions(object):
     An object to store query options for a PyMongo find*() call.
     """
 
+    # https://flask-rest-jsonapi.readthedocs.io/en/latest/filtering.html
     _filter_operators = {
         'eq': '$eq',
         'gt': '$gt',
@@ -58,7 +59,7 @@ class QueryOptions(object):
     def _process_filter(self, filter:dict):
         name = filter['name']
         value = filter['val']
-        op = _filter_operators.get(filter['op'], '$eq')
+        op = self._filter_operators.get(filter['op'], '$eq')
         return { name: { op: value } }
 
     def set_filters(self, filters:dict=None, from_querystring:list=None):
@@ -78,7 +79,7 @@ class QueryOptions(object):
 
     def _process_sort(self, sort_item:dict):
         name = sort_item['field']
-        direction = _sort_values.get(sort_item['order'], 1)
+        direction = self._sort_values.get(sort_item['order'], 1)
         return { name: direction }
 
     def set_sort(self, sort:list=None, from_querystring:list=None):
