@@ -79,7 +79,7 @@ class MongoDataRepository(object):
         print(f"modified_records: {modified_records}")
         schema = self.schema_class()
         print(f"schema: {schema}")
-        objects = map(lambda m: schema.load(m), modified_records)
+        objects = list(map(lambda m: schema.load(m), modified_records))
         print(f"objects: {objects}")
         return objects
 
