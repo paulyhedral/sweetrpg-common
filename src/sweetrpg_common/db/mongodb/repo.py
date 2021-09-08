@@ -72,7 +72,7 @@ class MongoDataRepository(object):
         print(f"collection_name: {collection_name}")
         collection = self.mongo.db[collection_name]
         print(f"collection: {collection}")
-        records = collection.find(filter=options.filter, projection=options.projection, skip=options.skip, limit=options.skip, sort=options.sort)
+        records = collection.find(filter=options.filters, projection=options.projection, skip=options.skip, limit=options.skip, sort=options.sort)
         print(f"records: {records}")
         modified_records = map(lambda r: self._modify_record(r), records)
         print(f"modified_records: {modified_records}")
