@@ -68,6 +68,7 @@ class MongoDataRepository(object):
         """
         :param QueryOptions options: (Optional) Options specifying limits to the query's returned results
         """
+        print(f"options: %s", options)
         collection_name = self.collection
         print(f"collection_name: {collection_name}")
         collection = self.mongo.db[collection_name]
