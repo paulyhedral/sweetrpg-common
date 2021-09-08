@@ -55,7 +55,7 @@ class QueryOptions(object):
     def __repr__(self):
         return f"<QueryOptions(filters={self.filters}, projection={self.projection}, skip={self.skip}, limit={self.limit}, sort={self.sort})>"
 
-    def _process_filter(filter:dict):
+    def _process_filter(self, filter:dict):
         name = filter['name']
         value = filter['val']
         op = _filter_operators.get(filter['op'], '$eq')
@@ -76,7 +76,7 @@ class QueryOptions(object):
         elif from_querystring is not None:
             self.projection = from_querystring
 
-    def _process_sort(sort_item:dict):
+    def _process_sort(self, sort_item:dict):
         name = sort_item['field']
         direction = _sort_values.get(sort_item['order'], 1)
         return { name: direction }
