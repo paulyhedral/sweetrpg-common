@@ -65,7 +65,10 @@ class QueryOptions(object):
         if filters is not None:
             self.filters = filters
         elif from_querystring is not None:
-            self.filters = map(self._process_filter, from_querystring)
+            filters = {}
+            for f in from_querystring:
+                filters.update(_process_filter(f))
+            self.filters = filters
 
     def set_projection(self, projection=None, from_querystring:list=None):
         if projection is not None:
