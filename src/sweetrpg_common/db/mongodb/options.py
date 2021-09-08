@@ -86,4 +86,4 @@ class QueryOptions(object):
         if sort is not None:
             self.sort = sort
         elif from_querystring is not None:
-            self.sort = map(self._process_sort, from_querystring)
+            self.sort = list(map(self._process_sort, from_querystring))
