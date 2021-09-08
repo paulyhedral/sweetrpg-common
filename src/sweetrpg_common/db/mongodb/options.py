@@ -22,6 +22,16 @@ class QueryOptions(object):
         # '': '$nor',
         # '': '$or',
         'is_': '$exists',
+        # 'any': 'TODO',
+        # 'between': 'TODO',
+        # 'endswith': 'TODO',
+        # 'has': 'TODO',
+        # 'ilike': 'TODO',
+        # 'like': 'TODO',
+        # 'match': 'TODO',
+        # 'notilike': 'TODO',
+        # 'notlike': 'TODO',
+        # 'startswith': 'TODO',
     }
     _sort_values = {
         'asc': 1,
