@@ -80,7 +80,7 @@ class QueryOptions(object):
     def _process_sort(self, sort_item:dict):
         name = sort_item['field']
         direction = self._sort_values.get(sort_item['order'], 1)
-        return { name: direction }
+        return name, direction
 
     def set_sort(self, sort:list=None, from_querystring:list=None):
         if sort is not None:
