@@ -55,7 +55,7 @@ class QueryOptions(object):
         if filters is not None:
             self.filters = filters
         elif from_querystring is not None:
-            self.filters = map(_process_filter, filters)
+            self.filters = map(self._process_filter, filters)
 
     def set_projection(self, projection=None, from_querystring:list=None):
         if projection is not None:
@@ -72,4 +72,4 @@ class QueryOptions(object):
         if sort is not None:
             self.sort = sort
         elif from_querystring is not None:
-            self.sort = map(_process_sort, from_querystring)
+            self.sort = map(self._process_sort, from_querystring)
