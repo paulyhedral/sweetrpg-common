@@ -34,7 +34,7 @@ class MongoDataRepository(object):
         """
         """
         if isinstance(value, ObjectId):
-            return str(v)
+            return str(value)
         elif isinstance(value, datetime.datetime):
             d = value.replace(tzinfo=datetime.timezone.utc)
             return d.isoformat(timespec='milliseconds')
