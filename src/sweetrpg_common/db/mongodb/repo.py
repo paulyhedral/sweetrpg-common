@@ -71,7 +71,12 @@ class MongoDataRepository(object):
         print(f"collection_name: {collection_name}")
         collection = self.mongo.db[collection_name]
         print(f"collection: {collection}")
-        record = collection.find_one({self.id_attr: record_id})
+        id_value = record_id
+        if self.id_attr == '_id':
+            print(f"ID attribute is '_id', converting to ObjectId")
+            id_value = ObjectId(record_id)
+        print(f"id_value: {id_value}")
+        record = collection.find_one({self.id_attr: id_value})
         print(f"record: {record}")
         if not record:
             raise ObjectNotFound(f'Record not found where \'{self.id_attr}\' = \'{record_id}\'')
