@@ -23,7 +23,25 @@ class MongoDataRepository(object):
         self.collection = getattr(self.model_class, '__tablename__')
 
     def __repr__(self):
-        return f"<MongoDataRepository(model_class={self.model_class}, schema_class={self.schema_class}, id_attr={self.id_attr}, collection={self.collection})>"
+        return f"""
+        <MongoDataRepository(model_class={self.model_class},
+                             schema_class={self.schema_class},
+                             id_attr={self.id_attr},
+                             collection={self.collection})>
+        """
+
+    def _handle_value(self, value):
+        """
+        """
+        if isinstance(value, ObjectId):
+            return str(v)
+        elif isinstance(value, datetime.datetime):
+            d = value.replace(tzinfo=datetime.timezone.utc)
+            return d.isoformat(timespec='milliseconds')
+        elif isinstance(value, list):
+            return list(map(lambda v: self._handle_value(v), value))
+        else:
+            return value
 
     def _modify_record(self, record:dict) -> dict:
         """
@@ -33,13 +51,7 @@ class MongoDataRepository(object):
             print(f"k: {k}, v: {v}")
             if k == '_id':
                 k = 'id'
-            if isinstance(v, ObjectId):
-                modified_record[k] = str(v)
-            elif isinstance(v, datetime.datetime):
-                d = v.replace(tzinfo=datetime.timezone.utc)
-                modified_record[k] = d.isoformat(timespec='milliseconds')
-            else:
-                modified_record[k] = v
+            modified_record[k] = self._handle_value(v)
 
         return modified_record
 
