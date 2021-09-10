@@ -34,14 +34,18 @@ class MongoDataRepository(object):
         """
         """
         if isinstance(value, ObjectId):
+            print(f"converting ObjectId('{value}')...")
             return str(value)
         elif isinstance(value, datetime.datetime):
+            print(f"converting datetime value '{value}'...")
             d = value.replace(tzinfo=datetime.timezone.utc)
             return d.isoformat(timespec='milliseconds')
         elif isinstance(value, list):
+            print(f"converting list '{value}'...")
             return list(map(lambda v: self._handle_value(v), value))
-        else:
-            return value
+
+        print(f"returning unprocessed value '{value}'...")
+        return value
 
     def _modify_record(self, record:dict) -> dict:
         """
@@ -51,7 +55,9 @@ class MongoDataRepository(object):
             print(f"k: {k}, v: {v}")
             if k == '_id':
                 k = 'id'
-            modified_record[k] = self._handle_value(v)
+            modified_value = self._handle_value(v)
+            modified_record[k] = modified_value
+            print(f"k: {k}, v (modified): {modified_value}")
 
         return modified_record
 
