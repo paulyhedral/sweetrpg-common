@@ -61,10 +61,16 @@ class MongoDataRepository(object):
 
         return modified_record
 
-    def get(self, record_id:str):
+    def create(self, data:dict):
+        """
+        """
+        print(f"data: {data}")
+
+    def get(self, record_id:str, deleted:bool=False):
         """
         :param str record_id: The identifier for the record to fetch. This value is compared against the attribute specified in `id_attr`.
-        :return object: An instance of
+        :param bool deleted:
+        :return object: An instance of the object type from `model_class`.
         """
         print(f"record_id: {record_id}")
         collection_name = self.collection
@@ -76,7 +82,7 @@ class MongoDataRepository(object):
             print(f"ID attribute is '_id', converting to ObjectId")
             id_value = ObjectId(record_id)
         print(f"id_value: {id_value}")
-        record = collection.find_one({self.id_attr: id_value})
+        record = collection.find_one({self.id_attr: id_value, 'deleted_at': { '$exists': deleted }})
         print(f"record: {record}")
         if not record:
             raise ObjectNotFound(f'Record not found where \'{self.id_attr}\' = \'{record_id}\'')
@@ -88,7 +94,7 @@ class MongoDataRepository(object):
         print(f"obj: {obj}")
         return obj
 
-    def query(self, options:QueryOptions):
+    def query(self, options:QueryOptions, deleted:bool=False):
         """
         :param QueryOptions options: (Optional) Options specifying limits to the query's returned results
         """
@@ -97,7 +103,9 @@ class MongoDataRepository(object):
         print(f"collection_name: {collection_name}")
         collection = self.mongo.db[collection_name]
         print(f"collection: {collection}")
-        records = collection.find(filter=options.filters, projection=options.projection, skip=options.skip, limit=options.skip, sort=options.sort)
+        filters = options.filters.update({'deleted_at': { '$exists': deleted }})
+        print(f"filters: {filters}")
+        records = collection.find(filter=filters, projection=options.projection, skip=options.skip, limit=options.skip, sort=options.sort)
         print(f"records: {records}")
         modified_records = map(lambda r: self._modify_record(r), records)
         print(f"modified_records: {modified_records}")
