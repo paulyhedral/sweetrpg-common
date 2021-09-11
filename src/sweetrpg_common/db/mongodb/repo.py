@@ -69,7 +69,11 @@ class MongoDataRepository(object):
         print(f"collection_name: {collection_name}")
         collection = self.mongo.db[collection_name]
         print(f"collection: {collection}")
-        record = collection.insert_one(data)
+        result = collection.insert_one(data)
+        print(f"result: {result}")
+        record_id = result.inserted_id
+        print(f"record_id: {record_id}")
+        record = self.get(record_id)
         print(f"record: {record}")
 
         return record
