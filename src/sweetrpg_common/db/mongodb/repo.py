@@ -65,6 +65,14 @@ class MongoDataRepository(object):
         """
         """
         print(f"data: {data}")
+        collection_name = self.collection
+        print(f"collection_name: {collection_name}")
+        collection = self.mongo.db[collection_name]
+        print(f"collection: {collection}")
+        record = collection.insert_one(data)
+        print(f"record: {record}")
+
+        return record
 
     def get(self, record_id:str, deleted:bool=False):
         """
