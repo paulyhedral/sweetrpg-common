@@ -67,14 +67,19 @@ class MongoDataRepository(object):
         print(f"data: {data}")
         collection_name = self.collection
         print(f"collection_name: {collection_name}")
+        session = self.mongo.start_session()
+        print(f"session: {session}")
+        session.start_transaction(write_concern=WriteConcern(j=True))
         collection = self.mongo.db[collection_name]
         print(f"collection: {collection}")
         result = collection.insert_one(data)
         print(f"result: {result}")
+        session.commit_transaction()
         record_id = result.inserted_id
         print(f"record_id: {record_id}")
         record = self.get(record_id)
         print(f"record: {record}")
+        session.end_session()
 
         return record
 
