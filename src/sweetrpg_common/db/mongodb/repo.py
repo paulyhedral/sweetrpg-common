@@ -5,6 +5,7 @@ __author__ = "Paul Schifferer <paul@schifferers.net>"
 
 from ..exceptions import ObjectNotFound
 from bson.objectid import ObjectId
+from bson.timestamp import Timestamp
 import datetime
 from .options import QueryOptions
 from pymongo.write_concern import WriteConcern
@@ -12,6 +13,7 @@ from pymongo.write_concern import WriteConcern
 
 class MongoDataRepository(object):
     """
+    A repository class for interacting with a MongoDB database.
     """
 
     def __init__(self, **kwargs):
@@ -24,7 +26,7 @@ class MongoDataRepository(object):
         self.collection = getattr(self.model_class, '__tablename__')
 
     def __repr__(self):
-        return f"""
+        return f"""\
         <MongoDataRepository(model_class={self.model_class},
                              schema_class={self.schema_class},
                              id_attr={self.id_attr},
@@ -64,30 +66,29 @@ class MongoDataRepository(object):
 
     def create(self, data:dict):
         """
+        Inserts a new object in the database with the data provided.
+        :param dict data: The data for the object
+        :return ObjectId: The ID of the object inserted, or `None`
         """
         print(f"data: {data}")
         collection_name = self.collection
         print(f"collection_name: {collection_name}")
-        # session = self.mongo.cx.start_session()
-        # print(f"session: {session}")
-        # session.start_transaction(write_concern=WriteConcern(j=True))
         collection = self.mongo.db[collection_name]
         print(f"collection: {collection}")
         result = collection.with_options(write_concern=WriteConcern(w=3, j=True)).insert_one(data)
         print(f"result: {result}")
-        # session.commit_transaction()
+        if result is None:
+            return None
         record_id = result.inserted_id
         print(f"record_id: {record_id}")
-        record = self.get(record_id)
-        print(f"record: {record}")
-        # session.end_session()
 
-        return record
+        return record_id
 
     def get(self, record_id:str, deleted:bool=False):
         """
+        Fetch
         :param str record_id: The identifier for the record to fetch. This value is compared against the attribute specified in `id_attr`.
-        :param bool deleted:
+        :param bool deleted: Include "deleted" objects in the query
         :return object: An instance of the object type from `model_class`.
         """
         print(f"record_id: {record_id}")
@@ -100,7 +101,14 @@ class MongoDataRepository(object):
             print(f"ID attribute is '_id', converting to ObjectId")
             id_value = ObjectId(record_id)
         print(f"id_value: {id_value}")
-        record = collection.find_one({self.id_attr: id_value, 'deleted_at': { '$exists': deleted }})
+        query_filter = { self.id_attr : id_value }
+        if not deleted:
+            query_filter.update({ '$or': [
+                { 'deleted_at': Timestamp(0, 0) },
+                { 'deleted_at': { '$exists' : False } },
+            ]})
+        print(f"query_filter: {query_filter}")
+        record = collection.find_one(**query_filter)
         print(f"record: {record}")
         if not record:
             raise ObjectNotFound(f'Record not found where \'{self.id_attr}\' = \'{record_id}\'')
