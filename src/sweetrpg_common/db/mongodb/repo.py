@@ -73,7 +73,7 @@ class MongoDataRepository(object):
         # session.start_transaction(write_concern=WriteConcern(j=True))
         collection = self.mongo.db[collection_name]
         print(f"collection: {collection}")
-        result = collection.with_options(write_concern=WriteConcern(j=True)).insert_one(data)
+        result = collection.with_options(write_concern=WriteConcern(w=3, j=True)).insert_one(data)
         print(f"result: {result}")
         # session.commit_transaction()
         record_id = result.inserted_id
