@@ -43,6 +43,9 @@ class MongoDataRepository(object):
             print(f"converting datetime value '{value}'...")
             d = value.replace(tzinfo=datetime.timezone.utc)
             return d.isoformat(timespec='milliseconds')
+        elif isinstance(value, Timestamp):
+            print(f"converting Timestamp '{value}'...")
+            return value.as_datetime()
         elif isinstance(value, list):
             print(f"converting list '{value}'...")
             return list(map(lambda v: self._handle_value(v), value))
