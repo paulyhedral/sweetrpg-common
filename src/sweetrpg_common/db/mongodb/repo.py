@@ -64,10 +64,11 @@ class MongoDataRepository(object):
     def create(self, data:dict):
         """
         """
+        print(f"self.mongo: {self.mongo}")
         print(f"data: {data}")
         collection_name = self.collection
         print(f"collection_name: {collection_name}")
-        session = self.mongo.start_session()
+        session = self.mongo.cx.start_session()
         print(f"session: {session}")
         session.start_transaction(write_concern=WriteConcern(j=True))
         collection = self.mongo.db[collection_name]
