@@ -7,6 +7,7 @@ from ..exceptions import ObjectNotFound
 from bson.objectid import ObjectId
 import datetime
 from .options import QueryOptions
+from pymongo.write_concern import WriteConcern
 
 
 class MongoDataRepository(object):
