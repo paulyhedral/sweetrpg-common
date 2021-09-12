@@ -108,7 +108,7 @@ class MongoDataRepository(object):
                 { 'deleted_at': { '$exists' : False } },
             ]})
         print(f"query_filter: {query_filter}")
-        record = collection.find_one(**query_filter)
+        record = collection.find_one(filter=query_filter)
         print(f"record: {record}")
         if not record:
             raise ObjectNotFound(f'Record not found where \'{self.id_attr}\' = \'{record_id}\'')
