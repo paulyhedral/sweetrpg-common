@@ -61,4 +61,4 @@ jobs:
               env:
                   SSH_AUTH_SOCK: /tmp/ssh_agent.sock
               run: |
-                  make ci
+                  tox
