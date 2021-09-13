@@ -9,6 +9,7 @@ from bson.timestamp import Timestamp
 import datetime
 from .options import QueryOptions
 from pymongo.write_concern import WriteConcern
+import logging
 
 
 class MongoDataRepository(object):
@@ -37,20 +38,20 @@ class MongoDataRepository(object):
         """
         """
         if isinstance(value, ObjectId):
-            print(f"converting ObjectId('{value}')...")
+            logging.debug("converting ObjectId('%s')...", value)
             return str(value)
         elif isinstance(value, datetime.datetime):
-            print(f"converting datetime value '{value}'...")
+            logging.debug("converting datetime value '%s'...", value)
             d = value.replace(tzinfo=datetime.timezone.utc)
             return d.isoformat(timespec='milliseconds')
         elif isinstance(value, Timestamp):
-            print(f"converting Timestamp '{value}'...")
+            logging.debug("converting Timestamp '%s'...", value)
             return value.as_datetime()
         elif isinstance(value, list):
-            print(f"converting list '{value}'...")
+            logging.debug("converting list '%s'...", value)
             return list(map(lambda v: self._handle_value(v), value))
 
-        print(f"returning unprocessed value '{value}'...")
+        logging.debug("returning unprocessed value '%s'...", value)
         return value
 
     def _modify_record(self, record:dict) -> dict:
@@ -58,12 +59,12 @@ class MongoDataRepository(object):
         """
         modified_record = {}
         for k,v in record.items():
-            print(f"k: {k}, v: {v}")
+            logging.debug("k: %s, v: %s", k, v)
             if k == '_id':
                 k = 'id'
             modified_value = self._handle_value(v)
             modified_record[k] = modified_value
-            print(f"k: {k}, v (modified): {modified_value}")
+            logging.debug("k: %s, v (modified): %s", k, modified_value)
 
         return modified_record
 
@@ -73,17 +74,17 @@ class MongoDataRepository(object):
         :param dict data: The data for the object
         :return ObjectId: The ID of the object inserted, or `None`
         """
-        print(f"data: {data}")
+        logging.debug("data: %s", date)
         collection_name = self.collection
-        print(f"collection_name: {collection_name}")
+        logging.debug("collection_name: %s", collection_name)
         collection = self.mongo.db[collection_name]
-        print(f"collection: {collection}")
+        logging.debug("collection: %s", collection)
         result = collection.with_options(write_concern=WriteConcern(w=3, j=True)).insert_one(data)
-        print(f"result: {result}")
+        logging.debug("result: %s", result)
         if result is None:
             return None
         record_id = result.inserted_id
-        print(f"record_id: {record_id}")
+        logging.debug("record_id: %s", record_id)
 
         return record_id
 
@@ -94,54 +95,54 @@ class MongoDataRepository(object):
         :param bool deleted: Include "deleted" objects in the query
         :return object: An instance of the object type from `model_class`.
         """
-        print(f"record_id: {record_id}")
+        logging.debug("record_id: %s", record_id)
         collection_name = self.collection
-        print(f"collection_name: {collection_name}")
+        logging.debug("collection_name: %s", collection_name)
         collection = self.mongo.db[collection_name]
-        print(f"collection: {collection}")
+        logging.debug("collection: %s", collection)
         id_value = record_id
         if self.id_attr == '_id':
-            print(f"ID attribute is '_id', converting to ObjectId")
+            logging.debug("ID attribute is '_id', converting to ObjectId")
             id_value = ObjectId(record_id)
-        print(f"id_value: {id_value}")
+        logging.debug("id_value: %s", id_value)
         query_filter = { self.id_attr : id_value }
         if not deleted:
             query_filter.update({ '$or': [
                 { 'deleted_at': Timestamp(0, 0) },
                 { 'deleted_at': { '$exists' : False } },
             ]})
-        print(f"query_filter: {query_filter}")
+        logging.debug("query_filter: %s", query_filter)
         record = collection.find_one(filter=query_filter)
-        print(f"record: {record}")
+        logging.debug("record: %s", record)
         if not record:
             raise ObjectNotFound(f'Record not found where \'{self.id_attr}\' = \'{record_id}\'')
         modified_record = self._modify_record(record)
-        print(f"modified_record: {modified_record}")
+        logging.debug("modified_record: %s", modified_record)
         schema = self.schema_class()
-        print(f"schema: {schema}")
+        logging.debug("schema: %s", schema)
         obj = schema.load(modified_record)
-        print(f"obj: {obj}")
+        logging.debug("obj: %s", obj)
         return obj
 
     def query(self, options:QueryOptions, deleted:bool=False):
         """
         :param QueryOptions options: (Optional) Options specifying limits to the query's returned results
         """
-        print(f"options: %s", options)
+        logging.debug("options: %s", options)
         collection_name = self.collection
-        print(f"collection_name: {collection_name}")
+        logging.debug("collection_name: %s", collection_name)
         collection = self.mongo.db[collection_name]
-        print(f"collection: {collection}")
+        logging.debug("collection: %s", collection)
         filters = options.filters.update({'deleted_at': { '$exists': deleted }})
-        print(f"filters: {filters}")
+        logging.debug("filters: %s", filters)
         records = collection.find(filter=filters, projection=options.projection, skip=options.skip, limit=options.skip, sort=options.sort)
-        print(f"records: {records}")
+        logging.debug("records: %s", records)
         modified_records = map(lambda r: self._modify_record(r), records)
-        print(f"modified_records: {modified_records}")
+        logging.debug("modified_records: %s", modified_records)
         schema = self.schema_class()
-        print(f"schema: {schema}")
+        logging.debug("schema: %s", schema)
         objects = list(map(lambda m: schema.load(m), modified_records))
-        print(f"objects: {objects}")
+        logging.debug("objects: %s", objects)
         return objects
 
     def update(self, obj):

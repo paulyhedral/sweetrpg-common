@@ -8,23 +8,53 @@ asgiref==3.4.1
     # via -r requirements/tests.in
 attrs==21.2.0
     # via pytest
+backports.entry-points-selectable==1.1.0
+    # via virtualenv
 blinker==1.4
     # via -r requirements/tests.in
+distlib==0.3.2
+    # via virtualenv
+filelock==3.0.12
+    # via
+    #   tox
+    #   virtualenv
 greenlet==1.1.1
     # via -r requirements/tests.in
 iniconfig==1.1.1
     # via pytest
+marshmallow==3.13.0
+    # via -r requirements/pkg.in
 packaging==21.0
-    # via pytest
+    # via
+    #   pytest
+    #   tox
+platformdirs==2.3.0
+    # via virtualenv
 pluggy==1.0.0
-    # via pytest
+    # via
+    #   pytest
+    #   tox
 py==1.10.0
-    # via pytest
+    # via
+    #   pytest
+    #   tox
+pymongo[tls]==3.12.0
+    # via -r requirements/pkg.in
 pyparsing==2.4.7
     # via packaging
 pytest==6.2.5
     # via -r requirements/tests.in
 python-dotenv==0.19.0
     # via -r requirements/tests.in
+six==1.16.0
+    # via
+    #   tox
+    #   virtualenv
 toml==0.10.2
-    # via pytest
+    # via
+    #   pytest
+    #   tox
+tox==3.24.3
+    # via -r requirements/tests.in
+virtualenv==20.7.2
+    # via tox

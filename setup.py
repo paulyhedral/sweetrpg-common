@@ -1,94 +1,85 @@
 #!/usr/bin/env python
-# Learn more: https://github.com/kennethreitz/setup.py
-import os
-import sys
-from codecs import open
-from setuptools import setup, find_packages
-from setuptools.command.test import test as TestCommand
+# -*- encoding: utf-8 -*-
+from __future__ import absolute_import
+from __future__ import print_function
 
-here = os.path.abspath(os.path.dirname(__file__))
+import io
+import re
+from glob import glob
+from os.path import basename
+from os.path import dirname
+from os.path import join
+from os.path import splitext
 
-class PyTest(TestCommand):
-    user_options = [('pytest-args=', 'a', "Arguments to pass into py.test")]
+from setuptools import find_packages
+from setuptools import setup
 
-    def initialize_options(self):
-        TestCommand.initialize_options(self)
-        try:
-            from multiprocessing import cpu_count
-            self.pytest_args = ['-n', str(cpu_count()), '--boxed']
-        except (ImportError, NotImplementedError):
-            self.pytest_args = ['-n', '1', '--boxed']
 
-    def finalize_options(self):
-        TestCommand.finalize_options(self)
-        self.test_args = []
-        self.test_suite = True
+def read(*names, **kwargs):
+    with io.open(join(dirname(__file__), *names), encoding=kwargs.get("encoding", "utf8")) as fh:
+        return fh.read()
 
-    def run_tests(self):
-        import pytest
-
-        errno = pytest.main(self.pytest_args)
-        sys.exit(errno)
-
-# 'setup.py publish' shortcut.
-if sys.argv[-1] == 'publish':
-    os.system('python setup.py sdist bdist_wheel')
-    os.system('twine upload dist/*')
-    sys.exit()
-
-requires = [
-    'PyMongo[tls]~=3.12',
-    'marshmallow~=3.12',
-    'charset_normalizer~=2.0.0; python_version >= "3"',
-]
-test_requirements = [
-    'pytest-cov',
-    'pytest-mock',
-    'pytest-xdist',
-    'pytest>=3',
-]
-
-about = {}
-with open(os.path.join(here, 'src', '__version__.py'), 'r', 'utf-8') as f:
-    exec(f.read(), about)
-
-with open('README.md', 'r', 'utf-8') as f:
-    readme = f.read()
 
 setup(
-    name=about['__title__'],
-    version=about['__version__'],
-    description=about['__description__'],
-    long_description=readme,
-    long_description_content_type='text/markdown',
-    author=about['__author__'],
-    author_email=about['__author_email__'],
-    url=about['__url__'],
-    package_data={'': ['LICENSE', 'NOTICE']},
+    name="sweetrpg-common",
+    version="0.0.1",
+    license="MIT",
+    description="TODO",
+    long_description="%s" % (re.compile("^.. start-badges.*^.. end-badges", re.M | re.S).sub("", read("README.md")),),
+    author="Paul Schifferer",
+    author_email="dm@sweetrpg.com",
+    url="https://github.com/sweetrpg/common",
+    packages=find_packages("src"),
+    package_dir={"": "src"},
+    py_modules=[splitext(basename(path))[0] for path in glob("src/*.py")],
     include_package_data=True,
-    python_requires=">=3.9",
-    install_requires=requires,
-    license=about['__license__'],
     zip_safe=False,
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Intended Audience :: Developers',
-        'Natural Language :: English',
-        'License :: OSI Approved :: MIT',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3.9',
-        'Programming Language :: Python :: 3.10',
-        'Programming Language :: Python :: Implementation :: CPython',
-        'Programming Language :: Python :: Implementation :: PyPy'
+        # complete classifier list: http://pypi.python.org/pypi?%3Aaction=list_classifiers
+        "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: BSD License",
+        "Operating System :: Unix",
+        "Operating System :: POSIX",
+        "Operating System :: Microsoft :: Windows",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Programming Language :: Python :: Implementation :: PyPy",
+        # uncomment if you test on these interpreters:
+        # 'Programming Language :: Python :: Implementation :: IronPython',
+        # 'Programming Language :: Python :: Implementation :: Jython',
+        # 'Programming Language :: Python :: Implementation :: Stackless',
+        "Topic :: Utilities",
     ],
-    cmdclass={'test': PyTest},
     project_urls={
-        'Documentation': 'https://sweetrpg_common.readthedocs.io',
-        'Source': 'https://github.com/sweetrpg/sweetrpg_common',
+        "Changelog": "https://github.com/ionelmc/python-sweetrpg-common/blob/master/CHANGELOG.rst",
+        "Issue Tracker": "https://github.com/ionelmc/python-sweetrpg-common/issues",
     },
+    keywords=[
+        # eg: 'keyword1', 'keyword2', 'keyword3',
+    ],
+    python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*",
+    install_requires=[
+        # eg: 'aspectlib==1.1.1', 'six>=1.7',
+    ],
+    extras_require={
+        # eg:
+        #   'rst': ['docutils>=0.11'],
+        #   ':python_version=="2.6"': ['argparse'],
+    },
+    setup_requires=[
+        "pytest-runner",
+    ],
     entry_points={
-        'console_scripts': [
-            'sweetrpg_common = sweetrpg_common.cli:main',
+        "console_scripts": [
+            "sweetrpg-common = sweetrpg_common.cli:main",
         ]
     },
 )

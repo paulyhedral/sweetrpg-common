@@ -1,5 +1,7 @@
+-r pkg.in
 pytest
 asgiref
 blinker
 greenlet
 python-dotenv
+tox
