@@ -10,13 +10,16 @@ import logging
 
 def to_datetime(value, attr=None, data=None, **kwargs):
     """Deserialize database value to Python datetime.
-    :param any value:
-    :param str attr:
-    :param object data:
+    :param any value: The source value to convert to a Python datetime object. This can
+                      be a MongoDB `bson.timestamp.Timestamp`, an ISO-formatted date/time
+                      string, or a UTC unix timestamp value.
+    :param str attr: The name of the attribute being deserialized.
+    :param object data: The object associated.
     :param dict kwargs:
     :return datetime.datetime: Python datetime object
     """
     logging.debug("to_datetime: value (parameter): %s", value)
+
     if value is None:
         logging.debug("to_datetime: None")
         return None
@@ -28,20 +31,30 @@ def to_datetime(value, attr=None, data=None, **kwargs):
         return value
     elif isinstance(value, str):
         logging.debug("to_datetime: str")
-        value = datetime.strptime(value)
+        value = datetime.fromisoformat(value)
+        return value
+
     logging.debug("value (converted?): %s", value)
     return datetime.fromtimestamp(float(value))
 
+
 def to_timestamp(value, attr=None, obj=None, **kwargs):
     """Serialize object value to MongoDB timestamp.
-    :param any value:
+    :param any value: The source value to convert to a MongoDB `bson.timestamp.Timestamp`. This
+                      can be a `datetime` object, or a time/increment tuple.
     :param str attr: The name of the attribute being serialized.
     :param object obj:
     :param dict kwargs:
     :return bson.timestamp.Timestamp: MongoDB Timestamp object
     """
     logging.debug("to_timestamp: value (parameter): %s", value)
+
     if value is None:
         logging.debug("to_timestamp: None")
         return None
-    return Timestamp(value.timestamp(), 0)
+    if isinstance(value, datetime):
+        logging.debug("to_timestamp: datetime")
+        return Timestamp(value, 0)
+
+    logging.debug("value (converted?): %s", value)
+    return Timestamp(int(value), 0)
