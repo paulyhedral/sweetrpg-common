@@ -3,7 +3,7 @@ __author__ = "Paul Schifferer <paul@schifferers.net>"
 """
 """
 
-from sweetrpg_common.db.mongodb.utils import to_datetime, to_timestamp
+from sweetrpg_common.utils import to_datetime, to_timestamp
 from bson.timestamp import Timestamp
 from datetime import datetime
 import time
