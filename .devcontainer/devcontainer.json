@@ -74,7 +74,8 @@
 		"tomoki1207.selectline-statusbar",
 		"slevesque.vscode-zipexplorer",
 		"hilleer.yaml-plus-json",
-		"lehni.vscode-titlebar-less-macos"
+		"lehni.vscode-titlebar-less-macos",
+		"lextudio.restructuredtext"
 	],
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     "forwardPorts": [],

@@ -42,23 +42,23 @@ jobs:
                   ssh-agent -a $SSH_AUTH_SOCK > /dev/null
                   ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
             - name: Test packaging
-              env:
-                  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+              #   env:
+              #       SSH_AUTH_SOCK: /tmp/ssh_agent.sock
               run: |
                   python setup.py sdist bdist_wheel
-            - name: Set up Python ${{ matrix.python-version }}
-              uses: actions/setup-python@v2
-              env:
-                  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-              with:
-                  python-version: ${{ matrix.python-version }}
+            # - name: Set up Python ${{ matrix.python-version }}
+            #   uses: actions/setup-python@v2
+            #   env:
+            #       SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+            #   with:
+            #       python-version: ${{ matrix.python-version }}
             # - name: Install dependencies
             #   env:
             #       SSH_AUTH_SOCK: /tmp/ssh_agent.sock
             #   run: |
             #       make
             - name: Run tests
-              env:
-                  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+              #   env:
+              #       SSH_AUTH_SOCK: /tmp/ssh_agent.sock
               run: |
                   tox

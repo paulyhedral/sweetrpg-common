@@ -5,7 +5,7 @@ test:
 	# This runs all of the tests.
 	detox
 ci:
-	cd src && pytest ../tests --junitxml=report.xml
+	tox
 
 test-readme:
 	python setup.py check --restructuredtext --strict && ([ $$? -eq 0 ] && echo "README.rst and HISTORY.rst ok") || echo "Invalid markup in README.rst or HISTORY.rst!"
