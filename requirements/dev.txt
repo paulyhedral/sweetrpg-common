@@ -7,7 +7,7 @@
 alabaster==0.7.12
     # via sphinx
 asgiref==3.4.1
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 attrs==21.2.0
     # via pytest
 babel==2.9.1
@@ -15,7 +15,7 @@ babel==2.9.1
 backports.entry-points-selectable==1.1.0
     # via virtualenv
 blinker==1.4
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 certifi==2021.5.30
     # via requests
 charset-normalizer==2.0.4
@@ -33,7 +33,7 @@ filelock==3.0.12
     #   tox
     #   virtualenv
 greenlet==1.1.1
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 idna==3.2
     # via requests
 imagesize==1.2.0
@@ -45,7 +45,7 @@ jinja2==3.0.1
 markupsafe==2.0.1
     # via jinja2
 marshmallow==3.13.0
-    # via -r ./pkg.in
+    # via -r requirements/pkg.in
 packaging==21.0
     # via
     #   pallets-sphinx-themes
@@ -53,11 +53,11 @@ packaging==21.0
     #   sphinx
     #   tox
 pallets-sphinx-themes==2.0.1
-    # via -r ./docs.in
+    # via -r requirements/docs.in
 pep517==0.11.0
     # via pip-tools
 pip-tools==6.2.0
-    # via -r ./dev.in
+    # via -r requirements/dev.in
 platformdirs==2.3.0
     # via virtualenv
 pluggy==1.0.0
@@ -73,13 +73,13 @@ pygments==2.10.0
     #   sphinx
     #   sphinx-tabs
 pymongo[tls]==3.12.0
-    # via -r ./pkg.in
+    # via -r requirements/pkg.in
 pyparsing==2.4.7
     # via packaging
 pytest==6.2.5
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 python-dotenv==0.19.0
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 pytz==2021.1
     # via babel
 requests==2.26.0
@@ -90,17 +90,17 @@ six==1.16.0
     #   virtualenv
 snowballstemmer==2.1.0
     # via sphinx
-sphinx==4.1.2
+sphinx==4.2.0
     # via
-    #   -r ./docs.in
+    #   -r requirements/docs.in
     #   pallets-sphinx-themes
     #   sphinx-issues
     #   sphinx-tabs
     #   sphinxcontrib-log-cabinet
 sphinx-issues==1.2.0
-    # via -r ./docs.in
+    # via -r requirements/docs.in
 sphinx-tabs==3.2.0
-    # via -r ./docs.in
+    # via -r requirements/docs.in
 sphinxcontrib-applehelp==1.0.2
     # via sphinx
 sphinxcontrib-devhelp==1.0.2
@@ -110,7 +110,7 @@ sphinxcontrib-htmlhelp==2.0.0
 sphinxcontrib-jsmath==1.0.1
     # via sphinx
 sphinxcontrib-log-cabinet==1.0.1
-    # via -r ./docs.in
+    # via -r requirements/docs.in
 sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.5
@@ -122,7 +122,7 @@ toml==0.10.2
 tomli==1.2.1
     # via pep517
 tox==3.24.3
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 urllib3==1.26.6
     # via requests
 virtualenv==20.7.2
