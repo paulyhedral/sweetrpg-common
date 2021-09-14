@@ -1,4 +1,4 @@
-name: Unit tests
+name: Tests
 
 on:
     push:
@@ -19,46 +19,55 @@ on:
             - "requirements/**"
 
 jobs:
-    build:
+    tests:
+        name: ${{ matrix.name }}
         runs-on: ${{ matrix.os }}
-        timeout-minutes: 10
         strategy:
             fail-fast: false
             matrix:
-                python-version: [3.9, 3.10-dev]
-                os: [ubuntu-18.04, macOS-latest, windows-latest]
                 include:
-                    # pypy3 on Mac OS currently fails trying to compile
-                    # brotlipy. Moving pypy3 to only test linux.
-                    - python-version: pypy3
-                      os: ubuntu-latest
-
+                    - {
+                          name: Linux,
+                          python: "3.9",
+                          os: ubuntu-latest,
+                          tox: py39,
+                      }
+                    - {
+                          name: Windows,
+                          python: "3.9",
+                          os: windows-latest,
+                          tox: py39,
+                      }
+                    - { name: Mac, python: "3.9", os: macos-latest, tox: py39 }
+                    - {
+                          name: "PyPy",
+                          python: pypy3,
+                          os: ubuntu-latest,
+                          tox: pypy3,
+                      }
+                    - {
+                          name: Typing,
+                          python: "3.9",
+                          os: ubuntu-latest,
+                          tox: typing,
+                      }
         steps:
             - uses: actions/checkout@v2
-            - name: Setup SSH Keys and known_hosts
-              env:
-                  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+            - uses: actions/setup-python@v2
+              with:
+                  python-version: ${{ matrix.python }}
+            - name: update pip
               run: |
-                  ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-                  ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
-            - name: Test packaging
-              #   env:
-              #       SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-              run: |
-                  python setup.py sdist bdist_wheel
-            # - name: Set up Python ${{ matrix.python-version }}
-            #   uses: actions/setup-python@v2
-            #   env:
-            #       SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-            #   with:
-            #       python-version: ${{ matrix.python-version }}
-            # - name: Install dependencies
-            #   env:
-            #       SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-            #   run: |
-            #       make
-            - name: Run tests
-              #   env:
-              #       SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-              run: |
-                  tox
+                  pip install -U wheel
+                  pip install -U setuptools
+                  python -m pip install -U pip
+            - name: get pip cache dir
+              id: pip-cache
+              run: echo "::set-output name=dir::$(pip cache dir)"
+            - name: cache pip
+              uses: actions/cache@v2
+              with:
+                  path: ${{ steps.pip-cache.outputs.dir }}
+                  key: pip|${{ runner.os }}|${{ matrix.python }}|${{ hashFiles('setup.py') }}|${{ hashFiles('requirements/*.txt') }}
+            - run: pip install tox
+            - run: tox -e ${{ matrix.tox }}
