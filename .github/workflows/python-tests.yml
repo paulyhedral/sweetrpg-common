@@ -39,18 +39,6 @@ jobs:
                           tox: py39,
                       }
                     - { name: Mac, python: "3.9", os: macos-latest, tox: py39 }
-                    - {
-                          name: "PyPy",
-                          python: pypy3,
-                          os: ubuntu-latest,
-                          tox: pypy3,
-                      }
-                    - {
-                          name: Typing,
-                          python: "3.9",
-                          os: ubuntu-latest,
-                          tox: typing,
-                      }
         steps:
             - uses: actions/checkout@v2
             - uses: actions/setup-python@v2
