@@ -4,7 +4,7 @@ __author__ = "Paul Schifferer <dm@sweetrpg.com>"
 """
 
 from marshmallow import Schema, fields, EXCLUDE
-from marshmallow import post_load, pre_load
+from marshmallow import pre_load
 from datetime import datetime
 
 

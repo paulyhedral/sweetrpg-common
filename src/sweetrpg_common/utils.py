@@ -11,8 +11,8 @@ import logging
 def to_datetime(value, attr=None, data=None, **kwargs):
     """Deserialize database value to Python datetime.
     :param any value: The source value to convert to a Python datetime object. This can
-                      be a MongoDB `bson.timestamp.Timestamp`, an ISO-formatted date/time
-                      string, or a UTC unix timestamp value.
+    be a MongoDB `bson.timestamp.Timestamp`, an ISO-formatted date/time
+    string, or a UTC unix timestamp value.
     :param str attr: The name of the attribute being deserialized.
     :param object data: The object associated.
     :param dict kwargs:
