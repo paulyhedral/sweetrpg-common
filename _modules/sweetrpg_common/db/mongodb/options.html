@@ -36,25 +36,25 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+
 <div class="viewcode-block" id="QueryOptions"><a class="viewcode-back" href="../../../../api.html#sweetrpg_common.db.mongodb.options.QueryOptions">[docs]</a><span class="k">class</span> <span class="nc">QueryOptions</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;An object to store query options for a PyMongo find*() call.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;An object to store query options for a PyMongo find*() call.&quot;&quot;&quot;</span>
 
     <span class="c1"># https://flask-rest-jsonapi.readthedocs.io/en/latest/filtering.html</span>
     <span class="n">_filter_operators</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;eq&#39;</span><span class="p">:</span> <span class="s1">&#39;$eq&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;gt&#39;</span><span class="p">:</span> <span class="s1">&#39;$gt&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;ge&#39;</span><span class="p">:</span> <span class="s1">&#39;$gte&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;in_&#39;</span><span class="p">:</span> <span class="s1">&#39;$in&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;lt&#39;</span><span class="p">:</span> <span class="s1">&#39;$lt&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;le&#39;</span><span class="p">:</span> <span class="s1">&#39;$lte&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;ne&#39;</span><span class="p">:</span> <span class="s1">&#39;$ne&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;notin_&#39;</span><span class="p">:</span> <span class="s1">&#39;$nin&#39;</span><span class="p">,</span>
+        <span class="s2">&quot;eq&quot;</span><span class="p">:</span> <span class="s2">&quot;$eq&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gt&quot;</span><span class="p">:</span> <span class="s2">&quot;$gt&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ge&quot;</span><span class="p">:</span> <span class="s2">&quot;$gte&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;in_&quot;</span><span class="p">:</span> <span class="s2">&quot;$in&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;lt&quot;</span><span class="p">:</span> <span class="s2">&quot;$lt&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;le&quot;</span><span class="p">:</span> <span class="s2">&quot;$lte&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ne&quot;</span><span class="p">:</span> <span class="s2">&quot;$ne&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;notin_&quot;</span><span class="p">:</span> <span class="s2">&quot;$nin&quot;</span><span class="p">,</span>
         <span class="c1"># &#39;&#39;: &#39;$and&#39;,</span>
-        <span class="s1">&#39;isnot&#39;</span><span class="p">:</span> <span class="s1">&#39;$not&#39;</span><span class="p">,</span>
+        <span class="s2">&quot;isnot&quot;</span><span class="p">:</span> <span class="s2">&quot;$not&quot;</span><span class="p">,</span>
         <span class="c1"># &#39;&#39;: &#39;$nor&#39;,</span>
         <span class="c1"># &#39;&#39;: &#39;$or&#39;,</span>
-        <span class="s1">&#39;is_&#39;</span><span class="p">:</span> <span class="s1">&#39;$exists&#39;</span><span class="p">,</span>
+        <span class="s2">&quot;is_&quot;</span><span class="p">:</span> <span class="s2">&quot;$exists&quot;</span><span class="p">,</span>
         <span class="c1"># &#39;any&#39;: &#39;TODO&#39;,</span>
         <span class="c1"># &#39;between&#39;: &#39;TODO&#39;,</span>
         <span class="c1"># &#39;endswith&#39;: &#39;TODO&#39;,</span>
@@ -67,11 +67,18 @@
         <span class="c1"># &#39;startswith&#39;: &#39;TODO&#39;,</span>
     <span class="p">}</span>
     <span class="n">_sort_values</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;asc&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s1">&#39;dsc&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;asc&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;dsc&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span><span class="nb">dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">projection</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">skip</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sort</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">filters</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">projection</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">skip</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">sort</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initialize the QueryOptions object.</span>
 <span class="sd">        :param dict filters: A dictionary of filters to apply to the query.</span>
 <span class="sd">        :param list projection: A list of attribute names to include in the returned result. If `None`, all attributes are returned.</span>
@@ -88,13 +95,18 @@
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;QueryOptions(filters=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="si">}</span><span class="s2">, projection=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">projection</span><span class="si">}</span><span class="s2">, skip=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">skip</span><span class="si">}</span><span class="s2">, limit=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">limit</span><span class="si">}</span><span class="s2">, sort=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sort</span><span class="si">}</span><span class="s2">)&gt;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">_process_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">filter</span><span class="p">:</span><span class="nb">dict</span><span class="p">):</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">]</span>
-        <span class="n">op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter_operators</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">filter</span><span class="p">[</span><span class="s1">&#39;op&#39;</span><span class="p">],</span> <span class="s1">&#39;$eq&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">{</span> <span class="n">name</span><span class="p">:</span> <span class="p">{</span> <span class="n">op</span><span class="p">:</span> <span class="n">value</span> <span class="p">}</span> <span class="p">}</span>
+    <span class="k">def</span> <span class="nf">_process_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_info</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">filter_info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">filter_info</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span>
+        <span class="n">op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter_operators</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">filter_info</span><span class="p">[</span><span class="s2">&quot;op&quot;</span><span class="p">],</span> <span class="s2">&quot;$eq&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="p">{</span><span class="n">op</span><span class="p">:</span> <span class="n">value</span><span class="p">}}</span>
 
-    <span class="k">def</span> <span class="nf">set_filters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span><span class="nb">dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">set_filters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets filters for the query.</span>
+
+<span class="sd">        :param dict filters: A dictionary of filters to set.</span>
+<span class="sd">        :param list from_querystring: Filters to set in querystring format.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">filters</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">filters</span> <span class="o">=</span> <span class="n">filters</span>
         <span class="k">elif</span> <span class="n">from_querystring</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -103,18 +115,28 @@
                 <span class="n">filters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_filter</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">filters</span> <span class="o">=</span> <span class="n">filters</span>
 
-    <span class="k">def</span> <span class="nf">set_projection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">set_projection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projection</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets projections for the query.</span>
+
+<span class="sd">        :param list projection: A list of field names to include in the query results.</span>
+<span class="sd">        :param list from_querystring: Projections to set in querystring format.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">projection</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">projection</span> <span class="o">=</span> <span class="n">projection</span>
         <span class="k">elif</span> <span class="n">from_querystring</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">projection</span> <span class="o">=</span> <span class="n">from_querystring</span>
 
-    <span class="k">def</span> <span class="nf">_process_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort_item</span><span class="p">:</span><span class="nb">dict</span><span class="p">):</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="n">sort_item</span><span class="p">[</span><span class="s1">&#39;field&#39;</span><span class="p">]</span>
-        <span class="n">direction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sort_values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sort_item</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_process_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort_item</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">sort_item</span><span class="p">[</span><span class="s2">&quot;field&quot;</span><span class="p">]</span>
+        <span class="n">direction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sort_values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sort_item</span><span class="p">[</span><span class="s2">&quot;order&quot;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">name</span><span class="p">,</span> <span class="n">direction</span>
 
-    <span class="k">def</span> <span class="nf">set_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">set_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets sorting for the query results.</span>
+
+<span class="sd">        :param list sort: A list of dictionaries containing field name and ordering.</span>
+<span class="sd">        :param list from_querystring: Sorts to set in querystring format.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">sort</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sort</span> <span class="o">=</span> <span class="n">sort</span>
         <span class="k">elif</span> <span class="n">from_querystring</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
