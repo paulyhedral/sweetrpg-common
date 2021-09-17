@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sweetrpg_common.db.mongodb.options &#8212; SweetRPG Common 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for sweetrpg_common.db.mongodb.options</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Paul Schifferer &lt;paul@schifferers.net&gt;&quot;</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="QueryOptions"><a class="viewcode-back" href="../../../../api.html#sweetrpg_common.db.mongodb.options.QueryOptions">[docs]</a><span class="k">class</span> <span class="nc">QueryOptions</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An object to store query options for a PyMongo find*() call.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># https://flask-rest-jsonapi.readthedocs.io/en/latest/filtering.html</span>
+    <span class="n">_filter_operators</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;eq&#39;</span><span class="p">:</span> <span class="s1">&#39;$eq&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;gt&#39;</span><span class="p">:</span> <span class="s1">&#39;$gt&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ge&#39;</span><span class="p">:</span> <span class="s1">&#39;$gte&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;in_&#39;</span><span class="p">:</span> <span class="s1">&#39;$in&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;lt&#39;</span><span class="p">:</span> <span class="s1">&#39;$lt&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;le&#39;</span><span class="p">:</span> <span class="s1">&#39;$lte&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ne&#39;</span><span class="p">:</span> <span class="s1">&#39;$ne&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;notin_&#39;</span><span class="p">:</span> <span class="s1">&#39;$nin&#39;</span><span class="p">,</span>
+        <span class="c1"># &#39;&#39;: &#39;$and&#39;,</span>
+        <span class="s1">&#39;isnot&#39;</span><span class="p">:</span> <span class="s1">&#39;$not&#39;</span><span class="p">,</span>
+        <span class="c1"># &#39;&#39;: &#39;$nor&#39;,</span>
+        <span class="c1"># &#39;&#39;: &#39;$or&#39;,</span>
+        <span class="s1">&#39;is_&#39;</span><span class="p">:</span> <span class="s1">&#39;$exists&#39;</span><span class="p">,</span>
+        <span class="c1"># &#39;any&#39;: &#39;TODO&#39;,</span>
+        <span class="c1"># &#39;between&#39;: &#39;TODO&#39;,</span>
+        <span class="c1"># &#39;endswith&#39;: &#39;TODO&#39;,</span>
+        <span class="c1"># &#39;has&#39;: &#39;TODO&#39;,</span>
+        <span class="c1"># &#39;ilike&#39;: &#39;TODO&#39;,</span>
+        <span class="c1"># &#39;like&#39;: &#39;TODO&#39;,</span>
+        <span class="c1"># &#39;match&#39;: &#39;TODO&#39;,</span>
+        <span class="c1"># &#39;notilike&#39;: &#39;TODO&#39;,</span>
+        <span class="c1"># &#39;notlike&#39;: &#39;TODO&#39;,</span>
+        <span class="c1"># &#39;startswith&#39;: &#39;TODO&#39;,</span>
+    <span class="p">}</span>
+    <span class="n">_sort_values</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;asc&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s1">&#39;dsc&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span><span class="nb">dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">projection</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">skip</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sort</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the QueryOptions object.</span>
+<span class="sd">        :param dict filters: A dictionary of filters to apply to the query.</span>
+<span class="sd">        :param list projection: A list of attribute names to include in the returned result. If `None`, all attributes are returned.</span>
+<span class="sd">        :param int skip: An offset to use for pagination.</span>
+<span class="sd">        :param int limit: The maximum number of results to return.</span>
+<span class="sd">        :param list sort: A list of key-value pairs specifying the attributes to sort on.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filters</span> <span class="o">=</span> <span class="n">filters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">projection</span> <span class="o">=</span> <span class="n">projection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">skip</span> <span class="o">=</span> <span class="n">skip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">limit</span> <span class="o">=</span> <span class="n">limit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sort</span> <span class="o">=</span> <span class="n">sort</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;QueryOptions(filters=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="si">}</span><span class="s2">, projection=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">projection</span><span class="si">}</span><span class="s2">, skip=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">skip</span><span class="si">}</span><span class="s2">, limit=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">limit</span><span class="si">}</span><span class="s2">, sort=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sort</span><span class="si">}</span><span class="s2">)&gt;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_process_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">filter</span><span class="p">:</span><span class="nb">dict</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">]</span>
+        <span class="n">op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter_operators</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">filter</span><span class="p">[</span><span class="s1">&#39;op&#39;</span><span class="p">],</span> <span class="s1">&#39;$eq&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span> <span class="n">name</span><span class="p">:</span> <span class="p">{</span> <span class="n">op</span><span class="p">:</span> <span class="n">value</span> <span class="p">}</span> <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">set_filters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span><span class="nb">dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">filters</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filters</span> <span class="o">=</span> <span class="n">filters</span>
+        <span class="k">elif</span> <span class="n">from_querystring</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">filters</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">from_querystring</span><span class="p">:</span>
+                <span class="n">filters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_filter</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filters</span> <span class="o">=</span> <span class="n">filters</span>
+
+    <span class="k">def</span> <span class="nf">set_projection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">projection</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">projection</span> <span class="o">=</span> <span class="n">projection</span>
+        <span class="k">elif</span> <span class="n">from_querystring</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">projection</span> <span class="o">=</span> <span class="n">from_querystring</span>
+
+    <span class="k">def</span> <span class="nf">_process_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort_item</span><span class="p">:</span><span class="nb">dict</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">sort_item</span><span class="p">[</span><span class="s1">&#39;field&#39;</span><span class="p">]</span>
+        <span class="n">direction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sort_values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sort_item</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">name</span><span class="p">,</span> <span class="n">direction</span>
+
+    <span class="k">def</span> <span class="nf">set_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">:</span><span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">sort</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sort</span> <span class="o">=</span> <span class="n">sort</span>
+        <span class="k">elif</span> <span class="n">from_querystring</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sort</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_sort</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">))</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">SweetRPG Common</a></h1>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=sweetrpg&repo=common&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">Library</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Paul Schifferer.
+      
+    </div>
+
+    
+    <a href="https://github.com/sweetrpg/common" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>
