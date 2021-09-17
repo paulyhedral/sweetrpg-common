@@ -52,7 +52,7 @@ jobs:
           path: ${{ steps.pip-cache.outputs.dir }}
           key: pip|${{ runner.os }}|${{ matrix.python }}|${{ hashFiles('setup.py') }}|${{ hashFiles('requirements/*.txt') }}
       - name: install-utils
-        run: pip install tox black
+        run: pip install tox black coverage-badge
       - name: lint
         run: black --check -t py39 --diff --color src
       - name: tests

@@ -99,6 +99,11 @@ class QueryOptions(object):
         return name, direction
 
     def set_sort(self, sort: list = None, from_querystring: list = None):
+        """Sets sorting for the query results.
+
+        :param list sort: A list of dictionaries containing field name and ordering.
+        :param list from_querystring: Sorts to set in querystring format.
+        """
         if sort is not None:
             self.sort = sort
         elif from_querystring is not None:
