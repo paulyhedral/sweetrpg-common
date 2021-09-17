@@ -69,6 +69,11 @@ class QueryOptions(object):
         return {name: {op: value}}
 
     def set_filters(self, filters: dict = None, from_querystring: list = None):
+        """Sets filters for the query.
+
+        :param dict filters: A dictionary of filters to set.
+        :param list from_querystring: Filters to set in querystring format.
+        """
         if filters is not None:
             self.filters = filters
         elif from_querystring is not None:
