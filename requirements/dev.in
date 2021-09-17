@@ -1,4 +1,0 @@
--r pkg.in
--r tests.in
--r docs.in
-pip-tools
