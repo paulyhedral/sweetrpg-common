@@ -6,3 +6,4 @@ blinker
 greenlet
 python-dotenv
 tox
+coverage-badge
