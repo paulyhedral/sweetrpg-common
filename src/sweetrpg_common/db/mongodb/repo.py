@@ -133,7 +133,8 @@ class MongoDataRepository(object):
         return obj
 
     def query(self, options: QueryOptions, deleted: bool = False):
-        """
+        """Perform a query for objects in the database.
+
         :param QueryOptions options: (Optional) Options specifying limits to the query's returned results
         """
         logging.debug("options: %s", options)
@@ -151,11 +152,11 @@ class MongoDataRepository(object):
             sort=options.sort,
         )
         logging.debug("records: %s", records)
-        modified_records = map(lambda r: self._modify_record(r), records)
+        modified_records = map(self._modify_record, records)
         logging.debug("modified_records: %s", modified_records)
         schema = self.schema_class()
         logging.debug("schema: %s", schema)
-        objects = list(map(lambda m: schema.load(m), modified_records))
+        objects = list(map(schema.load, modified_records))
         logging.debug("objects: %s", objects)
         return objects
 
