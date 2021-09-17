@@ -5,6 +5,6 @@ __author__ = "Paul Schifferer <dm@sweetrpg.com>"
 
 
 class ObjectNotFound(Exception):
-    """An exception for objects not found.
-    """
+    """An exception for objects not found."""
+
     pass

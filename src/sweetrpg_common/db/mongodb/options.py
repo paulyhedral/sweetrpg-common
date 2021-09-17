@@ -3,25 +3,25 @@ __author__ = "Paul Schifferer <paul@schifferers.net>"
 """
 """
 
+
 class QueryOptions(object):
-    """An object to store query options for a PyMongo find*() call.
-    """
+    """An object to store query options for a PyMongo find*() call."""
 
     # https://flask-rest-jsonapi.readthedocs.io/en/latest/filtering.html
     _filter_operators = {
-        'eq': '$eq',
-        'gt': '$gt',
-        'ge': '$gte',
-        'in_': '$in',
-        'lt': '$lt',
-        'le': '$lte',
-        'ne': '$ne',
-        'notin_': '$nin',
+        "eq": "$eq",
+        "gt": "$gt",
+        "ge": "$gte",
+        "in_": "$in",
+        "lt": "$lt",
+        "le": "$lte",
+        "ne": "$ne",
+        "notin_": "$nin",
         # '': '$and',
-        'isnot': '$not',
+        "isnot": "$not",
         # '': '$nor',
         # '': '$or',
-        'is_': '$exists',
+        "is_": "$exists",
         # 'any': 'TODO',
         # 'between': 'TODO',
         # 'endswith': 'TODO',
@@ -34,11 +34,18 @@ class QueryOptions(object):
         # 'startswith': 'TODO',
     }
     _sort_values = {
-        'asc': 1,
-        'dsc': -1,
+        "asc": 1,
+        "dsc": -1,
     }
 
-    def __init__(self, filters:dict=None, projection:list=None, skip:int=0, limit:int=0, sort:list=None):
+    def __init__(
+        self,
+        filters: dict = None,
+        projection: list = None,
+        skip: int = 0,
+        limit: int = 0,
+        sort: list = None,
+    ):
         """Initialize the QueryOptions object.
         :param dict filters: A dictionary of filters to apply to the query.
         :param list projection: A list of attribute names to include in the returned result. If `None`, all attributes are returned.
@@ -55,13 +62,13 @@ class QueryOptions(object):
     def __repr__(self):
         return f"<QueryOptions(filters={self.filters}, projection={self.projection}, skip={self.skip}, limit={self.limit}, sort={self.sort})>"
 
-    def _process_filter(self, filter:dict):
-        name = filter['name']
-        value = filter['val']
-        op = self._filter_operators.get(filter['op'], '$eq')
-        return { name: { op: value } }
+    def _process_filter(self, filter: dict):
+        name = filter["name"]
+        value = filter["val"]
+        op = self._filter_operators.get(filter["op"], "$eq")
+        return {name: {op: value}}
 
-    def set_filters(self, filters:dict=None, from_querystring:list=None):
+    def set_filters(self, filters: dict = None, from_querystring: list = None):
         if filters is not None:
             self.filters = filters
         elif from_querystring is not None:
@@ -70,18 +77,18 @@ class QueryOptions(object):
                 filters.update(self._process_filter(f))
             self.filters = filters
 
-    def set_projection(self, projection=None, from_querystring:list=None):
+    def set_projection(self, projection=None, from_querystring: list = None):
         if projection is not None:
             self.projection = projection
         elif from_querystring is not None:
             self.projection = from_querystring
 
-    def _process_sort(self, sort_item:dict):
-        name = sort_item['field']
-        direction = self._sort_values.get(sort_item['order'], 1)
+    def _process_sort(self, sort_item: dict):
+        name = sort_item["field"]
+        direction = self._sort_values.get(sort_item["order"], 1)
         return name, direction
 
-    def set_sort(self, sort:list=None, from_querystring:list=None):
+    def set_sort(self, sort: list = None, from_querystring: list = None):
         if sort is not None:
             self.sort = sort
         elif from_querystring is not None:
