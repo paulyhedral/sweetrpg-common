@@ -1,4 +1,4 @@
-name: Tests
+name: CI
 
 on:
     push:
@@ -59,3 +59,21 @@ jobs:
                   key: pip|${{ runner.os }}|${{ matrix.python }}|${{ hashFiles('setup.py') }}|${{ hashFiles('requirements/*.txt') }}
             - run: pip install tox
             - run: tox -e ${{ matrix.tox }}
+
+    docs:
+        needs: [tests]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-python@v2
+              with:
+                  python-version: "3.9"
+            - name: install-deps
+              run: pip install -r requirements/docs.txt
+            - name: make-docs
+              run: cd docs && make html
+            - name: publish-docs
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_dir: ./site
