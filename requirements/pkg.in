@@ -1,2 +1,2 @@
-PyMongo[tls]
+PyMongo[srv,tls]
 marshmallow

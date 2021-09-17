@@ -22,6 +22,8 @@ charset-normalizer==2.0.4
     # via requests
 click==8.0.1
     # via pip-tools
+coverage==5.5
+    # via pytest-cov
 distlib==0.3.2
     # via virtualenv
 dnspython==1.16.0
@@ -30,6 +32,7 @@ docopt==0.6.2
     # via snooty-lextudio
 docutils==0.16
     # via
+    #   rstcheck
     #   snooty-lextudio
     #   sphinx
     #   sphinx-tabs
@@ -88,6 +91,10 @@ pymongo[srv,tls]==3.11.4
 pyparsing==2.4.7
     # via packaging
 pytest==6.2.5
+    # via
+    #   -r ./tests.in
+    #   pytest-cov
+pytest-cov==2.12.1
     # via -r ./tests.in
 python-dotenv==0.19.0
     # via -r ./tests.in
@@ -101,6 +108,8 @@ requests==2.26.0
     # via
     #   snooty-lextudio
     #   sphinx
+rstcheck==3.3.1
+    # via -r ./docs.in
 six==1.16.0
     # via
     #   tox
@@ -137,6 +146,7 @@ sphinxcontrib-serializinghtml==1.1.5
 toml==0.10.2
     # via
     #   pytest
+    #   pytest-cov
     #   snooty-lextudio
     #   tox
 tomli==1.2.1

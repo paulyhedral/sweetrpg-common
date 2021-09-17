@@ -18,6 +18,7 @@ docopt==0.6.2
     # via snooty-lextudio
 docutils==0.16
     # via
+    #   rstcheck
     #   snooty-lextudio
     #   sphinx
     #   sphinx-tabs
@@ -57,6 +58,8 @@ requests==2.26.0
     # via
     #   snooty-lextudio
     #   sphinx
+rstcheck==3.3.1
+    # via -r ./docs.in
 snooty-lextudio==1.11.4.dev0
     # via -r ./docs.in
 snowballstemmer==2.1.0
