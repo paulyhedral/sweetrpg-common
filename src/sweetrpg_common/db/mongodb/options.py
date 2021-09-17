@@ -4,8 +4,7 @@ __author__ = "Paul Schifferer <paul@schifferers.net>"
 """
 
 class QueryOptions(object):
-    """
-    An object to store query options for a PyMongo find*() call.
+    """An object to store query options for a PyMongo find*() call.
     """
 
     # https://flask-rest-jsonapi.readthedocs.io/en/latest/filtering.html

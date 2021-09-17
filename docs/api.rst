@@ -17,3 +17,17 @@ Utility functions that may be useful anywhere.
 
 .. autofunction:: sweetrpg_common.utils.to_datetime
 .. autofunction:: sweetrpg_common.utils.to_timestamp
+
+Database Classes
+----------------
+
+Classes used for database model and schema objects.
+
+.. autoclass:: sweetrpg_common.db.base.BaseDBSchema
+.. autoclass:: sweetrpg_common.db.exceptions.ObjectNotFound
+
+MongoDB Repository Classes
+--------------------------
+
+.. autoclass:: sweetrpg_common.db.mongodb.options.QueryOptions
+.. autoclass:: sweetrpg_common.db.mongodb.repo.MongoDataRepository

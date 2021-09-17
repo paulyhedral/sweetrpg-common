@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = "Paul Schifferer <dm@sweetrpg.com>"
-"""
+"""Abstract classes for database schema classes.
 """
 
 from marshmallow import Schema, fields, EXCLUDE
@@ -9,6 +9,11 @@ from datetime import datetime
 
 
 class BaseDBSchema(Schema):
+    """Base type for schema classes.
+    Inherit from this type for database schema objects to gain ID and date conversion
+    pre-load functionality, and to have ID and audit fields setup automatically.
+    """
+
     class Meta:
         unknown = EXCLUDE
 
