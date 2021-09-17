@@ -14,6 +14,8 @@ blinker==1.4
     # via -r ./tests.in
 coverage==5.5
     # via pytest-cov
+coverage-badge==1.0.1
+    # via -r ./tests.in
 distlib==0.3.2
     # via virtualenv
 dnspython==1.16.0
