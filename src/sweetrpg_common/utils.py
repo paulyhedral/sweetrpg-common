@@ -9,10 +9,13 @@ import logging
 
 
 def to_datetime(value, attr=None, data=None, **kwargs):
-    """Deserialize database value to Python datetime.
+    """Deserializes a database value to a Python datetime.
+    This function can be used as a callback for the Marshmallow :class:`fields.Function`
+    field type.
+
     :param any value: The source value to convert to a Python datetime object. This can
-    be a MongoDB `bson.timestamp.Timestamp`, an ISO-formatted date/time
-    string, or a UTC unix timestamp value.
+        be a MongoDB :class:`bson.timestamp.Timestamp`, an ISO-formatted date/time
+        string, or a UTC unix timestamp value.
     :param str attr: The name of the attribute being deserialized.
     :param object data: The object associated.
     :param dict kwargs:
@@ -39,8 +42,11 @@ def to_datetime(value, attr=None, data=None, **kwargs):
 
 
 def to_timestamp(value, attr=None, obj=None, **kwargs):
-    """Serialize object value to MongoDB timestamp.
-    :param any value: The source value to convert to a MongoDB `bson.timestamp.Timestamp`. This
+    """Serialize an object value to a MongoDB timestamp.
+    This function can be used as a callback for the Marshmallow :class:`fields.Function`
+    field type.
+
+    :param any value: The source value to convert to a MongoDB :class:`bson.timestamp.Timestamp`. This
                       can be a `datetime` object, or a time/increment tuple.
     :param str attr: The name of the attribute being serialized.
     :param object obj:
