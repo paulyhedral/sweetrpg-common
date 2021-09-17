@@ -49,7 +49,7 @@ def to_timestamp(value, attr=None, obj=None, **kwargs):
     :param any value: The source value to convert to a MongoDB :class:`bson.timestamp.Timestamp`. This
                       can be a `datetime` object, or a time/increment tuple.
     :param str attr: The name of the attribute being serialized.
-    :param object obj:
+    :param object obj: The object associated.
     :param dict kwargs:
     :return bson.timestamp.Timestamp: MongoDB Timestamp object
     """
