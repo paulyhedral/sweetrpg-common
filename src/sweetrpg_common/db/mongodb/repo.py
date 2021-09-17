@@ -18,7 +18,14 @@ class MongoDataRepository(object):
     """
 
     def __init__(self, **kwargs):
-        """ """
+        """Create a MongoDB repository instance.
+
+        :param kwargs: Keyword arguments for setting up the repository connection.
+        :key class model: The class of the model for this connection.
+        :key class schema: The class of the schema used for deserializing objects from the database.
+        :key str id_attr: (Optional) The name of the ID attribute for records in the database.
+        :key PyMongo mongo: A :class:`PyMongo` object used for connecting to the database.
+        """
         self.model_class = kwargs["model"]
         self.schema_class = kwargs["schema"]
         self.id_attr = kwargs.get("id_attr") or "_id"
@@ -66,19 +73,17 @@ class MongoDataRepository(object):
         return modified_record
 
     def create(self, data: dict):
-        """
-        Inserts a new object in the database with the data provided.
+        """Inserts a new object in the database with the data provided.
+
         :param dict data: The data for the object
         :return ObjectId: The ID of the object inserted, or `None`
         """
-        logging.debug("data: %s", date)
+        logging.debug("data: %s", data)
         collection_name = self.collection
         logging.debug("collection_name: %s", collection_name)
         collection = self.mongo.db[collection_name]
         logging.debug("collection: %s", collection)
-        result = collection.with_options(
-            write_concern=WriteConcern(w=3, j=True)
-        ).insert_one(data)
+        result = collection.with_options(write_concern=WriteConcern(w=3, j=True)).insert_one(data)
         logging.debug("result: %s", result)
         if result is None:
             return None
@@ -118,9 +123,7 @@ class MongoDataRepository(object):
         record = collection.find_one(filter=query_filter)
         logging.debug("record: %s", record)
         if not record:
-            raise ObjectNotFound(
-                f"Record not found where '{self.id_attr}' = '{record_id}'"
-            )
+            raise ObjectNotFound(f"Record not found where '{self.id_attr}' = '{record_id}'")
         modified_record = self._modify_record(record)
         logging.debug("modified_record: %s", modified_record)
         schema = self.schema_class()
