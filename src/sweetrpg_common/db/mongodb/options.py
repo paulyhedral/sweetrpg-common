@@ -62,10 +62,10 @@ class QueryOptions(object):
     def __repr__(self):
         return f"<QueryOptions(filters={self.filters}, projection={self.projection}, skip={self.skip}, limit={self.limit}, sort={self.sort})>"
 
-    def _process_filter(self, filter: dict):
-        name = filter["name"]
-        value = filter["val"]
-        op = self._filter_operators.get(filter["op"], "$eq")
+    def _process_filter(self, filter_info: dict):
+        name = filter_info["name"]
+        value = filter_info["val"]
+        op = self._filter_operators.get(filter_info["op"], "$eq")
         return {name: {op: value}}
 
     def set_filters(self, filters: dict = None, from_querystring: list = None):
@@ -82,7 +82,12 @@ class QueryOptions(object):
                 filters.update(self._process_filter(f))
             self.filters = filters
 
-    def set_projection(self, projection=None, from_querystring: list = None):
+    def set_projection(self, projection: list = None, from_querystring: list = None):
+        """Sets projections for the query.
+
+        :param list projection: A list of field names to include in the query results.
+        :param list from_querystring: Projections to set in querystring format.
+        """
         if projection is not None:
             self.projection = projection
         elif from_querystring is not None:
