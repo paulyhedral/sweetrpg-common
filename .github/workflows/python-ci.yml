@@ -56,6 +56,13 @@ jobs:
         run: black --check -t py39 --diff --color src
       - name: tests
         run: tox -e ${{ matrix.tox }}
+      - name: publish-badge
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git add coverage.svg htmlcov
+          git commit -m "Update code coverage"
+          git push origin develop
 
   docs:
     needs: [tests]

@@ -1,6 +1,7 @@
 # Common
 
 [![Unit tests](https://github.com/sweetrpg/common/actions/workflows/python-ci.yml/badge.svg)](https://github.com/sweetrpg/common/actions/workflows/python-ci.yml)
+[![Coverage](https://github.com/sweetrpg/common/coverage.svg)](https://github.com/sweetrpg/common)
 [![License](https://img.shields.io/github/license/sweetrpg/common.svg)](https://img.shields.io/github/license/sweetrpg/common.svg)
 [![Issues](https://img.shields.io/github/issues/sweetrpg/common.svg)](https://img.shields.io/github/issues/sweetrpg/common.svg)
 [![PRs](https://img.shields.io/github/issues-pr/sweetrpg/common.svg)](https://img.shields.io/github/issues-pr/sweetrpg/common.svg)
