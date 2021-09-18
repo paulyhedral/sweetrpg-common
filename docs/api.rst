@@ -24,10 +24,12 @@ Database Classes
 Classes used for database model and schema objects.
 
 .. autoclass:: sweetrpg_common.db.base.BaseDBSchema
+    :members:
+
 .. autoclass:: sweetrpg_common.db.exceptions.ObjectNotFound
 
-MongoDB Repository Classes
---------------------------
+MongoDB Repository
+------------------
 
 .. autoclass:: sweetrpg_common.db.mongodb.options.QueryOptions
     :members:
