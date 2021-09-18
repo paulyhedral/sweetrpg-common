@@ -160,16 +160,16 @@ can be a <cite>datetime</cite> object, or a time/increment tuple.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>kwargs</strong> – Keyword arguments for setting up the repository connection.</p>
 </dd>
-<dt class="field-even">Key class model</dt>
+<dt class="field-even">Key model</dt>
 <dd class="field-even"><p>The class of the model for this connection.</p>
 </dd>
-<dt class="field-odd">Key class schema</dt>
+<dt class="field-odd">Key schema</dt>
 <dd class="field-odd"><p>The class of the schema used for deserializing objects from the database.</p>
 </dd>
-<dt class="field-even">Key str id_attr</dt>
+<dt class="field-even">Key id_attr</dt>
 <dd class="field-even"><p>(Optional) The name of the ID attribute for records in the database.</p>
 </dd>
-<dt class="field-odd">Key PyMongo mongo</dt>
+<dt class="field-odd">Key mongo</dt>
 <dd class="field-odd"><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">PyMongo</span></code> object used for connecting to the database.</p>
 </dd>
 </dl>
@@ -190,10 +190,18 @@ can be a <cite>datetime</cite> object, or a time/increment tuple.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="sweetrpg_common.db.mongodb.repo.MongoDataRepository.get">
 <span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleted</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sweetrpg_common/db/mongodb/repo.html#MongoDataRepository.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sweetrpg_common.db.mongodb.repo.MongoDataRepository.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fetch
-:param str record_id: The identifier for the record to fetch. This value is compared against the attribute specified in <cite>id_attr</cite>.
-:param bool deleted: Include “deleted” objects in the query
-:return object: An instance of the object type from <cite>model_class</cite>.</p>
+<dd><p>Fetch a single record from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The identifier for the record to fetch. This value is compared against the attribute specified in <cite>id_attr</cite>.</p></li>
+<li><p><strong>deleted</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Include “deleted” objects in the query</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return object</dt>
+<dd class="field-even"><p>An instance of the object type from <cite>model_class</cite>.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

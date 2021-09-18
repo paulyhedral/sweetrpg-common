@@ -54,10 +54,10 @@
         <span class="sd">&quot;&quot;&quot;Create a MongoDB repository instance.</span>
 
 <span class="sd">        :param kwargs: Keyword arguments for setting up the repository connection.</span>
-<span class="sd">        :key class model: The class of the model for this connection.</span>
-<span class="sd">        :key class schema: The class of the schema used for deserializing objects from the database.</span>
-<span class="sd">        :key str id_attr: (Optional) The name of the ID attribute for records in the database.</span>
-<span class="sd">        :key PyMongo mongo: A :class:`PyMongo` object used for connecting to the database.</span>
+<span class="sd">        :key model: The class of the model for this connection.</span>
+<span class="sd">        :key schema: The class of the schema used for deserializing objects from the database.</span>
+<span class="sd">        :key id_attr: (Optional) The name of the ID attribute for records in the database.</span>
+<span class="sd">        :key mongo: A :class:`PyMongo` object used for connecting to the database.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model_class</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">schema_class</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;schema&quot;</span><span class="p">]</span>
@@ -126,8 +126,8 @@
         <span class="k">return</span> <span class="n">record_id</span></div>
 
 <div class="viewcode-block" id="MongoDataRepository.get"><a class="viewcode-back" href="../../../../api.html#sweetrpg_common.db.mongodb.repo.MongoDataRepository.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">deleted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Fetch</span>
+        <span class="sd">&quot;&quot;&quot;Fetch a single record from the database.</span>
+
 <span class="sd">        :param str record_id: The identifier for the record to fetch. This value is compared against the attribute specified in `id_attr`.</span>
 <span class="sd">        :param bool deleted: Include &quot;deleted&quot; objects in the query</span>
 <span class="sd">        :return object: An instance of the object type from `model_class`.</span>
