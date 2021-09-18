@@ -105,7 +105,7 @@
 
         <span class="k">return</span> <span class="n">modified_record</span>
 
-    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<div class="viewcode-block" id="MongoDataRepository.create"><a class="viewcode-back" href="../../../../api.html#sweetrpg_common.db.mongodb.repo.MongoDataRepository.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Inserts a new object in the database with the data provided.</span>
 
 <span class="sd">        :param dict data: The data for the object</span>
@@ -123,9 +123,9 @@
         <span class="n">record_id</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">inserted_id</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;record_id: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">record_id</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">record_id</span>
+        <span class="k">return</span> <span class="n">record_id</span></div>
 
-    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">deleted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="MongoDataRepository.get"><a class="viewcode-back" href="../../../../api.html#sweetrpg_common.db.mongodb.repo.MongoDataRepository.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">deleted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Fetch</span>
 <span class="sd">        :param str record_id: The identifier for the record to fetch. This value is compared against the attribute specified in `id_attr`.</span>
@@ -163,9 +163,9 @@
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;schema: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
         <span class="n">obj</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">modified_record</span><span class="p">)</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;obj: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">obj</span>
+        <span class="k">return</span> <span class="n">obj</span></div>
 
-    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">QueryOptions</span><span class="p">,</span> <span class="n">deleted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="MongoDataRepository.query"><a class="viewcode-back" href="../../../../api.html#sweetrpg_common.db.mongodb.repo.MongoDataRepository.query">[docs]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">QueryOptions</span><span class="p">,</span> <span class="n">deleted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Perform a query for objects in the database.</span>
 
 <span class="sd">        :param QueryOptions options: (Optional) Options specifying limits to the query&#39;s returned results</span>
@@ -191,7 +191,7 @@
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;schema: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
         <span class="n">objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">schema</span><span class="o">.</span><span class="n">load</span><span class="p">,</span> <span class="n">modified_records</span><span class="p">))</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;objects: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">objects</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">objects</span>
+        <span class="k">return</span> <span class="n">objects</span></div>
 
     <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>

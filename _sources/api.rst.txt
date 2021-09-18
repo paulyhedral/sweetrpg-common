@@ -30,4 +30,7 @@ MongoDB Repository Classes
 --------------------------
 
 .. autoclass:: sweetrpg_common.db.mongodb.options.QueryOptions
+    :members:
+
 .. autoclass:: sweetrpg_common.db.mongodb.repo.MongoDataRepository
+    :members:

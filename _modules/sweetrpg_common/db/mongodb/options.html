@@ -101,7 +101,7 @@
         <span class="n">op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter_operators</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">filter_info</span><span class="p">[</span><span class="s2">&quot;op&quot;</span><span class="p">],</span> <span class="s2">&quot;$eq&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="p">{</span><span class="n">op</span><span class="p">:</span> <span class="n">value</span><span class="p">}}</span>
 
-    <span class="k">def</span> <span class="nf">set_filters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="QueryOptions.set_filters"><a class="viewcode-back" href="../../../../api.html#sweetrpg_common.db.mongodb.options.QueryOptions.set_filters">[docs]</a>    <span class="k">def</span> <span class="nf">set_filters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Sets filters for the query.</span>
 
 <span class="sd">        :param dict filters: A dictionary of filters to set.</span>
@@ -113,9 +113,9 @@
             <span class="n">filters</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">from_querystring</span><span class="p">:</span>
                 <span class="n">filters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_filter</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">filters</span> <span class="o">=</span> <span class="n">filters</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filters</span> <span class="o">=</span> <span class="n">filters</span></div>
 
-    <span class="k">def</span> <span class="nf">set_projection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projection</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="QueryOptions.set_projection"><a class="viewcode-back" href="../../../../api.html#sweetrpg_common.db.mongodb.options.QueryOptions.set_projection">[docs]</a>    <span class="k">def</span> <span class="nf">set_projection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projection</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Sets projections for the query.</span>
 
 <span class="sd">        :param list projection: A list of field names to include in the query results.</span>
@@ -124,14 +124,14 @@
         <span class="k">if</span> <span class="n">projection</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">projection</span> <span class="o">=</span> <span class="n">projection</span>
         <span class="k">elif</span> <span class="n">from_querystring</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">projection</span> <span class="o">=</span> <span class="n">from_querystring</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">projection</span> <span class="o">=</span> <span class="n">from_querystring</span></div>
 
     <span class="k">def</span> <span class="nf">_process_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort_item</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
         <span class="n">name</span> <span class="o">=</span> <span class="n">sort_item</span><span class="p">[</span><span class="s2">&quot;field&quot;</span><span class="p">]</span>
         <span class="n">direction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sort_values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sort_item</span><span class="p">[</span><span class="s2">&quot;order&quot;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">name</span><span class="p">,</span> <span class="n">direction</span>
 
-    <span class="k">def</span> <span class="nf">set_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="QueryOptions.set_sort"><a class="viewcode-back" href="../../../../api.html#sweetrpg_common.db.mongodb.options.QueryOptions.set_sort">[docs]</a>    <span class="k">def</span> <span class="nf">set_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Sets sorting for the query results.</span>
 
 <span class="sd">        :param list sort: A list of dictionaries containing field name and ordering.</span>
@@ -140,7 +140,7 @@
         <span class="k">if</span> <span class="n">sort</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sort</span> <span class="o">=</span> <span class="n">sort</span>
         <span class="k">elif</span> <span class="n">from_querystring</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">sort</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_sort</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">))</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sort</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_sort</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">))</span></div></div>
 </pre></div>
 
           </div>
