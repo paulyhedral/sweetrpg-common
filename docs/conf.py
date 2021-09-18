@@ -37,12 +37,12 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx.ext.todo",
     "sphinx.ext.viewcode",
-    ]
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 
-source_suffix = ['.rst', '.md']
+source_suffix = [".rst", ".md"]
 master_doc = "index"
 
 language = None
@@ -74,6 +74,8 @@ pygments_style = "flask_theme_support.FlaskyStyle"
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
+
+autoclass_content = "both"
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -124,9 +126,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
-latex_documents = [
-    (master_doc, "SweetRPG-Common.tex", u"SweetRPG Common Documentation", u"Paul Schifferer", "manual")
-]
+latex_documents = [(master_doc, "SweetRPG-Common.tex", u"SweetRPG Common Documentation", u"Paul Schifferer", "manual")]
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
@@ -260,5 +260,5 @@ epub_exclude_files = ["search.html"]
 
 
 intersphinx_mapping = {
-     "python": ("https://docs.python.org/3/", None),
+    "python": ("https://docs.python.org/3/", None),
 }
