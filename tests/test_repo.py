@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
-__author__ = "Paul Schifferer <paul@schifferers.net>"
+__author__ = "Paul Schifferer <dm@sweetrpg.com>"
 """
 """
