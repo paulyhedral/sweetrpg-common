@@ -21,10 +21,10 @@ class MongoDataRepository(object):
         """Create a MongoDB repository instance.
 
         :param kwargs: Keyword arguments for setting up the repository connection.
-        :key class model: The class of the model for this connection.
-        :key class schema: The class of the schema used for deserializing objects from the database.
-        :key str id_attr: (Optional) The name of the ID attribute for records in the database.
-        :key PyMongo mongo: A :class:`PyMongo` object used for connecting to the database.
+        :key model: The class of the model for this connection.
+        :key schema: The class of the schema used for deserializing objects from the database.
+        :key id_attr: (Optional) The name of the ID attribute for records in the database.
+        :key mongo: A :class:`PyMongo` object used for connecting to the database.
         """
         self.model_class = kwargs["model"]
         self.schema_class = kwargs["schema"]
@@ -93,8 +93,8 @@ class MongoDataRepository(object):
         return record_id
 
     def get(self, record_id: str, deleted: bool = False):
-        """
-        Fetch
+        """Fetch a single record from the database.
+
         :param str record_id: The identifier for the record to fetch. This value is compared against the attribute specified in `id_attr`.
         :param bool deleted: Include "deleted" objects in the query
         :return object: An instance of the object type from `model_class`.
