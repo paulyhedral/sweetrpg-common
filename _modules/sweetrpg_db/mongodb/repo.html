@@ -74,7 +74,7 @@
 <span class="s2">                             mongo=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">mongo</span><span class="si">}</span><span class="s2">)&gt;</span>
 <span class="s2">        &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">_handle_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="MongoDataRepository._handle_value"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository._handle_value">[docs]</a>    <span class="k">def</span> <span class="nf">_handle_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Convert a value to a string.</span>
 
 <span class="sd">        :param any value: The value to convert. Supports :class:`bson.objectid.ObjectId`,</span>
@@ -97,9 +97,9 @@
             <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_handle_value</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
 
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;returning unprocessed value &#39;</span><span class="si">%s</span><span class="s2">&#39;...&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">value</span></div>
 
-    <span class="k">def</span> <span class="nf">_modify_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<div class="viewcode-block" id="MongoDataRepository._modify_record"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository._modify_record">[docs]</a>    <span class="k">def</span> <span class="nf">_modify_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Modify a record by converting any values to strings, and renaming the internal &#39;_id&#39;</span>
 <span class="sd">            field to &#39;id&#39;.</span>
 
@@ -115,7 +115,7 @@
             <span class="n">modified_record</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">modified_value</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;k: </span><span class="si">%s</span><span class="s2">, v (modified): </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">modified_value</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">modified_record</span>
+        <span class="k">return</span> <span class="n">modified_record</span></div>
 
 <div class="viewcode-block" id="MongoDataRepository.create"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Inserts a new object in the database with the data provided.</span>

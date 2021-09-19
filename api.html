@@ -107,6 +107,26 @@ can be a <cite>datetime</cite> object, or a time/increment tuple.</p></li>
 :param int skip: An offset to use for pagination.
 :param int limit: The maximum number of results to return.
 :param list sort: A list of key-value pairs specifying the attributes to sort on.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sweetrpg_db.mongodb.options.QueryOptions._filter_operators">
+<span class="sig-name descname"><span class="pre">_filter_operators</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'eq':</span> <span class="pre">'$eq',</span> <span class="pre">'ge':</span> <span class="pre">'$gte',</span> <span class="pre">'gt':</span> <span class="pre">'$gt',</span> <span class="pre">'in_':</span> <span class="pre">'$in',</span> <span class="pre">'is_':</span> <span class="pre">'$exists',</span> <span class="pre">'isnot':</span> <span class="pre">'$not',</span> <span class="pre">'le':</span> <span class="pre">'$lte',</span> <span class="pre">'lt':</span> <span class="pre">'$lt',</span> <span class="pre">'ne':</span> <span class="pre">'$ne',</span> <span class="pre">'notin_':</span> <span class="pre">'$nin'}</span></em><a class="headerlink" href="#sweetrpg_db.mongodb.options.QueryOptions._filter_operators" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sweetrpg_db.mongodb.options.QueryOptions._process_filter">
+<span class="sig-name descname"><span class="pre">_process_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter_info</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><span class="pre">dict</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sweetrpg_db/mongodb/options.html#QueryOptions._process_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sweetrpg_db.mongodb.options.QueryOptions._process_filter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sweetrpg_db.mongodb.options.QueryOptions._process_sort">
+<span class="sig-name descname"><span class="pre">_process_sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sort_item</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><span class="pre">dict</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sweetrpg_db/mongodb/options.html#QueryOptions._process_sort"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sweetrpg_db.mongodb.options.QueryOptions._process_sort" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sweetrpg_db.mongodb.options.QueryOptions._sort_values">
+<span class="sig-name descname"><span class="pre">_sort_values</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'asc':</span> <span class="pre">1,</span> <span class="pre">'dsc':</span> <span class="pre">-1}</span></em><a class="headerlink" href="#sweetrpg_db.mongodb.options.QueryOptions._sort_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="sweetrpg_db.mongodb.options.QueryOptions.set_filters">
 <span class="sig-name descname"><span class="pre">set_filters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_querystring</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><span class="pre">list</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sweetrpg_db/mongodb/options.html#QueryOptions.set_filters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sweetrpg_db.mongodb.options.QueryOptions.set_filters" title="Permalink to this definition">¶</a></dt>
@@ -173,6 +193,39 @@ can be a <cite>datetime</cite> object, or a time/increment tuple.</p></li>
 <dd class="field-odd"><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">PyMongo</span></code> object used for connecting to the database.</p>
 </dd>
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sweetrpg_db.mongodb.repo.MongoDataRepository._handle_value">
+<span class="sig-name descname"><span class="pre">_handle_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sweetrpg_db/mongodb/repo.html#MongoDataRepository._handle_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sweetrpg_db.mongodb.repo.MongoDataRepository._handle_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a value to a string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>any</em>) – The value to convert. Supports <code class="xref py py-class docutils literal notranslate"><span class="pre">bson.objectid.ObjectId</span></code>,
+<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bson.timestamp.Timestamp</span></code>, and lists of
+any of those types.</p>
+</dd>
+<dt class="field-even">Return str</dt>
+<dd class="field-even"><p>A string of the specified value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sweetrpg_db.mongodb.repo.MongoDataRepository._modify_record">
+<span class="sig-name descname"><span class="pre">_modify_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><span class="pre">dict</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><span class="pre">dict</span></a></span></span><a class="reference internal" href="_modules/sweetrpg_db/mongodb/repo.html#MongoDataRepository._modify_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sweetrpg_db.mongodb.repo.MongoDataRepository._modify_record" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Modify a record by converting any values to strings, and renaming the internal ‘_id’</dt><dd><p>field to ‘id’.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>record</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The record to modify.</p>
+</dd>
+<dt class="field-even">Return dict</dt>
+<dd class="field-even"><p>The modified record.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="sweetrpg_db.mongodb.repo.MongoDataRepository.create">
 <span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><span class="pre">dict</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sweetrpg_db/mongodb/repo.html#MongoDataRepository.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sweetrpg_db.mongodb.repo.MongoDataRepository.create" title="Permalink to this definition">¶</a></dt>
