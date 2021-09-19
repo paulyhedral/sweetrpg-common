@@ -37,11 +37,18 @@ class MongoDataRepository(object):
         <MongoDataRepository(model_class={self.model_class},
                              schema_class={self.schema_class},
                              id_attr={self.id_attr},
-                             collection={self.collection})>
+                             collection={self.collection},
+                             mongo={self.mongo})>
         """
 
     def _handle_value(self, value):
-        """ """
+        """Convert a value to a string.
+
+        :param any value: The value to convert. Supports :class:`bson.objectid.ObjectId`,
+            :class:`datetime.datetime`, :class:`bson.timestamp.Timestamp`, and lists of
+            any of those types.
+        :return str: A string of the specified value.
+        """
         if isinstance(value, ObjectId):
             logging.debug("converting ObjectId('%s')...", value)
             return str(value)
@@ -54,13 +61,18 @@ class MongoDataRepository(object):
             return value.as_datetime()
         elif isinstance(value, list):
             logging.debug("converting list '%s'...", value)
-            return list(map(lambda v: self._handle_value(v), value))
+            return list(map(self._handle_value, value))
 
         logging.debug("returning unprocessed value '%s'...", value)
         return value
 
     def _modify_record(self, record: dict) -> dict:
-        """ """
+        """Modify a record by converting any values to strings, and renaming the internal '_id'
+            field to 'id'.
+
+        :param dict record: The record to modify.
+        :return dict: The modified record.
+        """
         modified_record = {}
         for k, v in record.items():
             logging.debug("k: %s, v: %s", k, v)
@@ -83,6 +95,8 @@ class MongoDataRepository(object):
         logging.debug("collection_name: %s", collection_name)
         collection = self.mongo.db[collection_name]
         logging.debug("collection: %s", collection)
+
+        logging.info("Creating new %s record with data %s...", self.model_class, data)
         result = collection.with_options(write_concern=WriteConcern(w=3, j=True)).insert_one(data)
         logging.debug("result: %s", result)
         if result is None:
@@ -120,10 +134,13 @@ class MongoDataRepository(object):
                 }
             )
         logging.debug("query_filter: %s", query_filter)
+
+        logging.info("Fetching %s record for ID %s...", self.model_class, id_value)
         record = collection.find_one(filter=query_filter)
         logging.debug("record: %s", record)
         if not record:
             raise ObjectNotFound(f"Record not found where '{self.id_attr}' = '{record_id}'")
+
         modified_record = self._modify_record(record)
         logging.debug("modified_record: %s", modified_record)
         schema = self.schema_class()
@@ -144,6 +161,8 @@ class MongoDataRepository(object):
         logging.debug("collection: %s", collection)
         filters = options.filters.update({"deleted_at": {"$exists": deleted}})
         logging.debug("filters: %s", filters)
+
+        logging.info("Searching for %s records matching filter %s...", self.model_class, filters)
         records = collection.find(
             filter=filters,
             projection=options.projection,
@@ -152,18 +171,74 @@ class MongoDataRepository(object):
             sort=options.sort,
         )
         logging.debug("records: %s", records)
+
         modified_records = map(self._modify_record, records)
         logging.debug("modified_records: %s", modified_records)
         schema = self.schema_class()
         logging.debug("schema: %s", schema)
         objects = list(map(schema.load, modified_records))
         logging.debug("objects: %s", objects)
+
         return objects
 
-    def update(self, obj):
-        """ """
-        pass
+    def update(self, record_id: str, update: dict):
+        """Update the specified record.
 
-    def delete(self, obj):
-        """ """
-        pass
+        :param str record_id: The ID of the record to update.
+        :param dict update: The data to update for the record.
+        :return bool: A boolean indicating whether the record was able to be updated.
+        """
+        collection_name = self.collection
+        logging.debug("collection_name: %s", collection_name)
+        collection = self.mongo.db[collection_name]
+        logging.debug("collection: %s", collection)
+
+        id_value = record_id
+        if self.id_attr == "_id":
+            logging.debug("ID attribute is '_id', converting to ObjectId")
+            id_value = ObjectId(record_id)
+        obj_filter = {"_id": id_value}
+        logging.debug("obj_filter: %s", obj_filter)
+
+        update_oper = {"$set": update}
+        logging.debug("update_oper: %s", update_oper)
+
+        logging.info("Marking %s record %s deleted...", self.model_class, id_value)
+        result = collection.update_one(filter=obj_filter, update=update_oper)
+        logging.debug("result: %s", result)
+
+        if result.matched_count == 1 and result.modified_count == 1:
+            return True
+
+        return False
+
+    def delete(self, record_id: str):
+        """'Delete' the specified record. Deletion is accomplished by setting the `deleted_at` field to the current
+            timestamp, so that queries for the object will ignore it.
+
+        :param str record_id: The record ID of the object to delete. This can be a string or :class:`bson.objectid.ObjectId`.
+        :return bool: A boolean indicating whether the record was able to be marked deleted.
+        """
+        collection_name = self.collection
+        logging.debug("collection_name: %s", collection_name)
+        collection = self.mongo.db[collection_name]
+        logging.debug("collection: %s", collection)
+
+        id_value = record_id
+        if self.id_attr == "_id":
+            logging.debug("ID attribute is '_id', converting to ObjectId")
+            id_value = ObjectId(record_id)
+        obj_filter = {"_id": id_value}
+        logging.debug("obj_filter: %s", obj_filter)
+        now = datetime.datetime.utcnow()
+        update_oper = {"$set": {"deleted_at": now}}
+        logging.debug("update_oper: %s", update_oper)
+
+        logging.info("Marking %s record %s deleted...", self.model_class, id_value)
+        result = collection.update_one(filter=obj_filter, update=update_oper)
+        logging.debug("result: %s", result)
+
+        if result.matched_count == 1 and result.modified_count == 1:
+            return True
+
+        return False
