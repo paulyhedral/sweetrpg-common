@@ -125,14 +125,7 @@ class MongoDataRepository(object):
         logging.debug("id_value: %s", id_value)
         query_filter = {self.id_attr: id_value}
         if not deleted:
-            query_filter.update(
-                {
-                    "$or": [
-                        {"deleted_at": Timestamp(0, 0)},
-                        {"deleted_at": {"$exists": False}},
-                    ]
-                }
-            )
+            query_filter.update({"deleted_at": {"$not": {"$type": "date"}}})
         logging.debug("query_filter: %s", query_filter)
 
         logging.info("Fetching %s record for ID %s...", self.model_class, id_value)
