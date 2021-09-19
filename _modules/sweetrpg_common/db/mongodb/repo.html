@@ -70,11 +70,18 @@
 <span class="s2">        &lt;MongoDataRepository(model_class=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model_class</span><span class="si">}</span><span class="s2">,</span>
 <span class="s2">                             schema_class=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">schema_class</span><span class="si">}</span><span class="s2">,</span>
 <span class="s2">                             id_attr=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_attr</span><span class="si">}</span><span class="s2">,</span>
-<span class="s2">                             collection=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="si">}</span><span class="s2">)&gt;</span>
+<span class="s2">                             collection=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="si">}</span><span class="s2">,</span>
+<span class="s2">                             mongo=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">mongo</span><span class="si">}</span><span class="s2">)&gt;</span>
 <span class="s2">        &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">_handle_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Convert a value to a string.</span>
+
+<span class="sd">        :param any value: The value to convert. Supports :class:`bson.objectid.ObjectId`,</span>
+<span class="sd">            :class:`datetime.datetime`, :class:`bson.timestamp.Timestamp`, and lists of</span>
+<span class="sd">            any of those types.</span>
+<span class="sd">        :return str: A string of the specified value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ObjectId</span><span class="p">):</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;converting ObjectId(&#39;</span><span class="si">%s</span><span class="s2">&#39;)...&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
             <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -87,13 +94,18 @@
             <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">as_datetime</span><span class="p">()</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;converting list &#39;</span><span class="si">%s</span><span class="s2">&#39;...&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_value</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">value</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_handle_value</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
 
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;returning unprocessed value &#39;</span><span class="si">%s</span><span class="s2">&#39;...&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">value</span>
 
     <span class="k">def</span> <span class="nf">_modify_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Modify a record by converting any values to strings, and renaming the internal &#39;_id&#39;</span>
+<span class="sd">            field to &#39;id&#39;.</span>
+
+<span class="sd">        :param dict record: The record to modify.</span>
+<span class="sd">        :return dict: The modified record.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">modified_record</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">record</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;k: </span><span class="si">%s</span><span class="s2">, v: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
@@ -116,6 +128,8 @@
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;collection_name: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">collection_name</span><span class="p">)</span>
         <span class="n">collection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mongo</span><span class="o">.</span><span class="n">db</span><span class="p">[</span><span class="n">collection_name</span><span class="p">]</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;collection: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">collection</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Creating new </span><span class="si">%s</span><span class="s2"> record with data </span><span class="si">%s</span><span class="s2">...&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_class</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">with_options</span><span class="p">(</span><span class="n">write_concern</span><span class="o">=</span><span class="n">WriteConcern</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">j</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span><span class="o">.</span><span class="n">insert_one</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;result: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -153,10 +167,13 @@
                 <span class="p">}</span>
             <span class="p">)</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;query_filter: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">query_filter</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetching </span><span class="si">%s</span><span class="s2"> record for ID </span><span class="si">%s</span><span class="s2">...&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_class</span><span class="p">,</span> <span class="n">id_value</span><span class="p">)</span>
         <span class="n">record</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">find_one</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="n">query_filter</span><span class="p">)</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;record: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">record</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">record</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ObjectNotFound</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Record not found where &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_attr</span><span class="si">}</span><span class="s2">&#39; = &#39;</span><span class="si">{</span><span class="n">record_id</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
         <span class="n">modified_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modify_record</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;modified_record: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">modified_record</span><span class="p">)</span>
         <span class="n">schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema_class</span><span class="p">()</span>
@@ -177,6 +194,8 @@
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;collection: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">collection</span><span class="p">)</span>
         <span class="n">filters</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;deleted_at&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;$exists&quot;</span><span class="p">:</span> <span class="n">deleted</span><span class="p">}})</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;filters: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">filters</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Searching for </span><span class="si">%s</span><span class="s2"> records matching filter </span><span class="si">%s</span><span class="s2">...&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_class</span><span class="p">,</span> <span class="n">filters</span><span class="p">)</span>
         <span class="n">records</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">find</span><span class="p">(</span>
             <span class="nb">filter</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span>
             <span class="n">projection</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">projection</span><span class="p">,</span>
@@ -185,21 +204,77 @@
             <span class="n">sort</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">sort</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;records: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">records</span><span class="p">)</span>
+
         <span class="n">modified_records</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_modify_record</span><span class="p">,</span> <span class="n">records</span><span class="p">)</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;modified_records: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">modified_records</span><span class="p">)</span>
         <span class="n">schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema_class</span><span class="p">()</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;schema: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
         <span class="n">objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">schema</span><span class="o">.</span><span class="n">load</span><span class="p">,</span> <span class="n">modified_records</span><span class="p">))</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;objects: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">objects</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">objects</span></div>
 
-    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
-        <span class="k">pass</span>
+<div class="viewcode-block" id="MongoDataRepository.update"><a class="viewcode-back" href="../../../../api.html#sweetrpg_common.db.mongodb.repo.MongoDataRepository.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">update</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update the specified record.</span>
 
-    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
+<span class="sd">        :param str record_id: The ID of the record to update.</span>
+<span class="sd">        :param dict update: The data to update for the record.</span>
+<span class="sd">        :return bool: A boolean indicating whether the record was able to be updated.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">collection_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">collection</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;collection_name: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">collection_name</span><span class="p">)</span>
+        <span class="n">collection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mongo</span><span class="o">.</span><span class="n">db</span><span class="p">[</span><span class="n">collection_name</span><span class="p">]</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;collection: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">collection</span><span class="p">)</span>
+
+        <span class="n">id_value</span> <span class="o">=</span> <span class="n">record_id</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_attr</span> <span class="o">==</span> <span class="s2">&quot;_id&quot;</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;ID attribute is &#39;_id&#39;, converting to ObjectId&quot;</span><span class="p">)</span>
+            <span class="n">id_value</span> <span class="o">=</span> <span class="n">ObjectId</span><span class="p">(</span><span class="n">record_id</span><span class="p">)</span>
+        <span class="n">obj_filter</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">id_value</span><span class="p">}</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;obj_filter: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">obj_filter</span><span class="p">)</span>
+
+        <span class="n">update_oper</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;$set&quot;</span><span class="p">:</span> <span class="n">update</span><span class="p">}</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;update_oper: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">update_oper</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Marking </span><span class="si">%s</span><span class="s2"> record </span><span class="si">%s</span><span class="s2"> deleted...&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_class</span><span class="p">,</span> <span class="n">id_value</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">update_one</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="n">obj_filter</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="n">update_oper</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;result: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">matched_count</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">result</span><span class="o">.</span><span class="n">modified_count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="MongoDataRepository.delete"><a class="viewcode-back" href="../../../../api.html#sweetrpg_common.db.mongodb.repo.MongoDataRepository.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;&#39;Delete&#39; the specified record. Deletion is accomplished by setting the `deleted_at` field to the current</span>
+<span class="sd">            timestamp, so that queries for the object will ignore it.</span>
+
+<span class="sd">        :param str record_id: The record ID of the object to delete. This can be a string or :class:`bson.objectid.ObjectId`.</span>
+<span class="sd">        :return bool: A boolean indicating whether the record was able to be marked deleted.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">collection_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">collection</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;collection_name: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">collection_name</span><span class="p">)</span>
+        <span class="n">collection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mongo</span><span class="o">.</span><span class="n">db</span><span class="p">[</span><span class="n">collection_name</span><span class="p">]</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;collection: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">collection</span><span class="p">)</span>
+
+        <span class="n">id_value</span> <span class="o">=</span> <span class="n">record_id</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_attr</span> <span class="o">==</span> <span class="s2">&quot;_id&quot;</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;ID attribute is &#39;_id&#39;, converting to ObjectId&quot;</span><span class="p">)</span>
+            <span class="n">id_value</span> <span class="o">=</span> <span class="n">ObjectId</span><span class="p">(</span><span class="n">record_id</span><span class="p">)</span>
+        <span class="n">obj_filter</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">id_value</span><span class="p">}</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;obj_filter: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">obj_filter</span><span class="p">)</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
+        <span class="n">update_oper</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;$set&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;deleted_at&quot;</span><span class="p">:</span> <span class="n">now</span><span class="p">}}</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;update_oper: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">update_oper</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Marking </span><span class="si">%s</span><span class="s2"> record </span><span class="si">%s</span><span class="s2"> deleted...&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_class</span><span class="p">,</span> <span class="n">id_value</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">update_one</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="n">obj_filter</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="n">update_oper</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;result: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">matched_count</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">result</span><span class="o">.</span><span class="n">modified_count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="kc">False</span></div></div>
 </pre></div>
 
           </div>

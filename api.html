@@ -188,6 +188,23 @@ can be a <cite>datetime</cite> object, or a time/increment tuple.</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="sweetrpg_common.db.mongodb.repo.MongoDataRepository.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sweetrpg_common/db/mongodb/repo.html#MongoDataRepository.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sweetrpg_common.db.mongodb.repo.MongoDataRepository.delete" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>‘Delete’ the specified record. Deletion is accomplished by setting the <cite>deleted_at</cite> field to the current</dt><dd><p>timestamp, so that queries for the object will ignore it.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>record_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The record ID of the object to delete. This can be a string or <code class="xref py py-class docutils literal notranslate"><span class="pre">bson.objectid.ObjectId</span></code>.</p>
+</dd>
+<dt class="field-even">Return bool</dt>
+<dd class="field-even"><p>A boolean indicating whether the record was able to be marked deleted.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="sweetrpg_common.db.mongodb.repo.MongoDataRepository.get">
 <span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleted</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sweetrpg_common/db/mongodb/repo.html#MongoDataRepository.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sweetrpg_common.db.mongodb.repo.MongoDataRepository.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch a single record from the database.</p>
@@ -211,6 +228,23 @@ can be a <cite>datetime</cite> object, or a time/increment tuple.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>options</strong> (<a class="reference internal" href="#sweetrpg_common.db.mongodb.options.QueryOptions" title="sweetrpg_common.db.mongodb.options.QueryOptions"><em>QueryOptions</em></a>) – (Optional) Options specifying limits to the query’s returned results</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sweetrpg_common.db.mongodb.repo.MongoDataRepository.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">update</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><span class="pre">dict</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sweetrpg_common/db/mongodb/repo.html#MongoDataRepository.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sweetrpg_common.db.mongodb.repo.MongoDataRepository.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the specified record.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The ID of the record to update.</p></li>
+<li><p><strong>update</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The data to update for the record.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return bool</dt>
+<dd class="field-even"><p>A boolean indicating whether the record was able to be updated.</p>
 </dd>
 </dl>
 </dd></dl>
