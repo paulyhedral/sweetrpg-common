@@ -16,16 +16,16 @@ import sys
 sys.path.insert(0, os.path.abspath("../src"))
 sys.path.insert(0, os.path.abspath("_themes"))
 
-import sweetrpg_common
+import sweetrpg_db
 
 
 # -- Project information -----------------------------------------------------
 
-project = "SweetRPG Common"
+project = "SweetRPG DB"
 copyright = "2021, Paul Schifferer"
 author = "Paul Schifferer"
-version = sweetrpg_common.__version__
-release = sweetrpg_common.__version__
+version = sweetrpg_db.__version__
+release = sweetrpg_db.__version__
 
 # -- General configuration ---------------------------------------------------
 
@@ -88,7 +88,7 @@ html_theme = "alabaster"
 html_theme_options = {
     "show_powered_by": False,
     "github_user": "sweetrpg",
-    "github_repo": "common",
+    "github_repo": "db",
     "github_banner": True,
     "show_related": False,
     "note_bg": "#FFF59C",
@@ -126,7 +126,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
-latex_documents = [(master_doc, "SweetRPG-Common.tex", u"SweetRPG Common Documentation", u"Paul Schifferer", "manual")]
+latex_documents = [(master_doc, "SweetRPG-DB.tex", u"SweetRPG DB Documentation", u"Paul Schifferer", "manual")]
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
@@ -153,7 +153,7 @@ latex_documents = [(master_doc, "SweetRPG-Common.tex", u"SweetRPG Common Documen
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "sweetrpg-common", u"SweetRPG Common Documentation", [author], 1)]
+man_pages = [(master_doc, "sweetrpg-db", u"SweetRPG DB Documentation", [author], 1)]
 
 # If true, show URL addresses after external links.
 # man_show_urls = False
@@ -167,10 +167,10 @@ man_pages = [(master_doc, "sweetrpg-common", u"SweetRPG Common Documentation", [
 texinfo_documents = [
     (
         master_doc,
-        "SweetRPG Common",
-        u"SweetRPG Common Documentation",
+        "SweetRPG DB",
+        u"SweetRPG DB Documentation",
         author,
-        "SweetRPG Common",
+        "SweetRPG DB",
         "One line description of project.",
         "Miscellaneous",
     )

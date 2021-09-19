@@ -3,9 +3,9 @@ __author__ = "Paul Schifferer <dm@sweetrpg.com>"
 """
 """
 
-__title__ = "sweetrpg-common"
+__title__ = "sweetrpg-db"
 __description__ = "PACKAGE_DESC"
-__url__ = "https://github.com/sweetrpg/common"
+__url__ = "https://github.com/sweetrpg/db"
 __version__ = "0.0.1"
 __build__ = 0x000001
 __author__ = "Paul Schifferer"
