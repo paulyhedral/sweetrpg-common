@@ -4,7 +4,7 @@ __author__ = "Paul Schifferer <dm@sweetrpg.com>"
 """
 
 __title__ = "sweetrpg-db"
-__description__ = "PACKAGE_DESC"
+__description__ = "SweetRPG database modules"
 __url__ = "https://github.com/sweetrpg/db"
 __version__ = "0.0.1"
 __build__ = 0x000001
