@@ -3,10 +3,10 @@
 Library
 =======
 
-.. module:: sweetrpg_common
+.. module:: sweetrpg_db
 
 This part of the documentation covers all the public API for the SweetRPG
-Common library. These are common functions and classes that other SweetRPG
+DB library. These are common functions and classes that other SweetRPG
 packages make use of.
 
 
@@ -15,24 +15,24 @@ Utilities
 
 Utility functions that may be useful anywhere.
 
-.. autofunction:: sweetrpg_common.utils.to_datetime
-.. autofunction:: sweetrpg_common.utils.to_timestamp
+.. autofunction:: sweetrpg_db.utils.to_datetime
+.. autofunction:: sweetrpg_db.utils.to_timestamp
 
 Database Classes
 ----------------
 
 Classes used for database model and schema objects.
 
-.. autoclass:: sweetrpg_common.db.base.BaseDBSchema
+.. autoclass:: sweetrpg_db.schema.base.BaseDBSchema
     :members:
 
-.. autoclass:: sweetrpg_common.db.exceptions.ObjectNotFound
+.. autoclass:: sweetrpg_db.exceptions.ObjectNotFound
 
 MongoDB Repository
 ------------------
 
-.. autoclass:: sweetrpg_common.db.mongodb.options.QueryOptions
+.. autoclass:: sweetrpg_db.mongodb.options.QueryOptions
     :members:
 
-.. autoclass:: sweetrpg_common.db.mongodb.repo.MongoDataRepository
+.. autoclass:: sweetrpg_db.mongodb.repo.MongoDataRepository
     :members:
