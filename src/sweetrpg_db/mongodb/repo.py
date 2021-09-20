@@ -152,12 +152,14 @@ class MongoDataRepository(object):
         logging.debug("collection_name: %s", collection_name)
         collection = self.mongo.db[collection_name]
         logging.debug("collection: %s", collection)
-        filters = options.filters.update({"deleted_at": {"$exists": deleted}})
-        logging.debug("filters: %s", filters)
+        query_filter = options.filters
+        if not deleted:
+            query_filter.update({"deleted_at": {"$not": {"$type": "date"}}})
+        logging.debug("query_filter: %s", query_filter)
 
-        logging.info("Searching for %s records matching filter %s...", self.model_class, filters)
+        logging.info("Searching for %s records matching filter %s...", self.model_class, query_filter)
         records = collection.find(
-            filter=filters,
+            filter=query_filter,
             projection=options.projection,
             skip=options.skip,
             limit=options.skip,
