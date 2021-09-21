@@ -25,6 +25,8 @@ charset-normalizer==2.0.4
 click==8.0.1
     # via
     #   black
+    #   flask
+    #   flask-pymodm
     #   pip-tools
 coverage==5.5
     # via pytest-cov
@@ -48,6 +50,10 @@ filelock==3.0.12
     # via
     #   tox
     #   virtualenv
+flask==2.0.1
+    # via flask-pymodm
+git+https://github.com/sweetrpg/flask-pymodm.git
+    # via -r ./pkg.in
 greenlet==1.1.1
     # via -r ./tests.in
 idna==3.2
@@ -56,12 +62,19 @@ imagesize==1.2.0
     # via sphinx
 iniconfig==1.1.1
     # via pytest
+itsdangerous==2.0.1
+    # via
+    #   flask
+    #   flask-pymodm
 jinja2==3.0.1
-    # via sphinx
+    # via
+    #   flask
+    #   flask-pymodm
+    #   sphinx
 markupsafe==2.0.1
-    # via jinja2
-marshmallow==3.13.0
-    # via -r ./pkg.in
+    # via
+    #   flask-pymodm
+    #   jinja2
 mypy-extensions==0.4.3
     # via black
 networkx==2.6.3
@@ -96,9 +109,12 @@ pygments==2.10.0
     # via
     #   sphinx
     #   sphinx-tabs
+pymodm==0.4.3
+    # via flask-pymodm
 pymongo[srv,tls]==3.11.4
     # via
-    #   -r ./pkg.in
+    #   flask-pymodm
+    #   pymodm
     #   snooty-lextudio
 pyparsing==2.4.7
     # via packaging
@@ -181,6 +197,10 @@ virtualenv==20.7.2
     # via tox
 watchdog==1.0.2
     # via snooty-lextudio
+werkzeug==2.0.1
+    # via
+    #   flask
+    #   flask-pymodm
 wheel==0.37.0
     # via pip-tools
 

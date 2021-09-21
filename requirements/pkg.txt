@@ -4,9 +4,33 @@
 #
 #    pip-compile ./pkg.in
 #
-dnspython==1.16.0
-    # via pymongo
-marshmallow==3.13.0
+click==8.0.1
+    # via
+    #   flask
+    #   flask-pymodm
+flask==2.0.1
+    # via flask-pymodm
+git+https://github.com/sweetrpg/flask-pymodm.git
     # via -r ./pkg.in
-pymongo[srv,tls]==3.12.0
-    # via -r ./pkg.in
+itsdangerous==2.0.1
+    # via
+    #   flask
+    #   flask-pymodm
+jinja2==3.0.1
+    # via
+    #   flask
+    #   flask-pymodm
+markupsafe==2.0.1
+    # via
+    #   flask-pymodm
+    #   jinja2
+pymodm==0.4.3
+    # via flask-pymodm
+pymongo==3.12.0
+    # via
+    #   flask-pymodm
+    #   pymodm
+werkzeug==2.0.1
+    # via
+    #   flask
+    #   flask-pymodm

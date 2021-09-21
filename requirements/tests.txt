@@ -12,24 +12,40 @@ backports.entry-points-selectable==1.1.0
     # via virtualenv
 blinker==1.4
     # via -r ./tests.in
+click==8.0.1
+    # via
+    #   flask
+    #   flask-pymodm
 coverage==5.5
     # via pytest-cov
 coverage-badge==1.0.1
     # via -r ./tests.in
 distlib==0.3.2
     # via virtualenv
-dnspython==1.16.0
-    # via pymongo
 filelock==3.0.12
     # via
     #   tox
     #   virtualenv
+flask==2.0.1
+    # via flask-pymodm
+git+https://github.com/sweetrpg/flask-pymodm.git
+    # via -r ./pkg.in
 greenlet==1.1.1
     # via -r ./tests.in
 iniconfig==1.1.1
     # via pytest
-marshmallow==3.13.0
-    # via -r ./pkg.in
+itsdangerous==2.0.1
+    # via
+    #   flask
+    #   flask-pymodm
+jinja2==3.0.1
+    # via
+    #   flask
+    #   flask-pymodm
+markupsafe==2.0.1
+    # via
+    #   flask-pymodm
+    #   jinja2
 packaging==21.0
     # via
     #   pytest
@@ -44,8 +60,12 @@ py==1.10.0
     # via
     #   pytest
     #   tox
-pymongo[srv,tls]==3.12.0
-    # via -r ./pkg.in
+pymodm==0.4.3
+    # via flask-pymodm
+pymongo==3.12.0
+    # via
+    #   flask-pymodm
+    #   pymodm
 pyparsing==2.4.7
     # via packaging
 pytest==6.2.5
@@ -69,3 +89,7 @@ tox==3.24.3
     # via -r ./tests.in
 virtualenv==20.7.2
     # via tox
+werkzeug==2.0.1
+    # via
+    #   flask
+    #   flask-pymodm
