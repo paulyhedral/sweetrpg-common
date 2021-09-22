@@ -75,6 +75,8 @@ markupsafe==2.0.1
     # via
     #   flask-pymodm
     #   jinja2
+marshmallow==3.13.0
+    # via -r ./pkg.in
 mypy-extensions==0.4.3
     # via black
 networkx==2.6.3

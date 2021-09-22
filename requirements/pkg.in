@@ -1,1 +1,2 @@
 git+https://github.com/sweetrpg/flask-pymodm.git
+marshmallow

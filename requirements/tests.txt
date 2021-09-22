@@ -46,6 +46,8 @@ markupsafe==2.0.1
     # via
     #   flask-pymodm
     #   jinja2
+marshmallow==3.13.0
+    # via -r ./pkg.in
 packaging==21.0
     # via
     #   pytest
