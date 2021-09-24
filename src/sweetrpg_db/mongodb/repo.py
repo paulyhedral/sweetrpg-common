@@ -22,23 +22,20 @@ class MongoDataRepository(object):
 
         :param kwargs: Keyword arguments for setting up the repository connection.
         :key model: The class of the model for this connection.
-        :key schema: The class of the schema used for deserializing objects from the database.
-        :key id_attr: (Optional) The name of the ID attribute for records in the database.
-        :key mongo: A :class:`PyMongo` object used for connecting to the database.
+        :key document: The class of the document used for deserializing objects from the database.
+        :key db: A :class:`PyMongo` object used for connecting to the database.
         """
         self.model_class = kwargs["model"]
-        self.schema_class = kwargs["schema"]
-        self.id_attr = kwargs.get("id_attr") or "_id"
-        self.mongo = kwargs.get("mongo")
+        self.document_class = kwargs["document"]
+        self.db = kwargs.get("db")
         self.collection = getattr(self.model_class, "__tablename__")
 
     def __repr__(self):
         return f"""\
         <MongoDataRepository(model_class={self.model_class},
-                             schema_class={self.schema_class},
-                             id_attr={self.id_attr},
+                             document_class={self.document_class},
                              collection={self.collection},
-                             mongo={self.mongo})>
+                             db={self.db})>
         """
 
     def _handle_value(self, value):
@@ -93,7 +90,7 @@ class MongoDataRepository(object):
         logging.debug("data: %s", data)
         collection_name = self.collection
         logging.debug("collection_name: %s", collection_name)
-        collection = self.mongo.db[collection_name]
+        collection = self.db.db[collection_name]
         logging.debug("collection: %s", collection)
 
         logging.info("Creating new %s record with data %s...", self.model_class, data)
@@ -116,13 +113,13 @@ class MongoDataRepository(object):
         logging.debug("record_id: %s", record_id)
         collection_name = self.collection
         logging.debug("collection_name: %s", collection_name)
-        collection = self.mongo.db[collection_name]
+        collection = self.db.db[collection_name]
         logging.debug("collection: %s", collection)
         id_value = record_id
-        if self.id_attr == "_id":
-            logging.debug("ID attribute is '_id', converting to ObjectId")
-            id_value = ObjectId(record_id)
-        logging.debug("id_value: %s", id_value)
+        # if self.id_attr == "_id":
+        #     logging.debug("ID attribute is '_id', converting to ObjectId")
+        #     id_value = ObjectId(record_id)
+        # logging.debug("id_value: %s", id_value)
         query_filter = {self.id_attr: id_value}
         if not deleted:
             query_filter.update({"deleted_at": {"$not": {"$type": "date"}}})
@@ -150,7 +147,7 @@ class MongoDataRepository(object):
         logging.debug("options: %s", options)
         collection_name = self.collection
         logging.debug("collection_name: %s", collection_name)
-        collection = self.mongo.db[collection_name]
+        collection = self.db.db[collection_name]
         logging.debug("collection: %s", collection)
         query_filter = options.filters
         if not deleted:
@@ -185,7 +182,7 @@ class MongoDataRepository(object):
         """
         collection_name = self.collection
         logging.debug("collection_name: %s", collection_name)
-        collection = self.mongo.db[collection_name]
+        collection = self.db.db[collection_name]
         logging.debug("collection: %s", collection)
 
         id_value = record_id
@@ -216,7 +213,7 @@ class MongoDataRepository(object):
         """
         collection_name = self.collection
         logging.debug("collection_name: %s", collection_name)
-        collection = self.mongo.db[collection_name]
+        collection = self.db.db[collection_name]
         logging.debug("collection: %s", collection)
 
         id_value = record_id
