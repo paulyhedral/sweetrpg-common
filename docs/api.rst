@@ -18,15 +18,18 @@ Utility functions that may be useful anywhere.
 .. autofunction:: sweetrpg_db.utils.to_datetime
 .. autofunction:: sweetrpg_db.utils.to_timestamp
 
-Database Classes
-----------------
+Schema Classes
+--------------
 
-Classes used for database model and schema objects.
+Classes used for object schemas.
 
-.. autoclass:: sweetrpg_db.schema.base.BaseDBSchema
+.. autoclass:: sweetrpg_db.schema.base.BaseSchema
    :members:
    :undoc-members:
    :private-members:
+
+Exceptions
+----------
 
 .. autoclass:: sweetrpg_db.exceptions.ObjectNotFound
 

@@ -8,7 +8,7 @@ from marshmallow import pre_load
 from datetime import datetime
 
 
-class BaseDBSchema(Schema):
+class BaseSchema(Schema):
     """Base type for schema classes.
     Inherit from this type for database schema objects to gain ID and date conversion
     pre-load functionality, and to have ID and audit fields setup automatically.
