@@ -128,7 +128,7 @@ class MongoDataRepository(object):
 
         logging.info("Fetching %s record for ID %s...", self.model_class, id_value)
         # record = collection.find_one(filter=query_filter)
-        record = self.document_class.objects.get(query_filter)
+        record = self.document_class.objects.raw(query_filter).first()
         logging.debug("record: %s", record)
         if not record:
             raise ObjectNotFound(f"Record not found where for '{record_id}'")
