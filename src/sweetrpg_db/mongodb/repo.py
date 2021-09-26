@@ -10,6 +10,8 @@ import datetime
 from .options import QueryOptions
 from pymongo.write_concern import WriteConcern
 import logging
+from mongoengine.queryset import QuerySet
+from mongoengine import Document
 
 
 class MongoDataRepository(object):
@@ -22,17 +24,19 @@ class MongoDataRepository(object):
 
         :param kwargs: Keyword arguments for setting up the repository connection.
         :key model: The class of the model for this connection.
-        :key document: The class of the document used for deserializing objects from the database.
+        :key document: The class of the document for this connection.
         :key db: A :class:`PyMongo` object used for connecting to the database.
         """
         self.model_class = kwargs["model"]
         self.document_class = kwargs["document"]
-        self.db = kwargs.get("db")
-        # self.collection = getattr(self.model_class, "__tablename__")
+        # self.db = kwargs.get("db")
+        # print(dir(self.document_class))
+        self.collection = kwargs["collection"] # self.document_class.meta["collection"]
 
     def __repr__(self):
         return f"""\
-        <MongoDataRepository(document_class={self.document_class})>
+        <MongoDataRepository(model_class={self.model_class},
+                             document_class={self.document_class})>
         """
 
     def _handle_value(self, value):
@@ -78,124 +82,105 @@ class MongoDataRepository(object):
 
         return modified_record
 
-    def create(self, data: dict):
+    def _adjust_sort(self, tuple) -> str:
+        if tuple[1] < 0:
+            return f"-{tuple[0]}"
+        return f"+{tuple[0]}"
+
+    def create(self, data: dict) -> Document:
         """Inserts a new object in the database with the data provided.
 
         :param dict data: The data for the object
         :return MongoModel: The inserted document.
         """
         logging.debug("self: %s, data: %s", self, data)
-        # collection_name = self.collection
-        # logging.debug("collection_name: %s", collection_name)
-        # collection = self.db.db[collection_name]
-        # logging.debug("collection: %s", collection)
 
-        logging.info("Creating new %s record with data %s...", self.document_class, data)
-        document = self.document_class(**data)
-        logging.debug("self: %s, document: %s", self, document)
+        # collection = self.db[self.collection]
+        logging.info("Creating new %s record with data %s...", self.document_class.__name__, data)
+        doc = self.document_class(**data)
+        logging.debug("self: %s, doc: %s", self, doc)
         # result = collection.with_options(write_concern=WriteConcern(w=3, j=True)).insert_one(data)
-        result = document.save()
-        logging.debug("result: %s, document: %s", result, document)
-        # if result is None:
-        #     return None
-        # record_id = result.inserted_id
-        # logging.debug("record_id: %s", record_id)
+        doc.validate()
+        saved_doc = doc.save()
+        logging.debug("saved_doc: %s", saved_doc)
 
-        return document
+        return saved_doc
 
-    def get(self, record_id: str, deleted: bool = False):
+    def get(self, record_id: str, deleted: bool = False) -> Document:
         """Fetch a single record from the database.
 
         :param str record_id: The identifier for the record to fetch. This value is compared against the attribute specified in `id_attr`.
         :param bool deleted: Include "deleted" objects in the query
-        :return object: An instance of the object type from `model_class`.
+        :return Document: An instance of the object type from `model_class`.
         """
-        # logging.debug("record_id: %s", record_id)
-        # collection_name = self.collection
-        # logging.debug("collection_name: %s", collection_name)
-        # collection = self.db.db[collection_name]
-        # logging.debug("collection: %s", collection)
+        logging.debug("record_id: %s", record_id)
         id_value = record_id
-        if isinstance(id_value, str):
-            # if self.id_attr == "_id":
-            #     logging.debug("ID attribute is '_id', converting to ObjectId")
-            id_value = ObjectId(record_id)
+        # if isinstance(id_value, str):
+        #     # if self.id_attr == "_id":
+        #     #     logging.debug("ID attribute is '_id', converting to ObjectId")
+        #     id_value = ObjectId(record_id)
         logging.debug("id_value: %s", id_value)
         query_filter = {"_id": id_value}
         if not deleted:
             query_filter.update({"deleted_at": {"$not": {"$type": "date"}}})
         logging.debug("query_filter: %s", query_filter)
 
-        logging.info("Fetching %s record for ID %s...", self.model_class, id_value)
-        # record = collection.find_one(filter=query_filter)
-        record = self.document_class.objects.raw(query_filter).first()
+        logging.info("Fetching %s record for ID %s...", self.document_class.__name__, id_value)
+        record = self.document_class.objects(__raw__=query_filter).first() # QuerySet(self.document_class, self.collection)
+        # print(f"qs: {qs}")
+        # logging.debug("self: %s, qs: %s", self, qs)
+        # record = None # qs.get(**query_filter)
         logging.debug("record: %s", record)
-        if not record:
-            raise ObjectNotFound(f"Record not found where for '{record_id}'")
+        # if not record:
+        #     raise ObjectNotFound(f"Record not found where for '{record_id}'")
 
-        modified_record = self._modify_record(record)
-        logging.debug("modified_record: %s", modified_record)
-        # schema = self.schema_class()
-        # logging.debug("schema: %s", schema)
-        # obj = schema.load(modified_record)
-        # logging.debug("obj: %s", obj)
-        return modified_record
+        return record
 
-    def query(self, options: QueryOptions, deleted: bool = False):
+    def query(self, options: QueryOptions, deleted: bool = False) -> list:
         """Perform a query for objects in the database.
 
         :param QueryOptions options: (Optional) Options specifying limits to the query's returned results
+        :return list: Returns a list of Document-subclass instances matching the query.
         """
         logging.debug("options: %s", options)
-        # collection_name = self.collection
-        # logging.debug("collection_name: %s", collection_name)
-        # collection = self.db.db[collection_name]
-        # logging.debug("collection: %s", collection)
-        query_filter = options.filters
+        query_filter = options.filters or {}
         if not deleted:
             query_filter.update({"deleted_at": {"$not": {"$type": "date"}}})
         logging.debug("query_filter: %s", query_filter)
 
-        logging.info("Searching for %s records matching filter %s...", self.model_class, query_filter)
-        query_set = self.document_class.objects
-        query_set.skip(options.skip)
-        query_set.limit(options.limit)
-        query_set.order_by(options.sort)
-        records = query_set.all()
-        # records = collection.find(
-        #     filter=query_filter,
-        #     projection=options.projection,
-        #     skip=options.skip,
-        #     limit=options.skip,
-        #     sort=options.sort,
-        # )
+        logging.info("Searching for %s records matching filter %s...", self.document_class, query_filter)
+        records = self.document_class.objects(__raw__=query_filter).order_by(*list(map(self._adjust_sort, options.sort))).skip(options.skip).limit(options.limit).only(*options.projection)
+        # qs = QuerySet(self.document_class, self.collection)
+        # if options.skip > 0:
+        #     qs.skip(options.skip)
+        # if options.limit > 0:
+        #     qs.limit(options.limit)
+        # if len(options.projection) > 0:
+        #     qs.only(*options.projection)
+        # if len(options.sort) > 0:
+        #     qs.order_by(*options.sort)
+        # print(f"qs: {qs}")
+        # logging.debug("self: %s, qs: %s", self, qs)
+        # query_set = self.document_class.objects.skip(options.skip).limit(options.limit).order_by(options.sort).only(*options.projection)
+        # records = list(qs.all())  # .all()
         logging.debug("records: %s", records)
 
-        modified_records = map(self._modify_record, records)
-        logging.debug("modified_records: %s", modified_records)
-        # schema = self.schema_class()
-        # logging.debug("schema: %s", schema)
-        # objects = list(map(schema.load, modified_records))
-        # logging.debug("objects: %s", objects)
+        # modified_records = map(self._modify_record, records)
+        # logging.debug("modified_records: %s", modified_records)
 
-        return modified_records
+        return list(records)
 
-    def update(self, record_id: str, update: dict):
+    def update(self, record_id: str, update: dict, deleted: bool = False) -> Document:
         """Update the specified record.
 
         :param str record_id: The ID of the record to update.
         :param dict update: The data to update for the record.
-        :return bool: A boolean indicating whether the record was able to be updated.
+        :return Document: The update version of the object.
         """
-        collection_name = self.collection
-        logging.debug("collection_name: %s", collection_name)
-        collection = self.db.db[collection_name]
-        logging.debug("collection: %s", collection)
-
         id_value = record_id
-        if self.id_attr == "_id":
-            logging.debug("ID attribute is '_id', converting to ObjectId")
-            id_value = ObjectId(record_id)
+        # if self.id_attr == "_id":
+        #     logging.debug("ID attribute is '_id', converting to ObjectId")
+        #     id_value = ObjectId(record_id)
         obj_filter = {"_id": id_value}
         logging.debug("obj_filter: %s", obj_filter)
 
@@ -203,41 +188,49 @@ class MongoDataRepository(object):
         logging.debug("update_oper: %s", update_oper)
 
         logging.info("Marking %s record %s deleted...", self.model_class, id_value)
-        result = collection.update_one(filter=obj_filter, update=update_oper)
-        logging.debug("result: %s", result)
+        query_filter = {"_id": id_value}
+        if not deleted:
+            query_filter.update({"deleted_at": {"$not": {"$type": "date"}}})
+        logging.debug("query_filter: %s", query_filter)
+        # doc = self.document_class.objects.raw(query_filter).update(update_oper)
+        doc = self.get(record_id, deleted=deleted)
+        # if doc is None:
+        #     logging.info("No document found to update for record ID %s.", record_id)
+        #     return False
+        logging.debug("doc: %s", doc)
+        doc.update(**update)
 
-        if result.matched_count == 1 and result.modified_count == 1:
-            return True
+        return doc
 
-        return False
-
-    def delete(self, record_id: str):
+    def delete(self, record_id: str, actually: bool = False) -> bool:
         """'Delete' the specified record. Deletion is accomplished by setting the `deleted_at` field to the current
             timestamp, so that queries for the object will ignore it.
 
         :param str record_id: The record ID of the object to delete. This can be a string or :class:`bson.objectid.ObjectId`.
+        :param bool actually: Actually delete the record instead of just marking it "deleted".
         :return bool: A boolean indicating whether the record was able to be marked deleted.
+        :raises DoesNotExist:
         """
-        collection_name = self.collection
-        logging.debug("collection_name: %s", collection_name)
-        collection = self.db.db[collection_name]
-        logging.debug("collection: %s", collection)
-
         id_value = record_id
-        if self.id_attr == "_id":
-            logging.debug("ID attribute is '_id', converting to ObjectId")
-            id_value = ObjectId(record_id)
-        obj_filter = {"_id": id_value}
-        logging.debug("obj_filter: %s", obj_filter)
-        now = datetime.datetime.utcnow()
-        update_oper = {"$set": {"deleted_at": now}}
-        logging.debug("update_oper: %s", update_oper)
+        # if self.id_attr == "_id":
+        #     logging.debug("ID attribute is '_id', converting to ObjectId")
+        #     id_value = ObjectId(record_id)
+        doc = self.get(record_id)
+        # if doc is None:
+        #     logging.info("No document found to delete for record ID %s.", record_id)
+        #     return False
 
-        logging.info("Marking %s record %s deleted...", self.model_class, id_value)
-        result = collection.update_one(filter=obj_filter, update=update_oper)
-        logging.debug("result: %s", result)
+        if actually:
+            logging.info("Deleting %s record %s...", self.model_class.__name__, id_value)
+            doc.delete()
+            return True
+        else:
+            logging.info("Marking %s record %s deleted...", self.model_class.__name__, id_value)
+            now = datetime.datetime.utcnow()
+            doc.deleted_at = now
+            updated_doc = doc.save()
+            logging.debug("updated_doc: %s", updated_doc)
 
-        if result.matched_count == 1 and result.modified_count == 1:
             return True
 
         return False

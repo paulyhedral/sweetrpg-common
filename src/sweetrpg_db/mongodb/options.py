@@ -38,14 +38,7 @@ class QueryOptions(object):
         "dsc": -1,
     }
 
-    def __init__(
-        self,
-        filters: dict = None,
-        projection: list = None,
-        skip: int = 0,
-        limit: int = 0,
-        sort: list = None,
-    ):
+    def __init__(self, filters: dict = {}, projection: list = [], skip: int = 0, limit: int = 0, sort: list = []):
         """Initialize the QueryOptions object.
         :param dict filters: A dictionary of filters to apply to the query.
         :param list projection: A list of attribute names to include in the returned result. If `None`, all attributes are returned.

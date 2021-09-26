@@ -25,8 +25,6 @@ charset-normalizer==2.0.4
 click==8.0.1
     # via
     #   black
-    #   flask
-    #   flask-pymodm
     #   pip-tools
 coverage==5.5
     # via pytest-cov
@@ -35,25 +33,18 @@ coverage-badge==1.0.1
 distlib==0.3.2
     # via virtualenv
 dnspython==1.16.0
-    # via pymongo
-docopt==0.6.2
-    # via snooty-lextudio
+    # via
+    #   -r ./tests.in
+    #   pymongo
 docutils==0.16
     # via
     #   rstcheck
-    #   snooty-lextudio
     #   sphinx
     #   sphinx-tabs
-fett==0.3.2
-    # via snooty-lextudio
 filelock==3.0.12
     # via
     #   tox
     #   virtualenv
-flask==2.0.1
-    # via flask-pymodm
-git+https://github.com/sweetrpg/flask-pymodm.git
-    # via -r ./pkg.in
 greenlet==1.1.1
     # via -r ./tests.in
 idna==3.2
@@ -62,25 +53,16 @@ imagesize==1.2.0
     # via sphinx
 iniconfig==1.1.1
     # via pytest
-itsdangerous==2.0.1
-    # via
-    #   flask
-    #   flask-pymodm
 jinja2==3.0.1
-    # via
-    #   flask
-    #   flask-pymodm
-    #   sphinx
+    # via sphinx
 markupsafe==2.0.1
-    # via
-    #   flask-pymodm
-    #   jinja2
+    # via jinja2
 marshmallow==3.13.0
+    # via -r ./pkg.in
+mongoengine==0.23.1
     # via -r ./pkg.in
 mypy-extensions==0.4.3
     # via black
-networkx==2.6.3
-    # via snooty-lextudio
 packaging==21.0
     # via
     #   pallets-sphinx-themes
@@ -111,43 +93,35 @@ pygments==2.10.0
     # via
     #   sphinx
     #   sphinx-tabs
-pymodm==0.4.3
-    # via flask-pymodm
 pymongo[srv,tls]==3.11.4
     # via
-    #   flask-pymodm
-    #   pymodm
-    #   snooty-lextudio
+    #   -r ./tests.in
+    #   mongoengine
 pyparsing==2.4.7
     # via packaging
 pytest==6.2.5
     # via
     #   -r ./tests.in
     #   pytest-cov
+    #   pytest-ordering
 pytest-cov==2.12.1
+    # via -r ./tests.in
+pytest-ordering==0.6
     # via -r ./tests.in
 python-dotenv==0.19.0
     # via -r ./tests.in
-python-jsonrpc-server==0.3.4
-    # via snooty-lextudio
 pytz==2021.1
     # via babel
-pyyaml==5.4.1
-    # via snooty-lextudio
 regex==2021.8.28
     # via black
 requests==2.26.0
-    # via
-    #   snooty-lextudio
-    #   sphinx
+    # via sphinx
 rstcheck==3.3.1
     # via -r ./docs.in
 six==1.16.0
     # via
     #   tox
     #   virtualenv
-snooty-lextudio==1.11.4.dev0
-    # via -r ./docs.in
 snowballstemmer==2.1.0
     # via sphinx
 sphinx==4.2.0
@@ -179,7 +153,6 @@ toml==0.10.2
     # via
     #   pytest
     #   pytest-cov
-    #   snooty-lextudio
     #   tox
 tomli==1.2.1
     # via
@@ -188,21 +161,11 @@ tomli==1.2.1
 tox==3.24.3
     # via -r ./tests.in
 typing-extensions==3.10.0.2
-    # via
-    #   black
-    #   snooty-lextudio
-ujson==1.35
-    # via python-jsonrpc-server
+    # via black
 urllib3==1.26.6
     # via requests
 virtualenv==20.7.2
     # via tox
-watchdog==1.0.2
-    # via snooty-lextudio
-werkzeug==2.0.1
-    # via
-    #   flask
-    #   flask-pymodm
 wheel==0.37.0
     # via pip-tools
 

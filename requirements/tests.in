@@ -1,9 +1,13 @@
 -r pkg.in
 pytest
 pytest-cov
+pytest-ordering
 asgiref
 blinker
 greenlet
 python-dotenv
 tox
 coverage-badge
+python-dotenv
+dnspython<2.0.0
+PyMongo[tls,srv]
