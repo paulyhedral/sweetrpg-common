@@ -76,6 +76,13 @@ pygments_style = "flask_theme_support.FlaskyStyle"
 todo_include_todos = True
 
 autoclass_content = "both"
+autodoc_default_options = {
+    'members': True,
+    'member-order': 'bysource',
+    'special-members': '__init__',
+    'undoc-members': True,
+    'exclude-members': '__weakref__'
+}
 
 
 # -- Options for HTML output -------------------------------------------------

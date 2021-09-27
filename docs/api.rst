@@ -36,6 +36,8 @@ Exceptions
 MongoDB Repository
 ------------------
 
+These are some classes for interacting with MongoDB.
+
 .. autoclass:: sweetrpg_db.mongodb.options.QueryOptions
    :members:
    :undoc-members:
