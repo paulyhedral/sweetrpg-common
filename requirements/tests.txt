@@ -58,8 +58,11 @@ pytest==6.2.5
     # via
     #   -r ./tests.in
     #   pytest-cov
+    #   pytest-env
     #   pytest-ordering
 pytest-cov==2.12.1
+    # via -r ./tests.in
+pytest-env==0.6.2
     # via -r ./tests.in
 pytest-ordering==0.6
     # via -r ./tests.in

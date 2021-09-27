@@ -2,6 +2,7 @@
 pytest
 pytest-cov
 pytest-ordering
+pytest-env
 asgiref
 blinker
 greenlet
