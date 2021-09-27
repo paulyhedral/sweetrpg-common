@@ -50,6 +50,10 @@ def test_options_set_by_querystring():
     o.set_projection(from_querystring=projection)
     o.set_sort(from_querystring=sort)
     assert o is not None
+    assert isinstance(o.filters, dict)
+    assert isinstance(o.filters['field'], dict)
+    assert o.projection[0] == "field"
+    assert isinstance(o.sort, list)
     # TODO: more assertions
     # assert o.filters == {"field": {"op": "value"}}
     # assert o.projection == projection
