@@ -59,7 +59,7 @@ jobs:
         run: tox -e ${{ matrix.tox }}
       - name: publish
         env:
-          pypi_token: ${{ secrets.PYPI_TOKEN }}
+          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
         run: |
           pip install python-semantic-release
           git config --global user.email "bot@sweetrpg.com"
