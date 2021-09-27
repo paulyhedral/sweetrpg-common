@@ -57,14 +57,6 @@ jobs:
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
         run: tox -e ${{ matrix.tox }}
-      - name: publish
-        env:
-          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
-        run: |
-          pip install python-semantic-release
-          git config --global user.email "bot@sweetrpg.com"
-          git config --global user.name "GitHub Actions Bot"
-          semantic-release -v DEBUG --patch publish
 
   docs:
     needs: [tests]
@@ -83,3 +75,20 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/_build/html
+
+  publish:
+    needs: [tests]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - name: publish
+        env:
+          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+        run: |
+          pip install python-semantic-release
+          git config --global user.email "bot@sweetrpg.com"
+          git config --global user.name "GitHub Actions Bot"
+          semantic-release -v DEBUG --patch publish
