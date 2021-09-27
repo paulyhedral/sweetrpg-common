@@ -56,6 +56,8 @@ jobs:
       # - name: lint
       #   run: black --check -t py39 --diff --color src
       - name: tests
+        env:
+          MONGODB_URI: { { secrets.MONGODB_URI } }
         run: tox -e ${{ matrix.tox }}
       # - name: publish-badge
       #   run: |
