@@ -31,6 +31,8 @@ Classes used for object schemas.
 Exceptions
 ----------
 
+Common exceptions.
+
 .. autoclass:: sweetrpg_db.exceptions.ObjectNotFound
 
 MongoDB Repository
