@@ -75,7 +75,7 @@ pathspec==0.9.0
     # via black
 pep517==0.11.0
     # via pip-tools
-pip-tools==6.2.0
+pip-tools==6.3.0
     # via -r ./dev.in
 platformdirs==2.3.0
     # via
@@ -158,7 +158,7 @@ tomli==1.2.1
     # via
     #   black
     #   pep517
-tox==3.24.3
+tox==3.24.4
     # via -r ./tests.in
 typing-extensions==3.10.0.2
     # via black

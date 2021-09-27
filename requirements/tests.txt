@@ -74,7 +74,7 @@ toml==0.10.2
     #   pytest
     #   pytest-cov
     #   tox
-tox==3.24.3
+tox==3.24.4
     # via -r ./tests.in
 virtualenv==20.7.2
     # via tox
