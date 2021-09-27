@@ -53,9 +53,12 @@ jobs:
           key: pip|${{ runner.os }}|${{ matrix.python }}|${{ hashFiles('setup.py') }}|${{ hashFiles('requirements/*.txt') }}
       - name: install-utils
         run: pip install tox
-      - name: tests
+      - name: write-env-file
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
+        run: |
+          printenv > tests/.env
+      - name: tests
         run: |
           tox -e ${{ matrix.tox }}
 
