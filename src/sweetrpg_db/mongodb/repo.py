@@ -15,8 +15,7 @@ from mongoengine import Document
 
 
 class MongoDataRepository(object):
-    """A repository class for interacting with a MongoDB database.
-    """
+    """A repository class for interacting with a MongoDB database."""
 
     def __init__(self, **kwargs):
         """Create a MongoDB repository instance.
@@ -30,7 +29,7 @@ class MongoDataRepository(object):
         self.document_class = kwargs["document"]
         # self.db = kwargs.get("db")
         # print(dir(self.document_class))
-        self.collection = kwargs["collection"] # self.document_class.meta["collection"]
+        self.collection = kwargs["collection"]  # self.document_class.meta["collection"]
 
     def __repr__(self):
         return f"""\
@@ -90,7 +89,7 @@ class MongoDataRepository(object):
         """Inserts a new object in the database with the data provided.
 
         :param dict data: The data for the object
-        :return MongoModel: The inserted document.
+        :return Document: The inserted document.
         """
         logging.debug("self: %s, data: %s", self, data)
 
@@ -125,7 +124,7 @@ class MongoDataRepository(object):
         logging.debug("query_filter: %s", query_filter)
 
         logging.info("Fetching %s record for ID %s...", self.document_class.__name__, id_value)
-        record = self.document_class.objects(__raw__=query_filter).first() # QuerySet(self.document_class, self.collection)
+        record = self.document_class.objects(__raw__=query_filter).first()  # QuerySet(self.document_class, self.collection)
         # print(f"qs: {qs}")
         # logging.debug("self: %s, qs: %s", self, qs)
         # record = None # qs.get(**query_filter)
@@ -148,7 +147,13 @@ class MongoDataRepository(object):
         logging.debug("query_filter: %s", query_filter)
 
         logging.info("Searching for %s records matching filter %s...", self.document_class, query_filter)
-        records = self.document_class.objects(__raw__=query_filter).order_by(*list(map(self._adjust_sort, options.sort))).skip(options.skip).limit(options.limit).only(*options.projection)
+        records = (
+            self.document_class.objects(__raw__=query_filter)
+            .order_by(*list(map(self._adjust_sort, options.sort)))
+            .skip(options.skip)
+            .limit(options.limit)
+            .only(*options.projection)
+        )
         # qs = QuerySet(self.document_class, self.collection)
         # if options.skip > 0:
         #     qs.skip(options.skip)
