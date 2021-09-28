@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = "Paul Schifferer <dm@sweetrpg.com>"
-"""
+"""Query options for accessing MongoDB.
 """
 
 

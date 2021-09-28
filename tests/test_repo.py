@@ -19,14 +19,21 @@ MONGODB_URI = os.environ["MONGODB_URI"]
 
 
 class TestModel(object):
+    """
+    """
     pass
 
 
 class TestSchema(BaseSchema):
+    """
+    """
     pass
 
 
 class TestDocument(Document):
+    """
+    """
+
     meta = {
         "collection": "exams",
         "indexes": [{"name":"exam_name", "fields":["name"]}],
