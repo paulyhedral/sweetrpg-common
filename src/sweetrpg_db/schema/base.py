@@ -19,7 +19,7 @@ class BaseSchema(Schema):
 
     @pre_load
     def handle_id(self, in_data, **kwargs):
-        """
+        """Converts _id into id
         """
         in_data["id"] = in_data.get("_id") or in_data.get("id")
         return in_data

@@ -53,20 +53,25 @@ jobs:
           key: pip|${{ runner.os }}|${{ matrix.python }}|${{ hashFiles('setup.py') }}|${{ hashFiles('requirements/*.txt') }}
       - name: install-utils
         run: pip install tox
-      - name: add-ip-address
-        run: |
-          ip=$(curl -Ls https://api.ipify.org/)
-          echo $ip
-          curl -vL --user '${{ secrets.ATLAS_PUBLIC_KEY }}:${{ secrets.ATLAS_PRIVATE_KEY }}' --digest --include \
-               --header "Accept: application/json" --header "Content-Type: application/json" \
-               --request POST 'https://cloud.mongodb.com/api/atlas/v1.0/groups/${{ secrets.ATLAS_GROUP_ID }}/accessList' \
-               --data "[{\"ipAddress\":\"${ip}\",\"comment\":\"GitHub Actions\"}]"
-          sleep 10
+      # - name: add-ip-address
+      #   run: |
+      #     ip=$(curl -Ls https://api.ipify.org/)
+      #     echo $ip
+      #     curl -vL --user '${{ secrets.ATLAS_PUBLIC_KEY }}:${{ secrets.ATLAS_PRIVATE_KEY }}' --digest --include \
+      #          --header "Accept: application/json" --header "Content-Type: application/json" \
+      #          --request POST 'https://cloud.mongodb.com/api/atlas/v1.0/groups/${{ secrets.ATLAS_GROUP_ID }}/accessList' \
+      #          --data "[{\"ipAddress\":\"${ip}\",\"comment\":\"GitHub Actions\"}]"
+      #     sleep 10
       - name: setup-env
         env:
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          # MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          MONGODB_URI: "mongodb://localhost:27017/unit-tests"
         run: |
           printenv > tests/.env
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.6.0
+        with:
+          mongodb-version: "4.4"
       - name: tests
         run: |
           tox -e ${{ matrix.tox }}
