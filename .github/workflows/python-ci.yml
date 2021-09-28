@@ -58,6 +58,7 @@ jobs:
           ip=$(curl -Ls https://api.ipify.org/)
           echo $ip
           curl -vL --user '${{ secrets.ATLAS_PUBLIC_KEY }}:${{ secrets.ATLAS_PRIVATE_KEY }}' --digest --include \
+               --header "Accept: application/json" --header "Content-Type: application/json" \
                --request POST 'https://cloud.mongodb.com/api/atlas/v1.0/groups/${{ secrets.ATLAS_GROUP_ID }}/accessList' \
                --data "[{\"ipAddress\":\"${ip}\",\"comment\":\"GitHub Actions\"}]"
           sleep 10
