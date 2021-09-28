@@ -53,12 +53,19 @@ jobs:
           key: pip|${{ runner.os }}|${{ matrix.python }}|${{ hashFiles('setup.py') }}|${{ hashFiles('requirements/*.txt') }}
       - name: install-utils
         run: pip install tox
+      - name: add-ip-address
+        run: |
+          ip=$(curl -Ls https://api.ipify.org/)
+          echo $ip
+          curl -vL --user '${{ secrets.ATLAS_PUBLIC_KEY }}:${{ secrets.ATLAS_PRIVATE_KEY }}' --digest --include \
+               --request POST 'https://cloud.mongodb.com/api/atlas/v1.0/groups/${{ secrets.ATLAS_GROUP_ID }}/accessList' \
+               --data "[{\"ipAddress\":\"${ip}\",\"comment\":\"GitHub Actions\"}]"
+          sleep 10
       - name: setup-env
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
         run: |
           printenv > tests/.env
-          curl -v -L https://api.ipify.org/
       - name: tests
         run: |
           tox -e ${{ matrix.tox }}

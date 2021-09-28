@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = "Paul Schifferer <dm@sweetrpg.com>"
-"""
+"""MongoDB repository module.
 """
 
 from ..exceptions import ObjectNotFound
@@ -15,8 +15,7 @@ from mongoengine import Document
 
 
 class MongoDataRepository(object):
-    """
-    A repository class for interacting with a MongoDB database.
+    """A repository class for interacting with a MongoDB database.
     """
 
     def __init__(self, **kwargs):
