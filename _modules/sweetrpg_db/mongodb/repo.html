@@ -1,0 +1,342 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sweetrpg_db.mongodb.repo &#8212; SweetRPG DB 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for sweetrpg_db.mongodb.repo</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Paul Schifferer &lt;dm@sweetrpg.com&gt;&quot;</span>
+<span class="sd">&quot;&quot;&quot;MongoDB repository module.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">ObjectNotFound</span>
+<span class="kn">from</span> <span class="nn">bson.objectid</span> <span class="kn">import</span> <span class="n">ObjectId</span>
+<span class="kn">from</span> <span class="nn">bson.timestamp</span> <span class="kn">import</span> <span class="n">Timestamp</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">.options</span> <span class="kn">import</span> <span class="n">QueryOptions</span>
+<span class="kn">from</span> <span class="nn">pymongo.write_concern</span> <span class="kn">import</span> <span class="n">WriteConcern</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">mongoengine.queryset</span> <span class="kn">import</span> <span class="n">QuerySet</span>
+<span class="kn">from</span> <span class="nn">mongoengine</span> <span class="kn">import</span> <span class="n">Document</span>
+
+
+<div class="viewcode-block" id="MongoDataRepository"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository">[docs]</a><span class="k">class</span> <span class="nc">MongoDataRepository</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A repository class for interacting with a MongoDB database.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="MongoDataRepository.__init__"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create a MongoDB repository instance.</span>
+
+<span class="sd">        :param kwargs: Keyword arguments for setting up the repository connection.</span>
+<span class="sd">        :key model: The class of the model for this connection.</span>
+<span class="sd">        :key document: The class of the document for this connection.</span>
+<span class="sd">        :key db: A :class:`PyMongo` object used for connecting to the database.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_class</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">document_class</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;document&quot;</span><span class="p">]</span>
+        <span class="c1"># self.db = kwargs.get(&quot;db&quot;)</span>
+        <span class="c1"># print(dir(self.document_class))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">collection</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;collection&quot;</span><span class="p">]</span> <span class="c1"># self.document_class.meta[&quot;collection&quot;]</span></div>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">        &lt;MongoDataRepository(model_class=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model_class</span><span class="si">}</span><span class="s2">,</span>
+<span class="s2">                             document_class=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">document_class</span><span class="si">}</span><span class="s2">)&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="MongoDataRepository._handle_value"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository._handle_value">[docs]</a>    <span class="k">def</span> <span class="nf">_handle_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Convert a value to a string.</span>
+
+<span class="sd">        :param any value: The value to convert. Supports :class:`bson.objectid.ObjectId`,</span>
+<span class="sd">            :class:`datetime.datetime`, :class:`bson.timestamp.Timestamp`, and lists of</span>
+<span class="sd">            any of those types.</span>
+<span class="sd">        :return str: A string of the specified value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ObjectId</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;converting ObjectId(&#39;</span><span class="si">%s</span><span class="s2">&#39;)...&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;converting datetime value &#39;</span><span class="si">%s</span><span class="s2">&#39;...&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">d</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(</span><span class="n">timespec</span><span class="o">=</span><span class="s2">&quot;milliseconds&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Timestamp</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;converting Timestamp &#39;</span><span class="si">%s</span><span class="s2">&#39;...&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">as_datetime</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;converting list &#39;</span><span class="si">%s</span><span class="s2">&#39;...&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_handle_value</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;returning unprocessed value &#39;</span><span class="si">%s</span><span class="s2">&#39;...&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="MongoDataRepository._modify_record"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository._modify_record">[docs]</a>    <span class="k">def</span> <span class="nf">_modify_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Modify a record by converting any values to strings, and renaming the internal &#39;_id&#39;</span>
+<span class="sd">            field to &#39;id&#39;.</span>
+
+<span class="sd">        :param dict record: The record to modify.</span>
+<span class="sd">        :return dict: The modified record.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">modified_record</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">record</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;k: </span><span class="si">%s</span><span class="s2">, v: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="s2">&quot;_id&quot;</span><span class="p">:</span>
+                <span class="n">k</span> <span class="o">=</span> <span class="s2">&quot;id&quot;</span>
+            <span class="n">modified_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_value</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="n">modified_record</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">modified_value</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;k: </span><span class="si">%s</span><span class="s2">, v (modified): </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">modified_value</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">modified_record</span></div>
+
+<div class="viewcode-block" id="MongoDataRepository._adjust_sort"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository._adjust_sort">[docs]</a>    <span class="k">def</span> <span class="nf">_adjust_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;-</span><span class="si">{</span><span class="nb">tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;+</span><span class="si">{</span><span class="nb">tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+<div class="viewcode-block" id="MongoDataRepository.create"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Inserts a new object in the database with the data provided.</span>
+
+<span class="sd">        :param dict data: The data for the object</span>
+<span class="sd">        :return MongoModel: The inserted document.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;self: </span><span class="si">%s</span><span class="s2">, data: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+        <span class="c1"># collection = self.db[self.collection]</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Creating new </span><span class="si">%s</span><span class="s2"> record with data </span><span class="si">%s</span><span class="s2">...&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">document_class</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">document_class</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;self: </span><span class="si">%s</span><span class="s2">, doc: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">)</span>
+        <span class="c1"># result = collection.with_options(write_concern=WriteConcern(w=3, j=True)).insert_one(data)</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+        <span class="n">saved_doc</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;saved_doc: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">saved_doc</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">saved_doc</span></div>
+
+<div class="viewcode-block" id="MongoDataRepository.get"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">deleted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Fetch a single record from the database.</span>
+
+<span class="sd">        :param str record_id: The identifier for the record to fetch. This value is compared against the attribute specified in `id_attr`.</span>
+<span class="sd">        :param bool deleted: Include &quot;deleted&quot; objects in the query</span>
+<span class="sd">        :return Document: An instance of the object type from `model_class`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;record_id: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">record_id</span><span class="p">)</span>
+        <span class="n">id_value</span> <span class="o">=</span> <span class="n">record_id</span>
+        <span class="c1"># if isinstance(id_value, str):</span>
+        <span class="c1">#     # if self.id_attr == &quot;_id&quot;:</span>
+        <span class="c1">#     #     logging.debug(&quot;ID attribute is &#39;_id&#39;, converting to ObjectId&quot;)</span>
+        <span class="c1">#     id_value = ObjectId(record_id)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;id_value: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">id_value</span><span class="p">)</span>
+        <span class="n">query_filter</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">id_value</span><span class="p">}</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">deleted</span><span class="p">:</span>
+            <span class="n">query_filter</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;deleted_at&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;$not&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;$type&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">}}})</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;query_filter: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">query_filter</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetching </span><span class="si">%s</span><span class="s2"> record for ID </span><span class="si">%s</span><span class="s2">...&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">document_class</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">id_value</span><span class="p">)</span>
+        <span class="n">record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">document_class</span><span class="o">.</span><span class="n">objects</span><span class="p">(</span><span class="n">__raw__</span><span class="o">=</span><span class="n">query_filter</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span> <span class="c1"># QuerySet(self.document_class, self.collection)</span>
+        <span class="c1"># print(f&quot;qs: {qs}&quot;)</span>
+        <span class="c1"># logging.debug(&quot;self: %s, qs: %s&quot;, self, qs)</span>
+        <span class="c1"># record = None # qs.get(**query_filter)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;record: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">record</span><span class="p">)</span>
+        <span class="c1"># if not record:</span>
+        <span class="c1">#     raise ObjectNotFound(f&quot;Record not found where for &#39;{record_id}&#39;&quot;)</span>
+
+        <span class="k">return</span> <span class="n">record</span></div>
+
+<div class="viewcode-block" id="MongoDataRepository.query"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository.query">[docs]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">QueryOptions</span><span class="p">,</span> <span class="n">deleted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Perform a query for objects in the database.</span>
+
+<span class="sd">        :param QueryOptions options: (Optional) Options specifying limits to the query&#39;s returned results</span>
+<span class="sd">        :return list: Returns a list of Document-subclass instances matching the query.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;options: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="n">query_filter</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">filters</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">deleted</span><span class="p">:</span>
+            <span class="n">query_filter</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;deleted_at&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;$not&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;$type&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">}}})</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;query_filter: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">query_filter</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Searching for </span><span class="si">%s</span><span class="s2"> records matching filter </span><span class="si">%s</span><span class="s2">...&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">document_class</span><span class="p">,</span> <span class="n">query_filter</span><span class="p">)</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">document_class</span><span class="o">.</span><span class="n">objects</span><span class="p">(</span><span class="n">__raw__</span><span class="o">=</span><span class="n">query_filter</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="o">*</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjust_sort</span><span class="p">,</span> <span class="n">options</span><span class="o">.</span><span class="n">sort</span><span class="p">)))</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">skip</span><span class="p">)</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">limit</span><span class="p">)</span><span class="o">.</span><span class="n">only</span><span class="p">(</span><span class="o">*</span><span class="n">options</span><span class="o">.</span><span class="n">projection</span><span class="p">)</span>
+        <span class="c1"># qs = QuerySet(self.document_class, self.collection)</span>
+        <span class="c1"># if options.skip &gt; 0:</span>
+        <span class="c1">#     qs.skip(options.skip)</span>
+        <span class="c1"># if options.limit &gt; 0:</span>
+        <span class="c1">#     qs.limit(options.limit)</span>
+        <span class="c1"># if len(options.projection) &gt; 0:</span>
+        <span class="c1">#     qs.only(*options.projection)</span>
+        <span class="c1"># if len(options.sort) &gt; 0:</span>
+        <span class="c1">#     qs.order_by(*options.sort)</span>
+        <span class="c1"># print(f&quot;qs: {qs}&quot;)</span>
+        <span class="c1"># logging.debug(&quot;self: %s, qs: %s&quot;, self, qs)</span>
+        <span class="c1"># query_set = self.document_class.objects.skip(options.skip).limit(options.limit).order_by(options.sort).only(*options.projection)</span>
+        <span class="c1"># records = list(qs.all())  # .all()</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;records: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">records</span><span class="p">)</span>
+
+        <span class="c1"># modified_records = map(self._modify_record, records)</span>
+        <span class="c1"># logging.debug(&quot;modified_records: %s&quot;, modified_records)</span>
+
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">records</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MongoDataRepository.update"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">update</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">deleted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Update the specified record.</span>
+
+<span class="sd">        :param str record_id: The ID of the record to update.</span>
+<span class="sd">        :param dict update: The data to update for the record.</span>
+<span class="sd">        :return Document: The update version of the object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">id_value</span> <span class="o">=</span> <span class="n">record_id</span>
+        <span class="c1"># if self.id_attr == &quot;_id&quot;:</span>
+        <span class="c1">#     logging.debug(&quot;ID attribute is &#39;_id&#39;, converting to ObjectId&quot;)</span>
+        <span class="c1">#     id_value = ObjectId(record_id)</span>
+        <span class="n">obj_filter</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">id_value</span><span class="p">}</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;obj_filter: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">obj_filter</span><span class="p">)</span>
+
+        <span class="n">update_oper</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;$set&quot;</span><span class="p">:</span> <span class="n">update</span><span class="p">}</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;update_oper: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">update_oper</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Marking </span><span class="si">%s</span><span class="s2"> record </span><span class="si">%s</span><span class="s2"> deleted...&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_class</span><span class="p">,</span> <span class="n">id_value</span><span class="p">)</span>
+        <span class="n">query_filter</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">id_value</span><span class="p">}</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">deleted</span><span class="p">:</span>
+            <span class="n">query_filter</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;deleted_at&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;$not&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;$type&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">}}})</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;query_filter: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">query_filter</span><span class="p">)</span>
+        <span class="c1"># doc = self.document_class.objects.raw(query_filter).update(update_oper)</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">record_id</span><span class="p">,</span> <span class="n">deleted</span><span class="o">=</span><span class="n">deleted</span><span class="p">)</span>
+        <span class="c1"># if doc is None:</span>
+        <span class="c1">#     logging.info(&quot;No document found to update for record ID %s.&quot;, record_id)</span>
+        <span class="c1">#     return False</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;doc: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">doc</span><span class="p">)</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">update</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">doc</span></div>
+
+<div class="viewcode-block" id="MongoDataRepository.delete"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">actually</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;&#39;Delete&#39; the specified record. Deletion is accomplished by setting the `deleted_at` field to the current</span>
+<span class="sd">            timestamp, so that queries for the object will ignore it.</span>
+
+<span class="sd">        :param str record_id: The record ID of the object to delete. This can be a string or :class:`bson.objectid.ObjectId`.</span>
+<span class="sd">        :param bool actually: Actually delete the record instead of just marking it &quot;deleted&quot;.</span>
+<span class="sd">        :return bool: A boolean indicating whether the record was able to be marked deleted.</span>
+<span class="sd">        :raises DoesNotExist:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">id_value</span> <span class="o">=</span> <span class="n">record_id</span>
+        <span class="c1"># if self.id_attr == &quot;_id&quot;:</span>
+        <span class="c1">#     logging.debug(&quot;ID attribute is &#39;_id&#39;, converting to ObjectId&quot;)</span>
+        <span class="c1">#     id_value = ObjectId(record_id)</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">record_id</span><span class="p">)</span>
+        <span class="c1"># if doc is None:</span>
+        <span class="c1">#     logging.info(&quot;No document found to delete for record ID %s.&quot;, record_id)</span>
+        <span class="c1">#     return False</span>
+
+        <span class="k">if</span> <span class="n">actually</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Deleting </span><span class="si">%s</span><span class="s2"> record </span><span class="si">%s</span><span class="s2">...&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_class</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">id_value</span><span class="p">)</span>
+            <span class="n">doc</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Marking </span><span class="si">%s</span><span class="s2"> record </span><span class="si">%s</span><span class="s2"> deleted...&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_class</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">id_value</span><span class="p">)</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
+            <span class="n">doc</span><span class="o">.</span><span class="n">deleted_at</span> <span class="o">=</span> <span class="n">now</span>
+            <span class="n">updated_doc</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;updated_doc: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">updated_doc</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="kc">False</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">SweetRPG DB</a></h1>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=sweetrpg&repo=db&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Library</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Paul Schifferer.
+      
+    </div>
+
+    
+    <a href="https://github.com/sweetrpg/db" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>
