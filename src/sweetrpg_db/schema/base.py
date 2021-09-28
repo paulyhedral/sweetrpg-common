@@ -26,7 +26,7 @@ class BaseSchema(Schema):
 
     @pre_load
     def handle_dates(self, in_data, **kwargs):
-        """
+        """Converts date/time value to an ISO formatted string.
         """
         for k in ["created_at", "updated_at", "deleted_at"]:
             if isinstance(in_data.get(k), datetime):
