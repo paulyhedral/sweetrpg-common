@@ -36,6 +36,9 @@ def to_datetime(value, attr=None, data=None, **kwargs):
         logging.debug("to_datetime: str")
         value = datetime.fromisoformat(value)
         return value
+    elif isinstance(value, dict):
+        logging.debug("to_datetime: dict")
+        value = value["$date"]
 
     logging.debug("value (converted?): %s", value)
     return datetime.fromtimestamp(float(value))

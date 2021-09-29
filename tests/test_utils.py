@@ -40,6 +40,13 @@ def test_str_to_datetime():
     assert v.microsecond == 4000
 
 
+def test_dict_to_datetime():
+    now = 28800000
+    s = {"$date": now}
+    v = to_datetime(s)
+    assert isinstance(v, datetime)
+
+
 def test_float_to_datetime():
     t = time.time()
     v = to_datetime(t)
