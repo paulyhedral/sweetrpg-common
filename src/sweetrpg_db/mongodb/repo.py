@@ -113,10 +113,8 @@ class MongoDataRepository(object):
         """
         logging.debug("record_id: %s", record_id)
         id_value = record_id
-        # if isinstance(id_value, str):
-        #     # if self.id_attr == "_id":
-        #     #     logging.debug("ID attribute is '_id', converting to ObjectId")
-        #     id_value = ObjectId(record_id)
+        if isinstance(id_value, str):
+            id_value = ObjectId(record_id)
         logging.debug("id_value: %s", id_value)
         query_filter = {"_id": id_value}
         if not deleted:
@@ -182,6 +180,8 @@ class MongoDataRepository(object):
         :return Document: The update version of the object.
         """
         id_value = record_id
+        if isinstance(id_value, str):
+            id_value = ObjectId(record_id)
         # if self.id_attr == "_id":
         #     logging.debug("ID attribute is '_id', converting to ObjectId")
         #     id_value = ObjectId(record_id)
@@ -216,9 +216,8 @@ class MongoDataRepository(object):
         :raises DoesNotExist:
         """
         id_value = record_id
-        # if self.id_attr == "_id":
-        #     logging.debug("ID attribute is '_id', converting to ObjectId")
-        #     id_value = ObjectId(record_id)
+        if isinstance(id_value, str):
+            id_value = ObjectId(record_id)
         doc = self.get(record_id)
         # if doc is None:
         #     logging.info("No document found to delete for record ID %s.", record_id)
