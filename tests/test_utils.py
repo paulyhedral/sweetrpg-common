@@ -41,10 +41,17 @@ def test_str_to_datetime():
 
 
 def test_dict_to_datetime():
-    now = 28800000
+    now = 1627801200000
     s = {"$date": now}
     v = to_datetime(s)
     assert isinstance(v, datetime)
+    assert v.year == 2021
+    assert v.month == 8
+    assert v.day == 1
+    assert v.hour == 7
+    assert v.minute == 0
+    assert v.second == 0
+    assert v.microsecond == 0
 
 
 def test_float_to_datetime():
