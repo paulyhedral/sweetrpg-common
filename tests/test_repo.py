@@ -19,24 +19,23 @@ MONGODB_URI = os.environ["MONGODB_URI"]
 
 
 class TestModel(object):
-    """
-    """
+    """ """
+
     pass
 
 
 class TestSchema(BaseSchema):
-    """
-    """
+    """ """
+
     pass
 
 
 class TestDocument(Document):
-    """
-    """
+    """ """
 
     meta = {
         "collection": "exams",
-        "indexes": [{"name":"exam_name", "fields":["name"]}],
+        "indexes": [{"name": "exam_name", "fields": ["name"]}],
         "strict": False,
         "db_alias": "unit-tests",
     }
@@ -66,6 +65,7 @@ def test_create(request):
     data = {"name": "Pop Quiz", "score": 99}
     doc = request.session.repo.create(data)
     assert doc is not None
+    assert doc.id is not None
     assert isinstance(doc, TestDocument)
     request.session.object_ids.append(doc.pk)
 

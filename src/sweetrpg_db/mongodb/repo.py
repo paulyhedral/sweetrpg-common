@@ -99,10 +99,10 @@ class MongoDataRepository(object):
         logging.debug("self: %s, doc: %s", self, doc)
         # result = collection.with_options(write_concern=WriteConcern(w=3, j=True)).insert_one(data)
         doc.validate()
-        saved_doc = doc.save()
-        logging.debug("saved_doc: %s", saved_doc)
+        doc.save()
+        logging.debug("saved_doc: %s", doc)
 
-        return saved_doc
+        return doc
 
     def get(self, record_id: str, deleted: bool = False) -> Document:
         """Fetch a single record from the database.
