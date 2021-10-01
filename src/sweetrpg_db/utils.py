@@ -38,7 +38,7 @@ def to_datetime(value, attr=None, data=None, **kwargs):
         return value
     elif isinstance(value, dict):
         logging.debug("to_datetime: dict")
-        value = value["$date"] * 1000
+        value = value["$date"]
 
     logging.debug("value (converted?): %s", value)
     return datetime.fromtimestamp(float(value))
