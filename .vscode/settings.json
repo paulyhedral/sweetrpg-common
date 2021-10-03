@@ -1,5 +1,21 @@
 {
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "restructuredtext.confPath": "${workspaceFolder}/docs"
+    "restructuredtext.confPath": "${workspaceFolder}/docs",
+    "restructuredtext.languageServer.disabled": true,
+    "python.linting.pylintEnabled": true,
+    "restructuredtext.pythonRecommendation.disabled": true,
+    "python.pythonPath": "${env:HOME}/.virtualenvs/sweetrpg-db/bin/python",
+    "python.languageServer": "Pylance",
+    "python.linting.enabled": true,
+    "python.formatting.autopep8Path": "${env:HOME}/.virtualenvs/sweetrpg-db/bin/autopep8",
+    "python.formatting.blackPath": "${env:HOME}/.virtualenvs/sweetrpg-db/bin/black",
+    "python.formatting.yapfPath": "${env:HOME}/.virtualenvs/sweetrpg-db/bin/yapf",
+    "python.linting.banditPath": "${env:HOME}/.virtualenvs/sweetrpg-db/bin/bandit",
+    "python.linting.flake8Path": "${env:HOME}/.virtualenvs/sweetrpg-db/bin/flake8",
+    "python.linting.mypyPath": "${env:HOME}/.virtualenvs/sweetrpg-db/bin/mypy",
+    "python.linting.pycodestylePath": "${env:HOME}/.virtualenvs/sweetrpg-db/bin/pycodestyle",
+    "python.linting.pydocstylePath": "${env:HOME}/.virtualenvs/sweetrpg-db/bin/pydocstyle",
+    "python.linting.pylintPath": "${env:HOME}/.virtualenvs/sweetrpg-db/bin/pylint",
+    "python.formatting.provider": "black"
 }

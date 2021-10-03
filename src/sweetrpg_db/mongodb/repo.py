@@ -97,7 +97,7 @@ class MongoDataRepository(object):
         # result = collection.with_options(write_concern=WriteConcern(w=3, j=True)).insert_one(data)
         doc.validate()
         doc.save()
-        logging.debug("saved_doc: %s", doc)
+        logging.debug("saved doc: %s", doc)
 
         return doc
 
