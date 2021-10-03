@@ -30,7 +30,7 @@ greenlet==1.1.1
     # via -r ./tests.in
 iniconfig==1.1.1
     # via pytest
-marshmallow==3.13.0
+marshmallow==3.13
     # via -r ./pkg.in
 mongoengine==0.23.1
     # via -r ./pkg.in

@@ -1,2 +1,2 @@
-marshmallow
+marshmallow==3.13
 mongoengine

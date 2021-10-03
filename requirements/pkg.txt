@@ -4,7 +4,7 @@
 #
 #    pip-compile ./pkg.in
 #
-marshmallow==3.13.0
+marshmallow==3.13
     # via -r ./pkg.in
 mongoengine==0.23.1
     # via -r ./pkg.in
