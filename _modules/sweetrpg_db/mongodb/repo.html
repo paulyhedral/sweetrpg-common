@@ -65,10 +65,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">collection</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;collection&quot;</span><span class="p">]</span>  <span class="c1"># self.document_class.meta[&quot;collection&quot;]</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
-<span class="s2">        &lt;MongoDataRepository(model_class=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model_class</span><span class="si">}</span><span class="s2">,</span>
-<span class="s2">                             document_class=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">document_class</span><span class="si">}</span><span class="s2">)&gt;</span>
-<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;MongoDataRepository(model_class=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model_class</span><span class="si">}</span><span class="s2">, document_class=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">document_class</span><span class="si">}</span><span class="s2">, collection=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="si">}</span><span class="s2">)&gt;&quot;</span>
 
 <div class="viewcode-block" id="MongoDataRepository._handle_value"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository._handle_value">[docs]</a>    <span class="k">def</span> <span class="nf">_handle_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Convert a value to a string.</span>
