@@ -32,10 +32,7 @@ class MongoDataRepository(object):
         self.collection = kwargs["collection"]  # self.document_class.meta["collection"]
 
     def __repr__(self):
-        return f"""\
-        <MongoDataRepository(model_class={self.model_class},
-                             document_class={self.document_class})>
-        """
+        return f"<MongoDataRepository(model_class={self.model_class}, document_class={self.document_class}, collection={self.collection})>"
 
     def _handle_value(self, value):
         """Convert a value to a string.
