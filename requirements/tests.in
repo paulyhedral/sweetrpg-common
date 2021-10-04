@@ -1,14 +1,14 @@
 -r pkg.in
-pytest
-pytest-cov
-pytest-ordering
-pytest-env
 asgiref
 blinker
-greenlet
+coverage-badge
+dnspython<2.0.0
+greenlet==1.1.2
+PyMongo[tls,srv]
+pytest
+pytest-cov==3.0
+pytest-env
+pytest-ordering
+python-dotenv
 python-dotenv
 tox==3.24.4
-coverage-badge
-python-dotenv
-dnspython<2.0.0
-PyMongo[tls,srv]

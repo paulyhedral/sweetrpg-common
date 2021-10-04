@@ -12,7 +12,7 @@ backports.entry-points-selectable==1.1.0
     # via virtualenv
 blinker==1.4
     # via -r ./tests.in
-coverage==5.5
+coverage[toml]==5.5
     # via pytest-cov
 coverage-badge==1.0.1
     # via -r ./tests.in
@@ -26,7 +26,7 @@ filelock==3.0.12
     # via
     #   tox
     #   virtualenv
-greenlet==1.1.1
+greenlet==1.1.2
     # via -r ./tests.in
 iniconfig==1.1.1
     # via pytest
@@ -63,7 +63,7 @@ pytest==6.2.5
     #   pytest-cov
     #   pytest-env
     #   pytest-ordering
-pytest-cov==2.12.1
+pytest-cov==3.0
     # via -r ./tests.in
 pytest-env==0.6.2
     # via -r ./tests.in
@@ -79,8 +79,8 @@ sweetrpg-model-core @ git+https://github.com/sweetrpg/model-core.git@develop
     # via -r ./pkg.in
 toml==0.10.2
     # via
+    #   coverage
     #   pytest
-    #   pytest-cov
     #   tox
 tox==3.24.4
     # via -r ./tests.in
