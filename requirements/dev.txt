@@ -7,7 +7,7 @@
 alabaster==0.7.12
     # via sphinx
 asgiref==3.4.1
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 attrs==21.2.0
     # via pytest
 babel==2.9.1
@@ -15,9 +15,9 @@ babel==2.9.1
 backports.entry-points-selectable==1.1.0
     # via virtualenv
 black==21.9b0
-    # via -r ./dev.in
+    # via -r requirements/dev.in
 blinker==1.4
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 certifi==2021.5.30
     # via requests
 charset-normalizer==2.0.4
@@ -26,15 +26,15 @@ click==8.0.1
     # via
     #   black
     #   pip-tools
-coverage==5.5
+coverage[toml]==5.5
     # via pytest-cov
 coverage-badge==1.0.1
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 distlib==0.3.2
     # via virtualenv
 dnspython==1.16.0
     # via
-    #   -r ./tests.in
+    #   -r requirements/tests.in
     #   pymongo
 docutils==0.16
     # via
@@ -46,7 +46,7 @@ filelock==3.0.12
     #   tox
     #   virtualenv
 greenlet==1.1.1
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 idna==3.2
     # via requests
 imagesize==1.2.0
@@ -59,10 +59,10 @@ markupsafe==2.0.1
     # via jinja2
 marshmallow==3.13
     # via
-    #   -r ./pkg.in
+    #   -r requirements/pkg.in
     #   sweetrpg-model-core
 mongoengine==0.23.1
-    # via -r ./pkg.in
+    # via -r requirements/pkg.in
 mypy-extensions==0.4.3
     # via black
 packaging==21.0
@@ -72,13 +72,13 @@ packaging==21.0
     #   sphinx
     #   tox
 pallets-sphinx-themes==2.0.1
-    # via -r ./docs.in
+    # via -r requirements/docs.in
 pathspec==0.9.0
     # via black
 pep517==0.11.0
     # via pip-tools
 pip-tools==6.3.0
-    # via -r ./dev.in
+    # via -r requirements/dev.in
 platformdirs==2.3.0
     # via
     #   black
@@ -97,25 +97,25 @@ pygments==2.10.0
     #   sphinx-tabs
 pymongo[srv,tls]==3.12.0
     # via
-    #   -r ./tests.in
+    #   -r requirements/tests.in
     #   mongoengine
     #   sweetrpg-model-core
 pyparsing==2.4.7
     # via packaging
 pytest==6.2.5
     # via
-    #   -r ./tests.in
+    #   -r requirements/tests.in
     #   pytest-cov
     #   pytest-env
     #   pytest-ordering
-pytest-cov==2.12.1
-    # via -r ./tests.in
+pytest-cov==3.0.0
+    # via -r requirements/tests.in
 pytest-env==0.6.2
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 pytest-ordering==0.6
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 python-dotenv==0.19.0
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 pytz==2021.1
     # via babel
 regex==2021.8.28
@@ -123,7 +123,7 @@ regex==2021.8.28
 requests==2.26.0
     # via sphinx
 rstcheck==3.3.1
-    # via -r ./docs.in
+    # via -r requirements/docs.in
 six==1.16.0
     # via
     #   tox
@@ -132,15 +132,15 @@ snowballstemmer==2.1.0
     # via sphinx
 sphinx==4.2.0
     # via
-    #   -r ./docs.in
+    #   -r requirements/docs.in
     #   pallets-sphinx-themes
     #   sphinx-issues
     #   sphinx-tabs
     #   sphinxcontrib-log-cabinet
 sphinx-issues==1.2.0
-    # via -r ./docs.in
+    # via -r requirements/docs.in
 sphinx-tabs==3.2.0
-    # via -r ./docs.in
+    # via -r requirements/docs.in
 sphinxcontrib-applehelp==1.0.2
     # via sphinx
 sphinxcontrib-devhelp==1.0.2
@@ -150,24 +150,24 @@ sphinxcontrib-htmlhelp==2.0.0
 sphinxcontrib-jsmath==1.0.1
     # via sphinx
 sphinxcontrib-log-cabinet==1.0.1
-    # via -r ./docs.in
+    # via -r requirements/docs.in
 sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
-sweetrpg-model-core @ git+https://github.com/sweetrpg/model-core.git@develop
-    # via -r ./pkg.in
+git+https://github.com/sweetrpg/model-core.git@develop
+    # via -r requirements/pkg.in
 toml==0.10.2
     # via
+    #   coverage
     #   pytest
-    #   pytest-cov
     #   tox
 tomli==1.2.1
     # via
     #   black
     #   pep517
 tox==3.24.4
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 typing-extensions==3.10.0.2
     # via black
 urllib3==1.26.6
