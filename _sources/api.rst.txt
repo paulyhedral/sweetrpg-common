@@ -10,24 +10,6 @@ DB library. These are common functions and classes that other SweetRPG
 packages make use of.
 
 
-Utilities
----------
-
-Utility functions that may be useful anywhere.
-
-.. autofunction:: sweetrpg_db.utils.to_datetime
-.. autofunction:: sweetrpg_db.utils.to_timestamp
-
-Schema Classes
---------------
-
-Classes used for object schemas.
-
-.. autoclass:: sweetrpg_db.schema.base.BaseSchema
-   :members:
-   :undoc-members:
-   :private-members:
-
 Exceptions
 ----------
 
