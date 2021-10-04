@@ -12,6 +12,8 @@ certifi==2021.5.30
     # via requests
 charset-normalizer==2.0.4
     # via requests
+dnspython==1.16.0
+    # via pymongo
 docutils==0.16
     # via
     #   rstcheck
@@ -26,7 +28,9 @@ jinja2==3.0.1
 markupsafe==2.0.1
     # via jinja2
 marshmallow==3.13
-    # via -r ./pkg.in
+    # via
+    #   -r ./pkg.in
+    #   sweetrpg-model-core
 mongoengine==0.23.1
     # via -r ./pkg.in
 packaging==21.0
@@ -39,8 +43,10 @@ pygments==2.10.0
     # via
     #   sphinx
     #   sphinx-tabs
-pymongo==3.11.4
-    # via mongoengine
+pymongo[srv,tls]==3.12.0
+    # via
+    #   mongoengine
+    #   sweetrpg-model-core
 pyparsing==2.4.7
     # via packaging
 pytz==2021.1
@@ -76,6 +82,8 @@ sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
+sweetrpg-model-core @ git+https://github.com/sweetrpg/model-core.git@develop
+    # via -r ./pkg.in
 urllib3==1.26.6
     # via requests
 

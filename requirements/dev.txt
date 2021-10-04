@@ -58,7 +58,9 @@ jinja2==3.0.1
 markupsafe==2.0.1
     # via jinja2
 marshmallow==3.13
-    # via -r ./pkg.in
+    # via
+    #   -r ./pkg.in
+    #   sweetrpg-model-core
 mongoengine==0.23.1
     # via -r ./pkg.in
 mypy-extensions==0.4.3
@@ -93,10 +95,11 @@ pygments==2.10.0
     # via
     #   sphinx
     #   sphinx-tabs
-pymongo[srv,tls]==3.11.4
+pymongo[srv,tls]==3.12.0
     # via
     #   -r ./tests.in
     #   mongoengine
+    #   sweetrpg-model-core
 pyparsing==2.4.7
     # via packaging
 pytest==6.2.5
@@ -152,6 +155,8 @@ sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
+sweetrpg-model-core @ git+https://github.com/sweetrpg/model-core.git@develop
+    # via -r ./pkg.in
 toml==0.10.2
     # via
     #   pytest

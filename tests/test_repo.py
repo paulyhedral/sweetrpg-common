@@ -5,7 +5,8 @@ __author__ = "Paul Schifferer <dm@sweetrpg.com>"
 
 from sweetrpg_db.mongodb.repo import MongoDataRepository
 from sweetrpg_db.mongodb.options import QueryOptions
-from sweetrpg_db.schema.base import BaseSchema
+from sweetrpg_model_core.schema.base import BaseSchema
+from sweetrpg_model_core.model.base import BaseModel
 from pymongo import IndexModel, MongoClient
 import os
 from dotenv import load_dotenv
@@ -18,7 +19,7 @@ load_dotenv()
 MONGODB_URI = os.environ["MONGODB_URI"]
 
 
-class TestModel(object):
+class TestModel(BaseModel):
     """ """
 
     pass

@@ -31,7 +31,9 @@ greenlet==1.1.1
 iniconfig==1.1.1
     # via pytest
 marshmallow==3.13
-    # via -r ./pkg.in
+    # via
+    #   -r ./pkg.in
+    #   sweetrpg-model-core
 mongoengine==0.23.1
     # via -r ./pkg.in
 packaging==21.0
@@ -52,6 +54,7 @@ pymongo[srv,tls]==3.12.0
     # via
     #   -r ./tests.in
     #   mongoengine
+    #   sweetrpg-model-core
 pyparsing==2.4.7
     # via packaging
 pytest==6.2.5
@@ -72,6 +75,8 @@ six==1.16.0
     # via
     #   tox
     #   virtualenv
+sweetrpg-model-core @ git+https://github.com/sweetrpg/model-core.git@develop
+    # via -r ./pkg.in
 toml==0.10.2
     # via
     #   pytest

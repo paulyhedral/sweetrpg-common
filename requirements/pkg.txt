@@ -4,9 +4,17 @@
 #
 #    pip-compile ./pkg.in
 #
+dnspython==1.16.0
+    # via pymongo
 marshmallow==3.13
-    # via -r ./pkg.in
+    # via
+    #   -r ./pkg.in
+    #   sweetrpg-model-core
 mongoengine==0.23.1
     # via -r ./pkg.in
-pymongo==3.12.0
-    # via mongoengine
+pymongo[srv,tls]==3.12.0
+    # via
+    #   mongoengine
+    #   sweetrpg-model-core
+sweetrpg-model-core @ git+https://github.com/sweetrpg/model-core.git@develop
+    # via -r ./pkg.in
