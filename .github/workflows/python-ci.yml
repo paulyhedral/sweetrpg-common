@@ -100,5 +100,6 @@ jobs:
             - name: publish
               uses: sweetrpg/python-semantic-release@master
               with:
+                  bump: "--patch"
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   pypi_token: ${{ secrets.PYPI_TOKEN }}
