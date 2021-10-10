@@ -75,7 +75,7 @@ six==1.16.0
     # via
     #   tox
     #   virtualenv
-sweetrpg-model-core==0.0.9
+sweetrpg-model-core @ git+https://github.com/sweetrpg/model-core.git@develop
     # via -r ./pkg.in
 toml==0.10.2
     # via
