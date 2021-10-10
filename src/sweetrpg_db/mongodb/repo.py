@@ -88,12 +88,12 @@ class MongoDataRepository(object):
         :param dict data: The data for the object
         :return Document: The inserted document.
         """
-        logging.debug("self: %s, data: %s", self, data)
+        logging.debug("data: %s", data)
 
         # collection = self.db[self.collection]
         logging.info("Creating new %s record with data %s...", self.document_class.__name__, data)
         doc = self.document_class(**data)
-        logging.debug("self: %s, doc: %s", self, doc)
+        logging.debug("doc: %s", doc)
         # result = collection.with_options(write_concern=WriteConcern(w=3, j=True)).insert_one(data)
         doc.validate()
         doc.save()
@@ -121,7 +121,7 @@ class MongoDataRepository(object):
         logging.info("Fetching %s record for ID %s...", self.document_class.__name__, id_value)
         record = self.document_class.objects(__raw__=query_filter).first()  # QuerySet(self.document_class, self.collection)
         # print(f"qs: {qs}")
-        # logging.debug("self: %s, qs: %s", self, qs)
+        # logging.debug("qs: %s", qs)
         # record = None # qs.get(**query_filter)
         logging.debug("record: %s", record)
         # if not record:
@@ -159,7 +159,7 @@ class MongoDataRepository(object):
         # if len(options.sort) > 0:
         #     qs.order_by(*options.sort)
         # print(f"qs: {qs}")
-        # logging.debug("self: %s, qs: %s", self, qs)
+        # logging.debug("qs: %s", qs)
         # query_set = self.document_class.objects.skip(options.skip).limit(options.limit).order_by(options.sort).only(*options.projection)
         # records = list(qs.all())  # .all()
         logging.debug("records: %s", records)
