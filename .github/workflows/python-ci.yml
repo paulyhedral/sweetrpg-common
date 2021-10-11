@@ -11,16 +11,6 @@ on:
             - tox.ini
             - "requirements/**"
             - "docs/**"
-    pull_request:
-        branches: [develop]
-        paths:
-            - "src/**"
-            - "tests/**"
-            - setup.cfg
-            - setup.py
-            - tox.ini
-            - "requirements/**"
-            - "docs/**"
 
 jobs:
     tests:
