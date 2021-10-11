@@ -5,37 +5,39 @@
 #    pip-compile ./tests.in
 #
 asgiref==3.4.1
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 attrs==21.2.0
     # via pytest
 backports.entry-points-selectable==1.1.0
     # via virtualenv
 blinker==1.4
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 coverage[toml]==5.5
-    # via pytest-cov
-coverage-badge==1.0.1
-    # via -r ./tests.in
+    # via
+    #   coverage-badge
+    #   pytest-cov
+coverage-badge==1.0.2
+    # via -r requirements/tests.in
 distlib==0.3.2
     # via virtualenv
 dnspython==1.16.0
     # via
-    #   -r ./tests.in
+    #   -r requirements/tests.in
     #   pymongo
 filelock==3.0.12
     # via
     #   tox
     #   virtualenv
 greenlet==1.1.2
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 iniconfig==1.1.1
     # via pytest
 marshmallow==3.13
     # via
-    #   -r ./pkg.in
+    #   -r requirements/pkg.in
     #   sweetrpg-model-core
 mongoengine==0.23.1
-    # via -r ./pkg.in
+    # via -r requirements/pkg.in
 packaging==21.0
     # via
     #   pytest
@@ -52,37 +54,37 @@ py==1.10.0
     #   tox
 pymongo[srv,tls]==3.12.0
     # via
-    #   -r ./tests.in
+    #   -r requirements/tests.in
     #   mongoengine
     #   sweetrpg-model-core
 pyparsing==2.4.7
     # via packaging
 pytest==6.2.5
     # via
-    #   -r ./tests.in
+    #   -r requirements/tests.in
     #   pytest-cov
     #   pytest-env
     #   pytest-ordering
 pytest-cov==3.0
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 pytest-env==0.6.2
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 pytest-ordering==0.6
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 python-dotenv==0.19.0
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 six==1.16.0
     # via
     #   tox
     #   virtualenv
 sweetrpg-model-core @ git+https://github.com/sweetrpg/model-core.git@develop
-    # via -r ./pkg.in
+    # via -r requirements/pkg.in
 toml==0.10.2
     # via
     #   coverage
     #   pytest
     #   tox
 tox==3.24.4
-    # via -r ./tests.in
+    # via -r requirements/tests.in
 virtualenv==20.7.2
     # via tox
