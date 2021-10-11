@@ -27,8 +27,10 @@ click==8.0.1
     #   black
     #   pip-tools
 coverage[toml]==5.5
-    # via pytest-cov
-coverage-badge==1.0.1
+    # via
+    #   coverage-badge
+    #   pytest-cov
+coverage-badge==1.0.2
     # via -r ./tests.in
 distlib==0.3.2
     # via virtualenv
@@ -77,7 +79,7 @@ pathspec==0.9.0
     # via black
 pep517==0.11.0
     # via pip-tools
-pip-tools==6.3.0
+pip-tools==6.3.1
     # via -r ./dev.in
 platformdirs==2.3.0
     # via
@@ -114,7 +116,7 @@ pytest-env==0.6.2
     # via -r ./tests.in
 pytest-ordering==0.6
     # via -r ./tests.in
-python-dotenv==0.19.0
+python-dotenv==0.19.1
     # via -r ./tests.in
 pytz==2021.1
     # via babel
