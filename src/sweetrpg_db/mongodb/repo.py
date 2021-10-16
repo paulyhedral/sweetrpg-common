@@ -77,10 +77,10 @@ class MongoDataRepository(object):
 
         return modified_record
 
-    def _adjust_sort(self, tuple) -> str:
-        if tuple[1] < 0:
-            return f"-{tuple[0]}"
-        return f"+{tuple[0]}"
+    def _adjust_sort(self, sort: tuple) -> str:
+        if sort[1] < 0:
+            return f"-{sort[0]}"
+        return f"+{sort[0]}"
 
     def create(self, data: dict) -> Document:
         """Inserts a new object in the database with the data provided.
@@ -174,6 +174,7 @@ class MongoDataRepository(object):
 
         :param str record_id: The ID of the record to update.
         :param dict update: The data to update for the record.
+        :param bool deleted: Indicates whether the update operation should look for deleted records.
         :return Document: The update version of the object.
         """
         id_value = record_id
