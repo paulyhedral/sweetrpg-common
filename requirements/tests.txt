@@ -54,7 +54,7 @@ py==1.10.0
     #   tox
 pymongo[srv,tls]==3.12.0
     # via
-    #   -r requirements/tests.in
+    #   -r requirements/pkg.in
     #   mongoengine
     #   sweetrpg-model-core
 pyparsing==2.4.7
