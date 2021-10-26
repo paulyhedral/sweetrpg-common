@@ -1,4 +1,4 @@
 marshmallow==3.14.0
 mongoengine
-git+https://github.com/sweetrpg/model-core.git@develop
+sweetrpg-model-core
 PyMongo[tls,srv]==3.12
