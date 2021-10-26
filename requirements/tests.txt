@@ -32,7 +32,7 @@ greenlet==1.1.2
     # via -r requirements/tests.in
 iniconfig==1.1.1
     # via pytest
-marshmallow==3.14
+marshmallow==3.14.0
     # via
     #   -r requirements/pkg.in
     #   sweetrpg-model-core
