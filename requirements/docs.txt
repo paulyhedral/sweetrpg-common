@@ -13,7 +13,9 @@ certifi==2021.10.8
 charset-normalizer==2.0.7
     # via requests
 dnspython==2.1.0
-    # via pymongo
+    # via
+    #   -r requirements/pkg.in
+    #   pymongo
 docutils==0.16
     # via
     #   rstcheck
@@ -83,7 +85,7 @@ sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
-sweetrpg-model-core==0.0.22
+sweetrpg-model-core==0.0.24
     # via -r requirements/pkg.in
 urllib3==1.26.7
     # via requests

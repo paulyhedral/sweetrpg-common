@@ -5,7 +5,9 @@
 #    pip-compile requirements/pkg.in
 #
 dnspython==2.1.0
-    # via pymongo
+    # via
+    #   -r requirements/pkg.in
+    #   pymongo
 marshmallow==3.14.0
     # via
     #   -r requirements/pkg.in
@@ -17,5 +19,5 @@ pymongo[srv,tls]==3.12.1
     #   -r requirements/pkg.in
     #   mongoengine
     #   sweetrpg-model-core
-sweetrpg-model-core==0.0.22
+sweetrpg-model-core==0.0.24
     # via -r requirements/pkg.in

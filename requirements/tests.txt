@@ -20,9 +20,9 @@ coverage-badge==1.0.2
     # via -r requirements/tests.in
 distlib==0.3.3
     # via virtualenv
-dnspython==1.16.0
+dnspython==2.1.0
     # via
-    #   -r requirements/tests.in
+    #   -r requirements/pkg.in
     #   pymongo
 filelock==3.3.2
     # via
@@ -48,7 +48,7 @@ pluggy==1.0.0
     # via
     #   pytest
     #   tox
-py==1.10.0
+py==1.11.0
     # via
     #   pytest
     #   tox
@@ -77,7 +77,7 @@ six==1.16.0
     # via
     #   tox
     #   virtualenv
-sweetrpg-model-core==0.0.22
+sweetrpg-model-core==0.0.24
     # via -r requirements/pkg.in
 toml==0.10.2
     # via
@@ -86,5 +86,5 @@ toml==0.10.2
     #   tox
 tox==3.24.4
     # via -r requirements/tests.in
-virtualenv==20.9.0
+virtualenv==20.10.0
     # via tox

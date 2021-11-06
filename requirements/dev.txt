@@ -34,9 +34,9 @@ coverage-badge==1.0.2
     # via -r requirements/tests.in
 distlib==0.3.3
     # via virtualenv
-dnspython==1.16.0
+dnspython==2.1.0
     # via
-    #   -r requirements/tests.in
+    #   -r requirements/pkg.in
     #   pymongo
 docutils==0.16
     # via
@@ -89,7 +89,7 @@ pluggy==1.0.0
     # via
     #   pytest
     #   tox
-py==1.10.0
+py==1.11.0
     # via
     #   pytest
     #   tox
@@ -120,7 +120,7 @@ python-dotenv==0.19.1
     # via -r requirements/tests.in
 pytz==2021.3
     # via babel
-regex==2021.10.23
+regex==2021.11.2
     # via black
 requests==2.26.0
     # via sphinx
@@ -157,7 +157,7 @@ sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
-sweetrpg-model-core==0.0.22
+sweetrpg-model-core==0.0.24
     # via -r requirements/pkg.in
 toml==0.10.2
     # via
@@ -174,7 +174,7 @@ typing-extensions==3.10.0.2
     # via black
 urllib3==1.26.7
     # via requests
-virtualenv==20.9.0
+virtualenv==20.10.0
     # via tox
 wheel==0.37.0
     # via pip-tools
