@@ -95,7 +95,6 @@ jobs:
     notify:
         needs: [publish]
         runs-on: ubuntu-latest
-        concurrency: notify
         strategy:
             fail-fast: false
             matrix:
@@ -113,6 +112,6 @@ jobs:
         steps:
             - uses: juztcode/repo-ditpatch-action@v1
               with:
-                event-type: db-published
-                token: ${{ secrets.REPO_ACCESS_TOKEN }}
-                repository: sweetrpg/${{ matrix.repo }}
+                  event-type: db-published
+                  token: ${{ secrets.REPO_ACCESS_TOKEN }}
+                  repository: sweetrpg/${{ matrix.repo }}
