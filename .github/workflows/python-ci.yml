@@ -14,7 +14,7 @@ on:
 
 jobs:
     tests:
-        name: ${{ matrix.name }}
+        name: Tests - ${{ matrix.name }}
         runs-on: ${{ matrix.os }}
         strategy:
             fail-fast: false
