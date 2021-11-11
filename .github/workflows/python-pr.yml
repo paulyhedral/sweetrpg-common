@@ -26,13 +26,6 @@ jobs:
                           os: ubuntu-latest,
                           tox: py39,
                       }
-                    # - {
-                    #       name: Windows,
-                    #       python: "3.9",
-                    #       os: windows-latest,
-                    #       tox: py39,
-                    #   }
-                    # - { name: Mac, python: "3.9", os: macos-latest, tox: py39 }
         steps:
             - uses: actions/checkout@v2
             - uses: actions/setup-python@v2
