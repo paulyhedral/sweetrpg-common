@@ -8,7 +8,6 @@ __description__ = "SweetRPG database modules"
 __url__ = "https://github.com/sweetrpg/db"
 __version__ = "0.0.37"
 __build__ = 0x000001
-__author__ = "Paul Schifferer"
 __author_email__ = "dm@sweetrpg.com"
 __license__ = "MIT"
 __copyright__ = "Copyright 2021 SweetRPG"
