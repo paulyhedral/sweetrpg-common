@@ -20,7 +20,7 @@ blinker==1.4
     # via -r requirements/tests.in
 certifi==2021.10.8
     # via requests
-charset-normalizer==2.0.8
+charset-normalizer==2.0.9
     # via requests
 click==8.0.3
     # via
@@ -32,7 +32,7 @@ coverage[toml]==6.2
     #   pytest-cov
 coverage-badge==1.1.0
     # via -r requirements/tests.in
-distlib==0.3.3
+distlib==0.3.4
     # via virtualenv
 dnspython==2.1.0
     # via
@@ -155,7 +155,7 @@ sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
-sweetrpg-model-core==0.0.52
+sweetrpg-model-core==0.0.54
     # via -r requirements/pkg.in
 toml==0.10.2
     # via
@@ -168,7 +168,7 @@ tomli==1.2.2
     #   pep517
 tox==3.24.4
     # via -r requirements/tests.in
-typing-extensions==4.0.0
+typing-extensions==4.0.1
     # via black
 urllib3==1.26.7
     # via requests
