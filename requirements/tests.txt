@@ -24,7 +24,7 @@ dnspython==2.1.0
     # via
     #   -r requirements/pkg.in
     #   pymongo
-filelock==3.4.0
+filelock==3.4.2
     # via
     #   tox
     #   virtualenv
@@ -42,7 +42,7 @@ packaging==21.3
     # via
     #   pytest
     #   tox
-platformdirs==2.4.0
+platformdirs==2.4.1
     # via virtualenv
 pluggy==1.0.0
     # via
@@ -77,13 +77,13 @@ six==1.16.0
     # via
     #   tox
     #   virtualenv
-sweetrpg-model-core==0.0.54
+sweetrpg-model-core==0.0.55
     # via -r requirements/pkg.in
 toml==0.10.2
     # via
     #   pytest
     #   tox
-tomli==1.2.2
+tomli==2.0.0
     # via coverage
 tox==3.24.4
     # via -r requirements/tests.in
