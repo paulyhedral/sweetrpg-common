@@ -8,4 +8,4 @@ pytest-cov==3.0
 pytest-env
 pytest-ordering
 python-dotenv==0.19.2
-tox==3.24.4
+tox==3.24.5
