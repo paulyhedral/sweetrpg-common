@@ -32,7 +32,7 @@ coverage-badge==1.1.0
     # via -r requirements/tests.in
 distlib==0.3.4
     # via virtualenv
-dnspython==2.1.0
+dnspython==2.2.0
     # via
     #   -r requirements/pkg.in
     #   pymongo
