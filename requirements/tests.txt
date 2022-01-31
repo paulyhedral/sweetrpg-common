@@ -10,7 +10,7 @@ attrs==21.4.0
     # via pytest
 blinker==1.4
     # via -r requirements/tests.in
-coverage[toml]==6.2
+coverage[toml]==6.3
     # via
     #   coverage-badge
     #   pytest-cov
@@ -55,7 +55,7 @@ pymongo[srv,tls]==3.12.1
     #   -r requirements/pkg.in
     #   mongoengine
     #   sweetrpg-model-core
-pyparsing==3.0.6
+pyparsing==3.0.7
     # via packaging
 pytest==6.2.5
     # via
@@ -75,7 +75,7 @@ six==1.16.0
     # via
     #   tox
     #   virtualenv
-sweetrpg-model-core==0.0.56
+sweetrpg-model-core==0.0.57
     # via -r requirements/pkg.in
 toml==0.10.2
     # via
