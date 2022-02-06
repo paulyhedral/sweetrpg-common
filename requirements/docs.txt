@@ -87,7 +87,7 @@ sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
-sweetrpg-model-core==0.0.57
+sweetrpg-model-core==0.0.58
     # via -r requirements/pkg.in
 urllib3==1.26.8
     # via requests
