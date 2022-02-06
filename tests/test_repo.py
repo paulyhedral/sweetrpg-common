@@ -57,6 +57,7 @@ def setup_repo(request):
     request.session.object_ids = []
 
 
+@pytest.fixture(scope="session", autouse=True)
 def teardown_test_docs(request):
     db = MongoClient(host=MONGODB_URI)
     db["exams"].delete_many({})
