@@ -75,7 +75,7 @@ six==1.16.0
     # via
     #   tox
     #   virtualenv
-sweetrpg-model-core==0.0.58
+sweetrpg-model-core==0.0.59
     # via -r requirements/pkg.in
 toml==0.10.2
     # via tox
