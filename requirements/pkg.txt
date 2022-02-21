@@ -12,7 +12,7 @@ marshmallow==3.14.1
     # via
     #   -r requirements/pkg.in
     #   sweetrpg-model-core
-mongoengine==0.23.1
+mongoengine==0.24.0
     # via -r requirements/pkg.in
 pymongo[srv,tls]==3.12.1
     # via
