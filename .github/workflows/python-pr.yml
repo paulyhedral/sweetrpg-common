@@ -22,13 +22,13 @@ jobs:
                 include:
                     - {
                           name: Linux,
-                          python: "3.9",
+                          python: "3.10",
                           os: ubuntu-latest,
-                          tox: py39,
+                          tox: py310,
                       }
         steps:
-            - uses: actions/checkout@v2
-            - uses: actions/setup-python@v2
+            - uses: actions/checkout@v3
+            - uses: actions/setup-python@v3
               with:
                   python-version: ${{ matrix.python }}
             - name: update-pip
@@ -47,6 +47,6 @@ jobs:
             - name: install-utils
               run: pip install tox
             # - name: lint
-            #   run: black --check -t py39 --diff --color src
+            #   run: black --check -t py310 --diff --color src
             - name: tests
               run: tox -e ${{ matrix.tox }}
