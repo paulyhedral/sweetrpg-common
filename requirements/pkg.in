@@ -1,5 +1,5 @@
 marshmallow==3.14.1
-mongoengine
+mongoengine @ git+https://github.com/MongoEngine/mongoengine.git
 sweetrpg-model-core
 PyMongo[srv]==4.0.2
 dnspython<3.0.0
