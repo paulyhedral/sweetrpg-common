@@ -60,7 +60,7 @@ def setup_repo(request):
 @pytest.fixture(scope="session", autouse=True)
 def teardown_test_docs(request):
     client = MongoClient(host=MONGODB_URI)
-    db = client.database
+    db = client["unit-tests"]
     db["exams"].delete_many({})
 
 
