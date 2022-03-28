@@ -7,5 +7,5 @@ pytest
 pytest-cov==3.0
 pytest-env
 pytest-ordering
-python-dotenv==0.19.2
+python-dotenv==0.20.0
 tox==3.24.5
