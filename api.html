@@ -1,17 +1,18 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Library &#8212; SweetRPG DB 0.0.57 documentation</title>
+    <title>Library &#8212; SweetRPG DB 0.0.58 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -33,12 +34,12 @@
           <div class="body" role="main">
             
   <section id="module-sweetrpg_db">
-<span id="library"></span><span id="api"></span><h1>Library<a class="headerlink" href="#module-sweetrpg_db" title="Permalink to this headline">¶</a></h1>
+<span id="library"></span><span id="api"></span><h1>Library<a class="headerlink" href="#module-sweetrpg_db" title="Permalink to this heading">¶</a></h1>
 <p>This part of the documentation covers all the public API for the SweetRPG
 DB library. These are common functions and classes that other SweetRPG
 packages make use of.</p>
 <section id="exceptions">
-<h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
+<h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this heading">¶</a></h2>
 <p>Common exceptions.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="sweetrpg_db.exceptions.ObjectNotFound">
@@ -48,7 +49,7 @@ packages make use of.</p>
 
 </section>
 <section id="mongodb-repository">
-<h2>MongoDB Repository<a class="headerlink" href="#mongodb-repository" title="Permalink to this headline">¶</a></h2>
+<h2>MongoDB Repository<a class="headerlink" href="#mongodb-repository" title="Permalink to this heading">¶</a></h2>
 <p>These are some classes for interacting with MongoDB.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="sweetrpg_db.mongodb.options.QueryOptions">
@@ -214,7 +215,7 @@ any of those types.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sweetrpg_db.mongodb.repo.MongoDataRepository.create">
-<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mongoengine.document.Document</span></span></span><a class="reference internal" href="_modules/sweetrpg_db/mongodb/repo.html#MongoDataRepository.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sweetrpg_db.mongodb.repo.MongoDataRepository.create" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Document</span></span></span><a class="reference internal" href="_modules/sweetrpg_db/mongodb/repo.html#MongoDataRepository.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sweetrpg_db.mongodb.repo.MongoDataRepository.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Inserts a new object in the database with the data provided.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -228,7 +229,7 @@ any of those types.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sweetrpg_db.mongodb.repo.MongoDataRepository.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleted</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mongoengine.document.Document</span></span></span><a class="reference internal" href="_modules/sweetrpg_db/mongodb/repo.html#MongoDataRepository.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sweetrpg_db.mongodb.repo.MongoDataRepository.get" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleted</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Document</span></span></span><a class="reference internal" href="_modules/sweetrpg_db/mongodb/repo.html#MongoDataRepository.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sweetrpg_db.mongodb.repo.MongoDataRepository.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch a single record from the database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -245,7 +246,7 @@ any of those types.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sweetrpg_db.mongodb.repo.MongoDataRepository.query">
-<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#sweetrpg_db.mongodb.options.QueryOptions" title="sweetrpg_db.mongodb.options.QueryOptions"><span class="pre">sweetrpg_db.mongodb.options.QueryOptions</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleted</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><span class="pre">list</span></a></span></span><a class="reference internal" href="_modules/sweetrpg_db/mongodb/repo.html#MongoDataRepository.query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sweetrpg_db.mongodb.repo.MongoDataRepository.query" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#sweetrpg_db.mongodb.options.QueryOptions" title="sweetrpg_db.mongodb.options.QueryOptions"><span class="pre">QueryOptions</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleted</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><span class="pre">list</span></a></span></span><a class="reference internal" href="_modules/sweetrpg_db/mongodb/repo.html#MongoDataRepository.query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sweetrpg_db.mongodb.repo.MongoDataRepository.query" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform a query for objects in the database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -259,7 +260,7 @@ any of those types.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sweetrpg_db.mongodb.repo.MongoDataRepository.update">
-<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">update</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleted</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mongoengine.document.Document</span></span></span><a class="reference internal" href="_modules/sweetrpg_db/mongodb/repo.html#MongoDataRepository.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sweetrpg_db.mongodb.repo.MongoDataRepository.update" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">update</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleted</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Document</span></span></span><a class="reference internal" href="_modules/sweetrpg_db/mongodb/repo.html#MongoDataRepository.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sweetrpg_db.mongodb.repo.MongoDataRepository.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the specified record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -352,7 +353,7 @@ any of those types.</p>
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
