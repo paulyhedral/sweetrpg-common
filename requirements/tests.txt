@@ -26,7 +26,7 @@ filelock==3.6.0
     # via
     #   tox
     #   virtualenv
-greenlet==1.1.2
+greenlet==1.1.3
     # via -r requirements/tests.in
 iniconfig==1.1.1
     # via pytest
