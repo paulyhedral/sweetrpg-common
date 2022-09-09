@@ -69,7 +69,7 @@ pytest-env==0.6.2
     # via -r requirements/tests.in
 pytest-ordering==0.6
     # via -r requirements/tests.in
-python-dotenv==0.20.0
+python-dotenv==0.21.0
     # via -r requirements/tests.in
 six==1.16.0
     # via
