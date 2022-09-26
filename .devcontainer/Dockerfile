@@ -1,6 +1,6 @@
 # See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.194.0/containers/python-3/.devcontainer/base.Dockerfile
 
-# [Choice] Python version: 3, 3.10
+# [Choice] Python version: 3, 3.9, 3.8, 3.7, 3.6
 ARG VARIANT="3.10"
 FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
 
@@ -15,7 +15,7 @@ ARG USER_GID=$USER_UID
 COPY library-scripts/common-debian.sh /tmp/library-scripts/
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && /bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true" \
-    && apt-get -y install --no-install-recommends lldb python3-minimal libpython3.10 gnupg2 \
+    && apt-get -y install --no-install-recommends lldb python3-minimal libpython3.7 gnupg2 \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/library-scripts
 
 # Install Node.
