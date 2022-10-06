@@ -121,7 +121,7 @@ pytest==7.1.3
     #   pytest-cov
     #   pytest-env
     #   pytest-ordering
-pytest-cov==3.0
+pytest-cov==4.0.0
     # via -r requirements/tests.in
 pytest-env==0.6.2
     # via -r requirements/tests.in
