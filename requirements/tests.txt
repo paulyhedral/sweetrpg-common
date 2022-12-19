@@ -82,7 +82,7 @@ tomli==2.0.1
     #   coverage
     #   pytest
     #   tox
-tox==3.26.0
+tox==3.28.0
     # via -r requirements/tests.in
 virtualenv==20.13.3
     # via tox
