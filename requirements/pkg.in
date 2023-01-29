@@ -1,5 +1,5 @@
-marshmallow<4.0.0
+marshmallow<4.0
 mongoengine @ git+https://github.com/MongoEngine/mongoengine.git
 sweetrpg-model-core
-PyMongo[srv]==4.0.2
-dnspython<3.0.0
+PyMongo[srv]<5.0
+dnspython<3.0
