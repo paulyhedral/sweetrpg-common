@@ -8,16 +8,18 @@ dnspython==2.3.0
     # via
     #   -r requirements/pkg.in
     #   pymongo
-marshmallow==3.14.1
+marshmallow==3.18.0
     # via
     #   -r requirements/pkg.in
     #   sweetrpg-model-core
 mongoengine @ git+https://github.com/MongoEngine/mongoengine.git
     # via -r requirements/pkg.in
+packaging==23.0
+    # via marshmallow
 pymongo[srv]==4.0.2
     # via
     #   -r requirements/pkg.in
     #   mongoengine
     #   sweetrpg-model-core
-sweetrpg-model-core==0.0.63
+sweetrpg-model-core==0.0.96
     # via -r requirements/pkg.in
