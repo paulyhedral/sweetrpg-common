@@ -49,10 +49,10 @@
 
 
 <div class="viewcode-block" id="MongoDataRepository"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository">[docs]</a><span class="k">class</span> <span class="nc">MongoDataRepository</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A repository class for interacting with a MongoDB database.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A repository class for interacting with a MongoDB database.&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="MongoDataRepository.__init__"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create a MongoDB repository instance.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a MongoDB repository instance.</span>
 
 <span class="sd">        :param kwargs: Keyword arguments for setting up the repository connection.</span>
 <span class="sd">        :key model: The class of the model for this connection.</span>
@@ -69,7 +69,7 @@
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;MongoDataRepository(model_class=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model_class</span><span class="si">}</span><span class="s2">, document_class=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">document_class</span><span class="si">}</span><span class="s2">, collection=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">collection</span><span class="si">}</span><span class="s2">)&gt;&quot;</span>
 
 <div class="viewcode-block" id="MongoDataRepository._handle_value"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository._handle_value">[docs]</a>    <span class="k">def</span> <span class="nf">_handle_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Convert a value to a string.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert a value to a string.</span>
 
 <span class="sd">        :param any value: The value to convert. Supports :class:`bson.objectid.ObjectId`,</span>
 <span class="sd">            :class:`datetime.datetime`, :class:`bson.timestamp.Timestamp`, and lists of</span>
@@ -94,7 +94,7 @@
         <span class="k">return</span> <span class="n">value</span></div>
 
 <div class="viewcode-block" id="MongoDataRepository._modify_record"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository._modify_record">[docs]</a>    <span class="k">def</span> <span class="nf">_modify_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Modify a record by converting any values to strings, and renaming the internal &#39;_id&#39;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Modify a record by converting any values to strings, and renaming the internal &#39;_id&#39;</span>
 <span class="sd">            field to &#39;id&#39;.</span>
 
 <span class="sd">        :param dict record: The record to modify.</span>
@@ -117,7 +117,7 @@
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;+</span><span class="si">{</span><span class="n">sort</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span></div>
 
 <div class="viewcode-block" id="MongoDataRepository.create"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Inserts a new object in the database with the data provided.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Inserts a new object in the database with the data provided.</span>
 
 <span class="sd">        :param dict data: The data for the object</span>
 <span class="sd">        :return Document: The inserted document.</span>
@@ -136,7 +136,7 @@
         <span class="k">return</span> <span class="n">doc</span></div>
 
 <div class="viewcode-block" id="MongoDataRepository.get"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">deleted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Fetch a single record from the database.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fetch a single record from the database.</span>
 
 <span class="sd">        :param str record_id: The identifier for the record to fetch. This value is compared against the attribute specified in `id_attr`.</span>
 <span class="sd">        :param bool deleted: Include &quot;deleted&quot; objects in the query</span>
@@ -164,7 +164,7 @@
         <span class="k">return</span> <span class="n">record</span></div>
 
 <div class="viewcode-block" id="MongoDataRepository.query"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository.query">[docs]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">QueryOptions</span><span class="p">,</span> <span class="n">deleted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Perform a query for objects in the database.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform a query for objects in the database.</span>
 
 <span class="sd">        :param QueryOptions options: (Optional) Options specifying limits to the query&#39;s returned results</span>
 <span class="sd">        :return list: Returns a list of Document-subclass instances matching the query.</span>
@@ -204,7 +204,7 @@
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">records</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="MongoDataRepository.update"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">update</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">deleted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Update the specified record.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the specified record.</span>
 
 <span class="sd">        :param str record_id: The ID of the record to update.</span>
 <span class="sd">        :param dict update: The data to update for the record.</span>
@@ -239,7 +239,7 @@
         <span class="k">return</span> <span class="n">doc</span></div>
 
 <div class="viewcode-block" id="MongoDataRepository.delete"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.repo.MongoDataRepository.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">actually</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;&#39;Delete&#39; the specified record. Deletion is accomplished by setting the `deleted_at` field to the current</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;&#39;Delete&#39; the specified record. Deletion is accomplished by setting the `deleted_at` field to the current</span>
 <span class="sd">            timestamp, so that queries for the object will ignore it.</span>
 
 <span class="sd">        :param str record_id: The record ID of the object to delete. This can be a string or :class:`bson.objectid.ObjectId`.</span>

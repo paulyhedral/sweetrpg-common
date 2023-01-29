@@ -39,7 +39,7 @@
 
 
 <div class="viewcode-block" id="QueryOptions"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.options.QueryOptions">[docs]</a><span class="k">class</span> <span class="nc">QueryOptions</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;An object to store query options for a PyMongo find*() call.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An object to store query options for a PyMongo find*() call.&quot;&quot;&quot;</span>
 
     <span class="c1"># https://flask-rest-jsonapi.readthedocs.io/en/latest/filtering.html</span>
     <span class="n">_filter_operators</span> <span class="o">=</span> <span class="p">{</span>
@@ -73,7 +73,7 @@
     <span class="p">}</span>
 
 <div class="viewcode-block" id="QueryOptions.__init__"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.options.QueryOptions.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span> <span class="n">projection</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">skip</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sort</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize the QueryOptions object.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the QueryOptions object.</span>
 <span class="sd">        :param dict filters: A dictionary of filters to apply to the query.</span>
 <span class="sd">        :param list projection: A list of attribute names to include in the returned result. If `None`, all attributes are returned.</span>
 <span class="sd">        :param int skip: An offset to use for pagination.</span>
@@ -96,7 +96,7 @@
         <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="p">{</span><span class="n">op</span><span class="p">:</span> <span class="n">value</span><span class="p">}}</span></div>
 
 <div class="viewcode-block" id="QueryOptions.set_filters"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.options.QueryOptions.set_filters">[docs]</a>    <span class="k">def</span> <span class="nf">set_filters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Sets filters for the query.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets filters for the query.</span>
 
 <span class="sd">        :param dict filters: A dictionary of filters to set.</span>
 <span class="sd">        :param list from_querystring: Filters to set in querystring format.</span>
@@ -110,7 +110,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">filters</span> <span class="o">=</span> <span class="n">filters</span></div>
 
 <div class="viewcode-block" id="QueryOptions.set_projection"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.options.QueryOptions.set_projection">[docs]</a>    <span class="k">def</span> <span class="nf">set_projection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projection</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Sets projections for the query.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets projections for the query.</span>
 
 <span class="sd">        :param list projection: A list of field names to include in the query results.</span>
 <span class="sd">        :param list from_querystring: Projections to set in querystring format.</span>
@@ -126,7 +126,7 @@
         <span class="k">return</span> <span class="n">name</span><span class="p">,</span> <span class="n">direction</span></div>
 
 <div class="viewcode-block" id="QueryOptions.set_sort"><a class="viewcode-back" href="../../../api.html#sweetrpg_db.mongodb.options.QueryOptions.set_sort">[docs]</a>    <span class="k">def</span> <span class="nf">set_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">from_querystring</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Sets sorting for the query results.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets sorting for the query results.</span>
 
 <span class="sd">        :param list sort: A list of dictionaries containing field name and ordering.</span>
 <span class="sd">        :param list from_querystring: Sorts to set in querystring format.</span>
