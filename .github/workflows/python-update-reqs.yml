@@ -6,7 +6,7 @@ on:
         types:
             - model-core-published
     schedule:
-        - cron: '0 0 * * 0'
+        - cron: "0 0 * * 0"
 
 jobs:
     update-reqs:
@@ -18,9 +18,7 @@ jobs:
                   python-version: "3.10"
             - name: update-reqs
               run: |
-                  pip install -U wheel
-                  pip install -U setuptools
-                  python -m pip install -U pip-tools
+                  pip install -U wheel setuptools pip-tools
                   git config --global user.email "ci@sweetrpg.com"
                   git config --global user.name "SweetRPG Requirement Updater"
                   git checkout develop
