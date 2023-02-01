@@ -7,6 +7,9 @@ on:
             - model-core-published
     schedule:
         - cron: "0 0 * * 0"
+    push:
+        paths:
+            - requirements/*.in
 
 jobs:
     update-reqs:
@@ -21,7 +24,7 @@ jobs:
                   pip install -U wheel setuptools pip-tools
                   git config --global user.email "ci@sweetrpg.com"
                   git config --global user.name "SweetRPG Requirement Updater"
-                  git checkout develop
+                  git checkout ${{ github.head_ref || github.ref_name }}
                   scripts/update-requirements.sh
                   git add requirements/*.txt
                   git commit -m "Update requirements"
