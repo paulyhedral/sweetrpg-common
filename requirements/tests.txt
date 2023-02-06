@@ -10,6 +10,12 @@ attrs==22.2.0
     # via pytest
 blinker==1.5
     # via -r requirements/tests.in
+cachetools==5.3.0
+    # via tox
+chardet==5.1.0
+    # via tox
+colorama==0.4.6
+    # via tox
 coverage[toml]==7.1.0
     # via
     #   coverage-badge
@@ -41,21 +47,24 @@ mongoengine @ git+https://github.com/MongoEngine/mongoengine.git
 packaging==23.0
     # via
     #   marshmallow
+    #   pyproject-api
     #   pytest
     #   tox
 platformdirs==2.6.2
-    # via virtualenv
+    # via
+    #   tox
+    #   virtualenv
 pluggy==1.0.0
     # via
     #   pytest
     #   tox
-py==1.11.0
-    # via tox
 pymongo[srv]==4.3.3
     # via
     #   -r requirements/pkg.in
     #   mongoengine
     #   sweetrpg-model-core
+pyproject-api==1.5.0
+    # via tox
 pytest==7.2.1
     # via
     #   -r requirements/tests.in
@@ -70,16 +79,15 @@ pytest-ordering==0.6
     # via -r requirements/tests.in
 python-dotenv==0.21.0
     # via -r requirements/tests.in
-six==1.16.0
-    # via tox
 sweetrpg-model-core==0.0.100
     # via -r requirements/pkg.in
 tomli==2.0.1
     # via
     #   coverage
+    #   pyproject-api
     #   pytest
     #   tox
-tox==3.28.0
+tox==4.4.4
     # via -r requirements/tests.in
 virtualenv==20.17.1
     # via tox
