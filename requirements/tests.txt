@@ -43,7 +43,7 @@ packaging==23.0
     #   marshmallow
     #   pytest
     #   tox
-platformdirs==2.6.2
+platformdirs==3.0.0
     # via virtualenv
 pluggy==1.0.0
     # via
@@ -81,5 +81,5 @@ tomli==2.0.1
     #   tox
 tox==3.28.0
     # via -r requirements/tests.in
-virtualenv==20.17.1
+virtualenv==20.19.0
     # via tox
