@@ -125,7 +125,7 @@ pytest-env==0.8.1
     # via -r requirements/tests.in
 pytest-ordering==0.6
     # via -r requirements/tests.in
-python-dotenv==0.21.0
+python-dotenv==0.21.1
     # via -r requirements/tests.in
 pytz==2022.7.1
     # via babel
