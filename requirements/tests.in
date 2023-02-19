@@ -2,10 +2,9 @@
 asgiref
 blinker
 coverage-badge==1.1.0
-greenlet==2.0.1
 pytest
 pytest-cov==4.0.0
 pytest-env
 pytest-ordering
 python-dotenv==0.21.1
-tox==3.28.0
+tox==4.4.5
