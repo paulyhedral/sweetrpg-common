@@ -99,7 +99,7 @@ sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
-sweetrpg-model-core==0.0.105
+sweetrpg-model-core==0.0.106
     # via -r requirements/pkg.in
 typer[all]==0.7.0
     # via rstcheck
