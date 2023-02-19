@@ -72,7 +72,7 @@ python-dotenv==0.21.1
     # via -r requirements/tests.in
 six==1.16.0
     # via tox
-sweetrpg-model-core==0.0.103
+sweetrpg-model-core==0.0.104
     # via -r requirements/pkg.in
 tomli==2.0.1
     # via
