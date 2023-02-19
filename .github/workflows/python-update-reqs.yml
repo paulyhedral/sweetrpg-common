@@ -8,6 +8,8 @@ on:
     schedule:
         - cron: "0 0 * * 0"
     push:
+        branches:
+            - develop
         paths:
             - requirements/*.in
 
