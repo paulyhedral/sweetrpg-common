@@ -39,7 +39,7 @@ marshmallow==3.19.0
     # via
     #   -r requirements/pkg.in
     #   sweetrpg-model-core
-mongoengine @ git+https://github.com/MongoEngine/mongoengine.git
+mongoengine==0.26.0
     # via -r requirements/pkg.in
 packaging==23.0
     # via

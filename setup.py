@@ -5,7 +5,7 @@ setup(
     name="sweetrpg-db",
     install_requires=[
         "marshmallow<4.0",
-        "mongoengine @ git+https://github.com/MongoEngine/mongoengine.git",
+        "mongoengine==0.26.0",
         "sweetrpg-model-core",
         "PyMongo[srv]<5.0",
         "dnspython<3.0",
