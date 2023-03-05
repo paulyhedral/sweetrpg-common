@@ -16,7 +16,7 @@ chardet==5.1.0
     # via tox
 colorama==0.4.6
     # via tox
-coverage[toml]==7.2.0
+coverage[toml]==7.2.1
     # via
     #   coverage-badge
     #   pytest-cov
@@ -48,7 +48,7 @@ packaging==23.0
     #   pyproject-api
     #   pytest
     #   tox
-platformdirs==3.0.0
+platformdirs==3.1.0
     # via
     #   tox
     #   virtualenv
@@ -63,7 +63,7 @@ pymongo[srv]==4.3.3
     #   sweetrpg-model-core
 pyproject-api==1.5.0
     # via tox
-pytest==7.2.1
+pytest==7.2.2
     # via
     #   -r requirements/tests.in
     #   pytest-cov
@@ -87,5 +87,5 @@ tomli==2.0.1
     #   tox
 tox==4.4.5
     # via -r requirements/tests.in
-virtualenv==20.19.0
+virtualenv==20.20.0
     # via tox

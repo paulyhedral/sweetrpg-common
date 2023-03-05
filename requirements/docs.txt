@@ -6,7 +6,7 @@
 #
 alabaster==0.7.13
     # via sphinx
-babel==2.11.0
+babel==2.12.1
     # via sphinx
 certifi==2022.12.7
     # via requests
@@ -60,8 +60,6 @@ pymongo[srv]==4.3.3
     #   -r requirements/pkg.in
     #   mongoengine
     #   sweetrpg-model-core
-pytz==2022.7.1
-    # via babel
 requests==2.28.2
     # via sphinx
 rich==12.6.0
