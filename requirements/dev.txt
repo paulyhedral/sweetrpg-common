@@ -56,7 +56,7 @@ docutils==0.18.1
     #   sphinx-tabs
 exceptiongroup==1.1.1
     # via pytest
-filelock==3.10.0
+filelock==3.10.5
     # via
     #   tox
     #   virtualenv
@@ -94,7 +94,7 @@ pathspec==0.11.1
     # via black
 pip-tools==6.12.2
     # via -r requirements/dev.in
-platformdirs==3.1.1
+platformdirs==3.2.0
     # via
     #   black
     #   tox
@@ -103,7 +103,7 @@ pluggy==1.0.0
     # via
     #   pytest
     #   tox
-pydantic==1.10.6
+pydantic==1.10.7
     # via rstcheck-core
 pygments==2.14.0
     # via
