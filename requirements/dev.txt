@@ -74,7 +74,7 @@ marshmallow==3.19.0
     # via
     #   -r requirements/pkg.in
     #   sweetrpg-model-core
-mongoengine==0.26.0
+mongoengine==0.27.0
     # via -r requirements/pkg.in
 mypy-extensions==1.0.0
     # via black
