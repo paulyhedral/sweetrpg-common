@@ -30,7 +30,7 @@ dnspython==2.3.0
     #   pymongo
 exceptiongroup==1.1.1
     # via pytest
-filelock==3.10.5
+filelock==3.10.7
     # via
     #   tox
     #   virtualenv

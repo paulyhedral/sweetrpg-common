@@ -101,7 +101,7 @@ sweetrpg-model-core==0.0.111
     # via -r requirements/pkg.in
 typer[all]==0.7.0
     # via rstcheck
-types-docutils==0.19.1.6
+types-docutils==0.19.1.7
     # via rstcheck-core
 typing-extensions==4.5.0
     # via pydantic
