@@ -41,7 +41,7 @@ marshmallow==3.19.0
     #   sweetrpg-model-core
 mongoengine==0.26.0
     # via -r requirements/pkg.in
-packaging==23.0
+packaging==23.1
     # via
     #   marshmallow
     #   pallets-sphinx-themes
@@ -50,7 +50,7 @@ pallets-sphinx-themes==2.0.3
     # via -r requirements/docs.in
 pydantic==1.10.7
     # via rstcheck-core
-pygments==2.14.0
+pygments==2.15.0
     # via
     #   rich
     #   sphinx

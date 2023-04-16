@@ -12,7 +12,7 @@ babel==2.12.1
     # via sphinx
 black==23.3.0
     # via -r requirements/dev.in
-blinker==1.6
+blinker==1.6.2
     # via -r requirements/tests.in
 build==0.10.0
     # via pip-tools
@@ -76,7 +76,7 @@ mongoengine==0.26.0
     # via -r requirements/pkg.in
 mypy-extensions==1.0.0
     # via black
-packaging==23.0
+packaging==23.1
     # via
     #   black
     #   build
@@ -103,7 +103,7 @@ pluggy==1.0.0
     #   tox
 pydantic==1.10.7
     # via rstcheck-core
-pygments==2.14.0
+pygments==2.15.0
     # via
     #   rich
     #   sphinx
@@ -117,7 +117,7 @@ pyproject-api==1.5.1
     # via tox
 pyproject-hooks==1.0.0
     # via build
-pytest==7.3.0
+pytest==7.3.1
     # via
     #   -r requirements/tests.in
     #   pytest-cov
@@ -186,9 +186,7 @@ typer[all]==0.7.0
 types-docutils==0.19.1.7
     # via rstcheck-core
 typing-extensions==4.5.0
-    # via
-    #   blinker
-    #   pydantic
+    # via pydantic
 urllib3==1.26.15
     # via requests
 virtualenv==20.21.0
