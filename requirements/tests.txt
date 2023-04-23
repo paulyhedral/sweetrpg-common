@@ -83,7 +83,7 @@ tomli==2.0.1
     #   pyproject-api
     #   pytest
     #   tox
-tox==4.4.5
+tox==4.4.12
     # via -r requirements/tests.in
 virtualenv==20.22.0
     # via tox
