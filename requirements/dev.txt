@@ -168,7 +168,7 @@ sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
-sweetrpg-model-core==0.0.118
+sweetrpg-model-core==0.0.119
     # via -r requirements/pkg.in
 tomli==2.0.1
     # via
