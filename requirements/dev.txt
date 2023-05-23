@@ -46,6 +46,7 @@ distlib==0.3.6
 dnspython==2.3.0
     # via
     #   -r requirements/pkg.in
+    #   -r requirements/tests.in
     #   pymongo
 docutils==0.18.1
     # via
