@@ -22,7 +22,7 @@ import sweetrpg_db
 # -- Project information -----------------------------------------------------
 
 project = "SweetRPG DB"
-copyright = "2021, Paul Schifferer"
+copyright = "2023, SweetRPG"
 author = "Paul Schifferer"
 version = sweetrpg_db.__version__
 release = sweetrpg_db.__version__
@@ -77,11 +77,11 @@ todo_include_todos = True
 
 autoclass_content = "both"
 autodoc_default_options = {
-    'members': True,
-    'member-order': 'bysource',
-    'special-members': '__init__',
-    'undoc-members': True,
-    'exclude-members': '__weakref__'
+    "members": True,
+    "member-order": "bysource",
+    "special-members": "__init__",
+    "undoc-members": True,
+    "exclude-members": "__weakref__",
 }
 
 
@@ -133,7 +133,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
-latex_documents = [(master_doc, "SweetRPG-DB.tex", u"SweetRPG DB Documentation", u"Paul Schifferer", "manual")]
+latex_documents = [(master_doc, "SweetRPG-DB.tex", "SweetRPG DB Documentation", "Paul Schifferer", "manual")]
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
@@ -160,7 +160,7 @@ latex_documents = [(master_doc, "SweetRPG-DB.tex", u"SweetRPG DB Documentation",
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "sweetrpg-db", u"SweetRPG DB Documentation", [author], 1)]
+man_pages = [(master_doc, "sweetrpg-db", "SweetRPG DB Documentation", [author], 1)]
 
 # If true, show URL addresses after external links.
 # man_show_urls = False
@@ -175,7 +175,7 @@ texinfo_documents = [
     (
         master_doc,
         "SweetRPG DB",
-        u"SweetRPG DB Documentation",
+        "SweetRPG DB Documentation",
         author,
         "SweetRPG DB",
         "One line description of project.",
