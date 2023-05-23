@@ -75,7 +75,7 @@ pytest-ordering==0.6
     # via -r requirements/tests.in
 python-dotenv==0.21.1
     # via -r requirements/tests.in
-sweetrpg-model-core==0.0.119
+sweetrpg-model-core==0.0.120
     # via -r requirements/pkg.in
 tomli==2.0.1
     # via
