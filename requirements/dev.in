@@ -2,4 +2,4 @@
 -r tests.in
 -r docs.in
 pip-tools~=6.0
-black
+black~=23.0
