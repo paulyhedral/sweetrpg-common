@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 __author__ = "Paul Schifferer <dm@sweetrpg.com>"
-"""Metadata.
+"""
+Metadata.
 """
 
 __title__ = "sweetrpg-db"
 __description__ = "SweetRPG database modules"
 __url__ = "https://github.com/sweetrpg/db"
 __version__ = "0.0.117"
-__build__ = 0x000001
+__build__ = 0x000002
 __author_email__ = "dm@sweetrpg.com"
 __license__ = "MIT"
 __copyright__ = "Copyright 2023 SweetRPG"

@@ -1,10 +1,10 @@
 -r pkg.in
 asgiref
 blinker
-coverage-badge==1.1.0
+coverage-badge~=1.0
 pytest
-pytest-cov==4.0.0
+pytest-cov~=4.0
 pytest-env
 pytest-ordering
-python-dotenv==0.21.1
-tox==4.4.5
+python-dotenv~=0.21
+tox~=4.4
