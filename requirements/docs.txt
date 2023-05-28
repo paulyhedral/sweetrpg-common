@@ -48,7 +48,7 @@ packaging==23.1
     #   sphinx
 pallets-sphinx-themes==2.1.0
     # via -r requirements/docs.in
-pydantic==1.10.7
+pydantic==1.10.8
     # via rstcheck-core
 pygments==2.15.1
     # via
@@ -103,7 +103,7 @@ typer[all]==0.7.0
     # via rstcheck
 types-docutils==0.19.1.9
     # via rstcheck-core
-typing-extensions==4.6.0
+typing-extensions==4.6.2
     # via pydantic
 urllib3==2.0.2
     # via requests
