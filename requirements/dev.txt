@@ -93,12 +93,12 @@ pathspec==0.11.1
     # via black
 pip-tools==6.13.0
     # via -r requirements/dev.in
-platformdirs==3.5.3
+platformdirs==3.8.0
     # via
     #   black
     #   tox
     #   virtualenv
-pluggy==1.0.0
+pluggy==1.2.0
     # via
     #   pytest
     #   tox
@@ -109,7 +109,7 @@ pygments==2.15.1
     #   rich
     #   sphinx
     #   sphinx-tabs
-pymongo[srv]==4.3.3
+pymongo[srv]==4.4.0
     # via
     #   -r requirements/pkg.in
     #   mongoengine
@@ -118,7 +118,7 @@ pyproject-api==1.5.2
     # via tox
 pyproject-hooks==1.0.0
     # via build
-pytest==7.3.2
+pytest==7.4.0
     # via
     #   -r requirements/tests.in
     #   pytest-cov
@@ -180,7 +180,7 @@ tomli==2.0.1
     #   pyproject-hooks
     #   pytest
     #   tox
-tox==4.6.2
+tox==4.6.3
     # via -r requirements/tests.in
 typer[all]==0.7.0
     # via rstcheck

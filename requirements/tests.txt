@@ -47,22 +47,22 @@ packaging==23.1
     #   pyproject-api
     #   pytest
     #   tox
-platformdirs==3.5.3
+platformdirs==3.8.0
     # via
     #   tox
     #   virtualenv
-pluggy==1.0.0
+pluggy==1.2.0
     # via
     #   pytest
     #   tox
-pymongo[srv]==4.3.3
+pymongo[srv]==4.4.0
     # via
     #   -r requirements/pkg.in
     #   mongoengine
     #   sweetrpg-model-core
 pyproject-api==1.5.2
     # via tox
-pytest==7.3.2
+pytest==7.4.0
     # via
     #   -r requirements/tests.in
     #   pytest-cov
@@ -84,7 +84,7 @@ tomli==2.0.1
     #   pyproject-api
     #   pytest
     #   tox
-tox==4.6.2
+tox==4.6.3
     # via -r requirements/tests.in
 typing-extensions==4.6.3
     # via asgiref

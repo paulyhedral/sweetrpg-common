@@ -55,7 +55,7 @@ pygments==2.15.1
     #   rich
     #   sphinx
     #   sphinx-tabs
-pymongo[srv]==4.3.3
+pymongo[srv]==4.4.0
     # via
     #   -r requirements/pkg.in
     #   mongoengine
