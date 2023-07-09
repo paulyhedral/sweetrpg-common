@@ -27,7 +27,7 @@ dnspython==2.3.0
     #   -r requirements/pkg.in
     #   -r requirements/tests.in
     #   pymongo
-exceptiongroup==1.1.1
+exceptiongroup==1.1.2
     # via pytest
 filelock==3.12.2
     # via
@@ -47,7 +47,7 @@ packaging==23.1
     #   pyproject-api
     #   pytest
     #   tox
-platformdirs==3.8.0
+platformdirs==3.8.1
     # via
     #   tox
     #   virtualenv
@@ -60,7 +60,7 @@ pymongo[srv]==4.4.0
     #   -r requirements/pkg.in
     #   mongoengine
     #   sweetrpg-model-core
-pyproject-api==1.5.2
+pyproject-api==1.5.3
     # via tox
 pytest==7.4.0
     # via
@@ -84,9 +84,9 @@ tomli==2.0.1
     #   pyproject-api
     #   pytest
     #   tox
-tox==4.6.3
+tox==4.6.4
     # via -r requirements/tests.in
-typing-extensions==4.7.0
+typing-extensions==4.7.1
     # via asgiref
 virtualenv==20.23.1
     # via tox
