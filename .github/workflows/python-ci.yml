@@ -106,6 +106,7 @@ jobs:
                 include:
                     - repo: model-core
                     - repo: library-objects
+                    - repo: catalog-objects
                     - repo: api-core
                     - repo: library-api
                     - repo: web-core
