@@ -6,8 +6,6 @@
 #
 alabaster==0.7.13
     # via sphinx
-anyio==3.7.1
-    # via httpcore
 asgiref==3.7.2
     # via -r requirements/tests.in
 babel==2.12.1
@@ -21,9 +19,7 @@ build==0.10.0
 cachetools==5.3.1
     # via tox
 certifi==2023.7.22
-    # via
-    #   httpcore
-    #   requests
+    # via requests
 chardet==5.1.0
     # via tox
 charset-normalizer==3.2.0
@@ -47,7 +43,7 @@ coverage-badge==1.1.0
     # via -r requirements/tests.in
 distlib==0.3.7
     # via virtualenv
-dnspython==2.4.0
+dnspython==2.4.1
     # via
     #   -r requirements/pkg.in
     #   -r requirements/tests.in
@@ -58,21 +54,13 @@ docutils==0.18.1
     #   sphinx
     #   sphinx-tabs
 exceptiongroup==1.1.2
-    # via
-    #   anyio
-    #   pytest
+    # via pytest
 filelock==3.12.2
     # via
     #   tox
     #   virtualenv
-h11==0.14.0
-    # via httpcore
-httpcore==0.17.3
-    # via dnspython
 idna==3.4
-    # via
-    #   anyio
-    #   requests
+    # via requests
 imagesize==1.4.1
     # via sphinx
 iniconfig==2.0.0
@@ -154,11 +142,6 @@ rstcheck-core==1.0.3
     # via rstcheck
 shellingham==1.5.0.post1
     # via typer
-sniffio==1.3.0
-    # via
-    #   anyio
-    #   dnspython
-    #   httpcore
 snowballstemmer==2.2.0
     # via sphinx
 sphinx==6.2.1
@@ -186,7 +169,7 @@ sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
-sweetrpg-model-core==0.0.131
+sweetrpg-model-core==0.0.135
     # via -r requirements/pkg.in
 tomli==2.0.1
     # via
