@@ -12,7 +12,7 @@ certifi==2023.7.22
     # via requests
 charset-normalizer==3.2.0
     # via requests
-click==8.1.6
+click==8.1.7
     # via typer
 colorama==0.4.6
     # via typer
@@ -68,7 +68,7 @@ rstcheck==6.1.2
     # via -r requirements/docs.in
 rstcheck-core==1.0.3
     # via rstcheck
-shellingham==1.5.0.post1
+shellingham==1.5.3
     # via typer
 snowballstemmer==2.2.0
     # via sphinx
@@ -88,19 +88,19 @@ sphinx-issues==3.0.1
     # via -r requirements/docs.in
 sphinx-tabs==3.4.1
     # via -r requirements/docs.in
-sphinxcontrib-applehelp==1.0.6
+sphinxcontrib-applehelp==1.0.7
     # via sphinx
-sphinxcontrib-devhelp==1.0.4
+sphinxcontrib-devhelp==1.0.5
     # via sphinx
-sphinxcontrib-htmlhelp==2.0.3
+sphinxcontrib-htmlhelp==2.0.4
     # via sphinx
 sphinxcontrib-jsmath==1.0.1
     # via sphinx
 sphinxcontrib-log-cabinet==1.0.1
     # via -r requirements/docs.in
-sphinxcontrib-qthelp==1.0.5
+sphinxcontrib-qthelp==1.0.6
     # via sphinx
-sphinxcontrib-serializinghtml==1.1.7
+sphinxcontrib-serializinghtml==1.1.8
     # via sphinx
 sweetrpg-model-core==0.0.139
     # via -r requirements/pkg.in
