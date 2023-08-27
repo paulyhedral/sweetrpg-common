@@ -55,7 +55,7 @@ pygments==2.16.1
     #   rich
     #   sphinx
     #   sphinx-tabs
-pymongo[srv]==4.4.1
+pymongo[srv]==4.5.0
     # via
     #   -r requirements/pkg.in
     #   mongoengine
@@ -100,7 +100,7 @@ sphinxcontrib-log-cabinet==1.0.1
     # via -r requirements/docs.in
 sphinxcontrib-qthelp==1.0.6
     # via sphinx
-sphinxcontrib-serializinghtml==1.1.8
+sphinxcontrib-serializinghtml==1.1.9
     # via sphinx
 sweetrpg-model-core==0.0.140
     # via -r requirements/pkg.in
