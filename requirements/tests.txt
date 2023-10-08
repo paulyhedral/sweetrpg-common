@@ -6,7 +6,7 @@
 #
 asgiref==3.7.2
     # via -r requirements/tests.in
-blinker==1.6.2
+blinker==1.6.3
     # via -r requirements/tests.in
 cachetools==5.3.1
     # via tox
@@ -14,7 +14,7 @@ chardet==5.2.0
     # via tox
 colorama==0.4.6
     # via tox
-coverage[toml]==7.3.1
+coverage[toml]==7.3.2
     # via
     #   coverage-badge
     #   pytest-cov
@@ -41,13 +41,13 @@ marshmallow==3.20.1
     #   sweetrpg-model-core
 mongoengine==0.27.0
     # via -r requirements/pkg.in
-packaging==23.1
+packaging==23.2
     # via
     #   marshmallow
     #   pyproject-api
     #   pytest
     #   tox
-platformdirs==3.10.0
+platformdirs==3.11.0
     # via
     #   tox
     #   virtualenv

@@ -6,9 +6,9 @@
 #
 alabaster==0.7.13
     # via sphinx
-annotated-types==0.5.0
+annotated-types==0.6.0
     # via pydantic
-babel==2.12.1
+babel==2.13.0
     # via sphinx
 certifi==2023.7.22
     # via requests
@@ -45,7 +45,7 @@ mdurl==0.1.2
     # via markdown-it-py
 mongoengine==0.27.0
     # via -r requirements/pkg.in
-packaging==23.1
+packaging==23.2
     # via
     #   marshmallow
     #   pallets-sphinx-themes
@@ -117,5 +117,5 @@ typing-extensions==4.8.0
     #   pydantic
     #   pydantic-core
     #   typer
-urllib3==2.0.5
+urllib3==2.0.6
     # via requests
