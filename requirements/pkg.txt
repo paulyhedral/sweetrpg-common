@@ -20,6 +20,7 @@ pymongo[srv]==4.5.0
     # via
     #   -r requirements/pkg.in
     #   mongoengine
+    #   pymongo
     #   sweetrpg-model-core
-sweetrpg-model-core==0.0.152
+sweetrpg-model-core==0.0.153
     # via -r requirements/pkg.in

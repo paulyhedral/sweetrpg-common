@@ -59,6 +59,7 @@ pymongo[srv]==4.5.0
     # via
     #   -r requirements/pkg.in
     #   mongoengine
+    #   pymongo
     #   sweetrpg-model-core
 pyproject-api==1.6.1
     # via tox
@@ -76,7 +77,7 @@ pytest-ordering==0.6
     # via -r requirements/tests.in
 python-dotenv==1.0.0
     # via -r requirements/tests.in
-sweetrpg-model-core==0.0.152
+sweetrpg-model-core==0.0.153
     # via -r requirements/pkg.in
 tomli==2.0.1
     # via
