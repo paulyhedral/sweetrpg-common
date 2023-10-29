@@ -10,21 +10,21 @@ annotated-types==0.6.0
     # via pydantic
 asgiref==3.7.2
     # via -r requirements/tests.in
-babel==2.13.0
+babel==2.13.1
     # via sphinx
-black==23.10.0
+black==23.10.1
     # via -r requirements/dev.in
 blinker==1.6.3
     # via -r requirements/tests.in
 build==1.0.3
     # via pip-tools
-cachetools==5.3.1
+cachetools==5.3.2
     # via tox
 certifi==2023.7.22
     # via requests
 chardet==5.2.0
     # via tox
-charset-normalizer==3.3.0
+charset-normalizer==3.3.1
     # via requests
 click==8.1.7
     # via
@@ -55,7 +55,7 @@ docutils==0.18.1
     #   sphinx-tabs
 exceptiongroup==1.1.3
     # via pytest
-filelock==3.12.4
+filelock==3.13.0
     # via
     #   tox
     #   virtualenv
@@ -125,7 +125,7 @@ pyproject-api==1.6.1
     # via tox
 pyproject-hooks==1.0.0
     # via build
-pytest==7.4.2
+pytest==7.4.3
     # via
     #   -r requirements/tests.in
     #   pytest-cov
@@ -147,7 +147,7 @@ rstcheck==6.2.0
     # via -r requirements/docs.in
 rstcheck-core==1.1.1
     # via rstcheck
-shellingham==1.5.3
+shellingham==1.5.4
     # via typer
 snowballstemmer==2.2.0
     # via sphinx
@@ -165,7 +165,7 @@ sphinx==6.2.1
     #   sphinxcontrib-serializinghtml
 sphinx-issues==3.0.1
     # via -r requirements/docs.in
-sphinx-tabs==3.4.1
+sphinx-tabs==3.4.4
     # via -r requirements/docs.in
 sphinxcontrib-applehelp==1.0.7
     # via sphinx
@@ -208,7 +208,7 @@ typing-extensions==4.8.0
     #   typer
 urllib3==2.0.7
     # via requests
-virtualenv==20.24.5
+virtualenv==20.24.6
     # via tox
 wheel==0.41.2
     # via pip-tools
