@@ -12,7 +12,7 @@ babel==2.13.1
     # via sphinx
 certifi==2023.7.22
     # via requests
-charset-normalizer==3.3.1
+charset-normalizer==3.3.2
     # via requests
 click==8.1.7
     # via typer
@@ -61,7 +61,7 @@ pygments==2.16.1
     #   rich
     #   sphinx
     #   sphinx-tabs
-pymongo[srv]==4.5.0
+pymongo[srv]==4.6.0
     # via
     #   -r requirements/pkg.in
     #   mongoengine
