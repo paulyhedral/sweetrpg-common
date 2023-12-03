@@ -55,7 +55,7 @@ pluggy==1.3.0
     # via
     #   pytest
     #   tox
-pymongo[srv]==4.6.0
+pymongo[srv]==4.6.1
     # via
     #   -r requirements/pkg.in
     #   mongoengine
@@ -85,9 +85,9 @@ tomli==2.0.1
     #   pyproject-api
     #   pytest
     #   tox
-tox==4.11.3
+tox==4.11.4
     # via -r requirements/tests.in
 typing-extensions==4.8.0
     # via asgiref
-virtualenv==20.24.7
+virtualenv==20.25.0
     # via tox
