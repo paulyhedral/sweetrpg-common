@@ -22,7 +22,7 @@ coverage-badge==1.1.0
     # via -r requirements/tests.in
 distlib==0.3.8
     # via virtualenv
-dnspython==2.5.0
+dnspython==2.6.0
     # via
     #   -r requirements/pkg.in
     #   -r requirements/tests.in
@@ -85,7 +85,7 @@ tomli==2.0.1
     #   pyproject-api
     #   pytest
     #   tox
-tox==4.12.1
+tox==4.13.0
     # via -r requirements/tests.in
 typing-extensions==4.9.0
     # via asgiref
