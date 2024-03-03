@@ -37,13 +37,13 @@ markdown-it-py==3.0.0
     # via rich
 markupsafe==2.1.5
     # via jinja2
-marshmallow==3.20.2
+marshmallow==3.21.0
     # via
     #   -r requirements/pkg.in
     #   sweetrpg-model-core
 mdurl==0.1.2
     # via markdown-it-py
-mongoengine==0.27.0
+mongoengine==0.28.0
     # via -r requirements/pkg.in
 packaging==23.2
     # via
@@ -52,7 +52,7 @@ packaging==23.2
     #   sphinx
 pallets-sphinx-themes==2.1.1
     # via -r requirements/docs.in
-pydantic==2.6.2
+pydantic==2.6.3
     # via rstcheck-core
 pydantic-core==2.16.3
     # via pydantic
@@ -69,7 +69,7 @@ pymongo[srv]==4.6.2
     #   sweetrpg-model-core
 requests==2.31.0
     # via sphinx
-rich==13.7.0
+rich==13.7.1
     # via typer
 rstcheck==6.2.0
     # via -r requirements/docs.in
@@ -108,7 +108,7 @@ sweetrpg-model-core==0.0.153
     # via -r requirements/pkg.in
 typer[all]==0.9.0
     # via rstcheck
-typing-extensions==4.9.0
+typing-extensions==4.10.0
     # via
     #   pydantic
     #   pydantic-core
