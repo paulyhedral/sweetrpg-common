@@ -4,7 +4,7 @@
 #
 #    pip-compile requirements/tests.in
 #
-asgiref==3.7.2
+asgiref==3.8.1
     # via -r requirements/tests.in
 blinker==1.7.0
     # via -r requirements/tests.in
@@ -85,7 +85,7 @@ tomli==2.0.1
     #   pyproject-api
     #   pytest
     #   tox
-tox==4.14.1
+tox==4.14.2
     # via -r requirements/tests.in
 typing-extensions==4.10.0
     # via asgiref
