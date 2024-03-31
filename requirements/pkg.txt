@@ -16,7 +16,7 @@ mongoengine==0.28.2
     # via -r requirements/pkg.in
 packaging==24.0
     # via marshmallow
-pymongo[srv]==4.6.2
+pymongo[srv]==4.6.3
     # via
     #   -r requirements/pkg.in
     #   mongoengine

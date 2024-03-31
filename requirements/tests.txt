@@ -29,7 +29,7 @@ dnspython==2.6.1
     #   pymongo
 exceptiongroup==1.2.0
     # via pytest
-filelock==3.13.1
+filelock==3.13.3
     # via
     #   tox
     #   virtualenv
@@ -55,7 +55,7 @@ pluggy==1.4.0
     # via
     #   pytest
     #   tox
-pymongo[srv]==4.6.2
+pymongo[srv]==4.6.3
     # via
     #   -r requirements/pkg.in
     #   mongoengine
