@@ -87,7 +87,7 @@ tomli==2.0.1
     #   tox
 tox==4.14.2
     # via -r requirements/tests.in
-typing-extensions==4.10.0
+typing-extensions==4.11.0
     # via asgiref
 virtualenv==20.25.1
     # via tox

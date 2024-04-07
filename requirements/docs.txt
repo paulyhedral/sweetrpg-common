@@ -15,7 +15,7 @@ certifi==2024.2.2
 charset-normalizer==3.3.2
     # via requests
 click==8.1.7
-    # via typer-slim
+    # via typer
 dnspython==2.6.1
     # via
     #   -r requirements/pkg.in
@@ -68,13 +68,13 @@ pymongo[srv]==4.6.3
 requests==2.31.0
     # via sphinx
 rich==13.7.1
-    # via typer-slim
+    # via typer
 rstcheck==6.2.1
     # via -r requirements/docs.in
 rstcheck-core==1.2.1
     # via rstcheck
 shellingham==1.5.4
-    # via typer-slim
+    # via typer
 snowballstemmer==2.2.0
     # via sphinx
 sphinx==6.2.1
@@ -104,18 +104,12 @@ sphinxcontrib-serializinghtml==1.1.10
     # via sphinx
 sweetrpg-model-core==0.0.154
     # via -r requirements/pkg.in
-typer[all]==0.12.0
+typer[all]==0.12.1
     # via rstcheck
-typer-cli==0.12.0
-    # via typer
-typer-slim[standard]==0.12.0
-    # via
-    #   typer
-    #   typer-cli
-typing-extensions==4.10.0
+typing-extensions==4.11.0
     # via
     #   pydantic
     #   pydantic-core
-    #   typer-slim
+    #   typer
 urllib3==2.2.1
     # via requests
