@@ -48,7 +48,7 @@ packaging==24.0
     #   marshmallow
     #   pallets-sphinx-themes
     #   sphinx
-pallets-sphinx-themes==2.1.1
+pallets-sphinx-themes==2.1.2
     # via -r requirements/docs.in
 pydantic==2.7.0
     # via rstcheck-core

@@ -51,7 +51,7 @@ docutils==0.19
     #   rstcheck-core
     #   sphinx
     #   sphinx-tabs
-exceptiongroup==1.2.0
+exceptiongroup==1.2.1
     # via pytest
 filelock==3.13.4
     # via
@@ -89,7 +89,7 @@ packaging==24.0
     #   pytest
     #   sphinx
     #   tox
-pallets-sphinx-themes==2.1.1
+pallets-sphinx-themes==2.1.2
     # via -r requirements/docs.in
 pathspec==0.12.1
     # via black
@@ -100,7 +100,7 @@ platformdirs==4.2.0
     #   black
     #   tox
     #   virtualenv
-pluggy==1.4.0
+pluggy==1.5.0
     # via
     #   pytest
     #   tox
@@ -201,7 +201,7 @@ typing-extensions==4.11.0
     #   typer
 urllib3==2.2.1
     # via requests
-virtualenv==20.25.1
+virtualenv==20.25.3
     # via tox
 wheel==0.43.0
     # via pip-tools
