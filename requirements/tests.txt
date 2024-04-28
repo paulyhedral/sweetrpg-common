@@ -6,7 +6,7 @@
 #
 asgiref==3.8.1
     # via -r requirements/tests.in
-blinker==1.7.0
+blinker==1.8.0
     # via -r requirements/tests.in
 cachetools==5.3.3
     # via tox
@@ -14,11 +14,11 @@ chardet==5.2.0
     # via tox
 colorama==0.4.6
     # via tox
-coverage[toml]==7.4.4
+coverage[toml]==7.5.0
     # via
     #   coverage-badge
     #   pytest-cov
-coverage-badge==1.1.0
+coverage-badge==1.1.1
     # via -r requirements/tests.in
 distlib==0.3.8
     # via virtualenv
@@ -47,7 +47,7 @@ packaging==24.0
     #   pyproject-api
     #   pytest
     #   tox
-platformdirs==4.2.0
+platformdirs==4.2.1
     # via
     #   tox
     #   virtualenv
@@ -55,7 +55,7 @@ pluggy==1.5.0
     # via
     #   pytest
     #   tox
-pymongo[srv]==4.6.3
+pymongo[srv]==4.7.0
     # via
     #   -r requirements/pkg.in
     #   mongoengine
@@ -85,9 +85,9 @@ tomli==2.0.1
     #   pyproject-api
     #   pytest
     #   tox
-tox==4.14.2
+tox==4.15.0
     # via -r requirements/tests.in
 typing-extensions==4.11.0
     # via asgiref
-virtualenv==20.25.3
+virtualenv==20.26.0
     # via tox
