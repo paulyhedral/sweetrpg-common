@@ -6,7 +6,7 @@
 #
 asgiref==3.8.1
     # via -r requirements/tests.in
-blinker==1.8.0
+blinker==1.8.1
     # via -r requirements/tests.in
 cachetools==5.3.3
     # via tox
@@ -14,7 +14,7 @@ chardet==5.2.0
     # via tox
 colorama==0.4.6
     # via tox
-coverage[toml]==7.5.0
+coverage[toml]==7.5.1
     # via
     #   coverage-badge
     #   pytest-cov
@@ -29,13 +29,13 @@ dnspython==2.6.1
     #   pymongo
 exceptiongroup==1.2.1
     # via pytest
-filelock==3.13.4
+filelock==3.14.0
     # via
     #   tox
     #   virtualenv
 iniconfig==2.0.0
     # via pytest
-marshmallow==3.21.1
+marshmallow==3.21.2
     # via
     #   -r requirements/pkg.in
     #   sweetrpg-model-core
@@ -55,7 +55,7 @@ pluggy==1.5.0
     # via
     #   pytest
     #   tox
-pymongo[srv]==4.7.0
+pymongo[srv]==4.7.1
     # via
     #   -r requirements/pkg.in
     #   mongoengine
@@ -89,5 +89,5 @@ tox==4.15.0
     # via -r requirements/tests.in
 typing-extensions==4.11.0
     # via asgiref
-virtualenv==20.26.0
+virtualenv==20.26.1
     # via tox
