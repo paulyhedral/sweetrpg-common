@@ -47,7 +47,7 @@ packaging==24.0
     #   pyproject-api
     #   pytest
     #   tox
-platformdirs==4.2.1
+platformdirs==4.2.2
     # via
     #   tox
     #   virtualenv
@@ -89,5 +89,5 @@ tox==4.15.0
     # via -r requirements/tests.in
 typing-extensions==4.11.0
     # via asgiref
-virtualenv==20.26.1
+virtualenv==20.26.2
     # via tox
