@@ -8,7 +8,7 @@ dnspython==2.6.1
     # via
     #   -r requirements/pkg.in
     #   pymongo
-marshmallow==3.21.2
+marshmallow==3.21.3
     # via
     #   -r requirements/pkg.in
     #   sweetrpg-model-core
@@ -16,7 +16,7 @@ mongoengine==0.28.2
     # via -r requirements/pkg.in
 packaging==24.0
     # via marshmallow
-pymongo[srv]==4.7.2
+pymongo[srv]==4.7.3
     # via
     #   -r requirements/pkg.in
     #   mongoengine

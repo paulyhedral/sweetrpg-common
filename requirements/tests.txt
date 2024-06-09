@@ -35,7 +35,7 @@ filelock==3.14.0
     #   virtualenv
 iniconfig==2.0.0
     # via pytest
-marshmallow==3.21.2
+marshmallow==3.21.3
     # via
     #   -r requirements/pkg.in
     #   sweetrpg-model-core
@@ -55,7 +55,7 @@ pluggy==1.5.0
     # via
     #   pytest
     #   tox
-pymongo[srv]==4.7.2
+pymongo[srv]==4.7.3
     # via
     #   -r requirements/pkg.in
     #   mongoengine
@@ -85,9 +85,9 @@ tomli==2.0.1
     #   pyproject-api
     #   pytest
     #   tox
-tox==4.15.0
+tox==4.15.1
     # via -r requirements/tests.in
-typing-extensions==4.12.1
+typing-extensions==4.12.2
     # via asgiref
 virtualenv==20.26.2
     # via tox
