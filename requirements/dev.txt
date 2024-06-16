@@ -53,7 +53,7 @@ docutils==0.19
     #   sphinx-tabs
 exceptiongroup==1.2.1
     # via pytest
-filelock==3.14.0
+filelock==3.15.1
     # via
     #   tox
     #   virtualenv
@@ -79,7 +79,7 @@ mongoengine==0.28.2
     # via -r requirements/pkg.in
 mypy-extensions==1.0.0
     # via black
-packaging==24.0
+packaging==24.1
     # via
     #   black
     #   build
@@ -104,7 +104,7 @@ pluggy==1.5.0
     # via
     #   pytest
     #   tox
-pydantic==2.7.3
+pydantic==2.7.4
     # via rstcheck-core
 pydantic-core==2.18.4
     # via pydantic
