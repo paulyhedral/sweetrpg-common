@@ -8,7 +8,7 @@ alabaster==0.7.16
     # via sphinx
 annotated-types==0.7.0
     # via pydantic
-babel==2.15.0
+babel==2.16.0
     # via sphinx
 certifi==2024.7.4
     # via requests
