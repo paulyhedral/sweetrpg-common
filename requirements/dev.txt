@@ -18,7 +18,7 @@ blinker==1.8.2
     # via -r requirements/tests.in
 build==1.2.1
     # via pip-tools
-cachetools==5.4.0
+cachetools==5.5.0
     # via tox
 certifi==2024.7.4
     # via requests
@@ -57,7 +57,7 @@ filelock==3.15.4
     # via
     #   tox
     #   virtualenv
-idna==3.7
+idna==3.8
     # via requests
 imagesize==1.4.1
     # via sphinx
@@ -69,7 +69,7 @@ markdown-it-py==3.0.0
     # via rich
 markupsafe==2.1.5
     # via jinja2
-marshmallow==3.21.3
+marshmallow==3.22.0
     # via
     #   -r requirements/pkg.in
     #   sweetrpg-model-core
@@ -189,7 +189,7 @@ tomli==2.0.1
     #   tox
 tox==4.18.0
     # via -r requirements/tests.in
-typer==0.12.4
+typer==0.12.5
     # via rstcheck
 typing-extensions==4.12.2
     # via

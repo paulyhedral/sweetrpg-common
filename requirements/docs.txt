@@ -25,7 +25,7 @@ docutils==0.19
     #   rstcheck-core
     #   sphinx
     #   sphinx-tabs
-idna==3.7
+idna==3.8
     # via requests
 imagesize==1.4.1
     # via sphinx
@@ -35,7 +35,7 @@ markdown-it-py==3.0.0
     # via rich
 markupsafe==2.1.5
     # via jinja2
-marshmallow==3.21.3
+marshmallow==3.22.0
     # via
     #   -r requirements/pkg.in
     #   sweetrpg-model-core
@@ -104,7 +104,7 @@ sphinxcontrib-serializinghtml==2.0.0
     # via sphinx
 sweetrpg-model-core==0.0.154
     # via -r requirements/pkg.in
-typer==0.12.4
+typer==0.12.5
     # via rstcheck
 typing-extensions==4.12.2
     # via
