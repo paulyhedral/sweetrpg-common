@@ -89,7 +89,7 @@ tox==4.20.0
     # via -r requirements/tests.in
 typing-extensions==4.12.2
     # via asgiref
-virtualenv==20.26.5
+virtualenv==20.26.6
     # via tox
 
 # The following packages are considered to be unsafe in a requirements file:
