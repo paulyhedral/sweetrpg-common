@@ -7,7 +7,7 @@ setup(
         "dnspython~=2.0",
         "marshmallow~=3.0",
         "mongoengine~=0.27",
-        "PyMongo~=4.0",
+        "PyMongo[srv]~=3.0",
         "sweetrpg-model-core",
     ],
     extras_require={},
