@@ -22,7 +22,7 @@ coverage-badge==1.1.2
     # via -r requirements/tests.in
 distlib==0.3.8
     # via virtualenv
-dnspython==2.6.1
+dnspython==2.7.0
     # via
     #   -r requirements/pkg.in
     #   -r requirements/tests.in
@@ -55,7 +55,7 @@ pluggy==1.5.0
     # via
     #   pytest
     #   tox
-pymongo[srv]==4.9.1
+pymongo[srv]==4.10.1
     # via
     #   -r requirements/pkg.in
     #   mongoengine
@@ -79,16 +79,18 @@ python-dotenv==1.0.1
     # via -r requirements/tests.in
 sweetrpg-model-core==0.0.154
     # via -r requirements/pkg.in
-tomli==2.0.1
+tomli==2.0.2
     # via
     #   coverage
     #   pyproject-api
     #   pytest
     #   tox
-tox==4.20.0
+tox==4.21.2
     # via -r requirements/tests.in
 typing-extensions==4.12.2
-    # via asgiref
+    # via
+    #   asgiref
+    #   tox
 virtualenv==20.26.6
     # via tox
 

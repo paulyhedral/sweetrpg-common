@@ -16,7 +16,7 @@ charset-normalizer==3.3.2
     # via requests
 click==8.1.7
     # via typer
-dnspython==2.6.1
+dnspython==2.7.0
     # via
     #   -r requirements/pkg.in
     #   pymongo
@@ -59,7 +59,7 @@ pygments==2.18.0
     #   rich
     #   sphinx
     #   sphinx-tabs
-pymongo[srv]==4.9.1
+pymongo[srv]==4.10.1
     # via
     #   -r requirements/pkg.in
     #   mongoengine
@@ -67,7 +67,7 @@ pymongo[srv]==4.9.1
     #   sweetrpg-model-core
 requests==2.32.3
     # via sphinx
-rich==13.8.1
+rich==13.9.2
     # via typer
 rstcheck==6.2.4
     # via -r requirements/docs.in
@@ -110,6 +110,7 @@ typing-extensions==4.12.2
     # via
     #   pydantic
     #   pydantic-core
+    #   rich
     #   typer
 urllib3==2.2.3
     # via requests
