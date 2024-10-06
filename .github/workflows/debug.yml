@@ -1,15 +1,14 @@
 name: Debug
 
 on:
-    create:
-        tags:
-            - '*'
     release:
         types:
             - published
             - created
     push:
         branches:
+            - '*'
+        tags:
             - '*'
 
 jobs:
