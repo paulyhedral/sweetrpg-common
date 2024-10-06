@@ -4,7 +4,7 @@ from setuptools import setup
 setup(
     name="sweetrpg-db",
     install_requires=[
-        "dnspython~=2.4",
+        "dnspython~=2.0",
         "marshmallow~=3.0",
         "mongoengine~=0.27",
         "PyMongo~=4.0",
