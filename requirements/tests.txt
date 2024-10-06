@@ -59,7 +59,6 @@ pymongo[srv]==4.10.1
     # via
     #   -r requirements/pkg.in
     #   mongoengine
-    #   pymongo
     #   sweetrpg-model-core
 pyproject-api==1.8.0
     # via tox
