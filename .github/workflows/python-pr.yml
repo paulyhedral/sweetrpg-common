@@ -24,11 +24,11 @@ jobs:
                           name: Linux,
                           python: "3.10",
                           os: ubuntu-latest,
-                          tox: py310,
+                          tox: py311,
                       }
         steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-python@v3
+            - uses: actions/checkout@v4
+            - uses: actions/setup-python@v4
               with:
                   python-version: ${{ matrix.python }}
             - name: update-pip
@@ -40,13 +40,13 @@ jobs:
               id: pip-cache
               run: echo "::set-output name=dir::$(pip cache dir)"
             - name: cache-pip
-              uses: actions/cache@v2
+              uses: actions/cache@v4
               with:
                   path: ${{ steps.pip-cache.outputs.dir }}
                   key: pip|${{ runner.os }}|${{ matrix.python }}|${{ hashFiles('setup.py') }}|${{ hashFiles('requirements/*.txt') }}
             - name: install-utils
               run: pip install tox
             # - name: lint
-            #   run: black --check -t py310 --diff --color src
+            #   run: black --check -t py311 --diff --color src
             - name: tests
               run: tox -e ${{ matrix.tox }}
