@@ -14,7 +14,7 @@ chardet==5.2.0
     # via tox
 colorama==0.4.6
     # via tox
-coverage[toml]==7.6.2
+coverage[toml]==7.6.3
     # via
     #   coverage-badge
     #   pytest-cov
@@ -33,7 +33,7 @@ filelock==3.16.1
     #   virtualenv
 iniconfig==2.0.0
     # via pytest
-marshmallow==3.22.0
+marshmallow==3.23.0
     # via
     #   -r requirements/pkg.in
     #   sweetrpg-model-core
@@ -77,9 +77,9 @@ python-dotenv==1.0.1
     # via -r requirements/tests.in
 sweetrpg-model-core==0.0.155
     # via -r requirements/pkg.in
-tox==4.21.2
+tox==4.23.0
     # via -r requirements/tests.in
-virtualenv==20.26.6
+virtualenv==20.27.0
     # via tox
 
 # The following packages are considered to be unsafe in a requirements file:

@@ -8,7 +8,7 @@ dnspython==2.7.0
     # via
     #   -r requirements/pkg.in
     #   pymongo
-marshmallow==3.22.0
+marshmallow==3.23.0
     # via
     #   -r requirements/pkg.in
     #   sweetrpg-model-core

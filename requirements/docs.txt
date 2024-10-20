@@ -33,9 +33,9 @@ jinja2==3.1.4
     # via sphinx
 markdown-it-py==3.0.0
     # via rich
-markupsafe==3.0.1
+markupsafe==3.0.2
     # via jinja2
-marshmallow==3.22.0
+marshmallow==3.23.0
     # via
     #   -r requirements/pkg.in
     #   sweetrpg-model-core
@@ -48,7 +48,7 @@ packaging==24.1
     #   marshmallow
     #   pallets-sphinx-themes
     #   sphinx
-pallets-sphinx-themes==2.1.3
+pallets-sphinx-themes==2.2.0
     # via -r requirements/docs.in
 pydantic==2.9.2
     # via rstcheck-core
@@ -77,15 +77,18 @@ shellingham==1.5.4
     # via typer
 snowballstemmer==2.2.0
     # via sphinx
-sphinx==8.1.2
+sphinx==8.1.3
     # via
     #   -r requirements/docs.in
     #   pallets-sphinx-themes
     #   sphinx-issues
+    #   sphinx-notfound-page
     #   sphinx-tabs
     #   sphinxcontrib-log-cabinet
 sphinx-issues==4.1.0
     # via -r requirements/docs.in
+sphinx-notfound-page==1.0.4
+    # via pallets-sphinx-themes
 sphinx-tabs==3.4.7
     # via -r requirements/docs.in
 sphinxcontrib-applehelp==2.0.0
