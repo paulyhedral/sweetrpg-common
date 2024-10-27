@@ -48,7 +48,7 @@ packaging==24.1
     #   marshmallow
     #   pallets-sphinx-themes
     #   sphinx
-pallets-sphinx-themes==2.2.0
+pallets-sphinx-themes==2.3.0
     # via -r requirements/docs.in
 pydantic==2.9.2
     # via rstcheck-core
@@ -67,7 +67,7 @@ pymongo[srv]==3.13.0
     #   sweetrpg-model-core
 requests==2.32.3
     # via sphinx
-rich==13.9.2
+rich==13.9.3
     # via typer
 rstcheck==6.2.4
     # via -r requirements/docs.in

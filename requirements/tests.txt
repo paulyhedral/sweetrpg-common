@@ -14,7 +14,7 @@ chardet==5.2.0
     # via tox
 colorama==0.4.6
     # via tox
-coverage[toml]==7.6.3
+coverage[toml]==7.6.4
     # via
     #   coverage-badge
     #   pytest-cov
@@ -77,7 +77,7 @@ python-dotenv==1.0.1
     # via -r requirements/tests.in
 sweetrpg-model-core==0.0.155
     # via -r requirements/pkg.in
-tox==4.23.0
+tox==4.23.2
     # via -r requirements/tests.in
 virtualenv==20.27.0
     # via tox

@@ -33,7 +33,7 @@ click==8.1.7
     #   typer
 colorama==0.4.6
     # via tox
-coverage[toml]==7.6.3
+coverage[toml]==7.6.4
     # via
     #   coverage-badge
     #   pytest-cov
@@ -87,7 +87,7 @@ packaging==24.1
     #   pytest
     #   sphinx
     #   tox
-pallets-sphinx-themes==2.2.0
+pallets-sphinx-themes==2.3.0
     # via -r requirements/docs.in
 pathspec==0.12.1
     # via black
@@ -139,7 +139,7 @@ python-dotenv==1.0.1
     # via -r requirements/tests.in
 requests==2.32.3
     # via sphinx
-rich==13.9.2
+rich==13.9.3
     # via typer
 rstcheck==6.2.4
     # via -r requirements/docs.in
@@ -179,7 +179,7 @@ sphinxcontrib-serializinghtml==2.0.0
     # via sphinx
 sweetrpg-model-core==0.0.155
     # via -r requirements/pkg.in
-tox==4.23.0
+tox==4.23.2
     # via -r requirements/tests.in
 typer==0.12.5
     # via rstcheck
