@@ -3,6 +3,7 @@ package database
 import (
 	"context"
 	"fmt"
+	"math"
 	"net/url"
 	"os"
 
@@ -116,9 +117,9 @@ func Query[T any](collection string, query bson.D, sortField string, start int, 
 	logging.Logger.Info(fmt.Sprintf("Querying for '%s'...", collection))
 	sortStage := bson.D{{"$sort", bson.D{{sortField, 1}}}}
 	logging.Logger.Debug(fmt.Sprintf("sort=%v", sortStage))
-	skipStage := bson.D{{"$skip", start}}
+	skipStage := bson.D{{"$skip", math.Max(0, float64(start))}}
 	logging.Logger.Debug(fmt.Sprintf("skip=%v", skipStage))
-	limitStage := bson.D{{"$limit", limit}}
+	limitStage := bson.D{{"$limit", int(math.Max(0, math.Min(float64(limit), float64(constants.QueryMaxSize))))}}
 	logging.Logger.Debug(fmt.Sprintf("limit=%v", limitStage))
 	pipeline := mongo.Pipeline{sortStage, skipStage, limitStage}
 	cursor, err := coll.Aggregate(context.TODO(), pipeline)
