@@ -149,6 +149,11 @@ func Query[T any](collection string, filter bson.D, sort bson.D, projection bson
 	// logging.Logger.Debug(fmt.Sprintf("limit=%v", limitStage))
 	// pipeline := mongo.Pipeline{sortStage, skipStage, limitStage}
 
+	// If no sort key is specified, sort by ID
+	if len(sort) == 0 {
+		sort = bson.D{{"_id", 1}}
+	}
+
 	opts := options.Find().
 		SetSort(sort).
 		SetSkip(start).
