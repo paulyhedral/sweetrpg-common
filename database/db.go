@@ -3,7 +3,6 @@ package database
 import (
 	"context"
 	"fmt"
-	"math"
 	"net/url"
 	"os"
 
@@ -109,20 +108,34 @@ func Get[T any](collection string, id string) (*T, error) {
 	return &model, nil
 }
 
-func Query[T any](collection string, query bson.D, sortField string, start int, limit int) ([]*T, error) {
-	logging.Logger.Debug(fmt.Sprintf("Using '%s' collection on DB", collection))
+func Query[T any](collection string, filter bson.D, sort bson.D, projection bson.D, start int64, limit int64) ([]*T, error) {
+	logging.Logger.Debug(fmt.Sprintf("Using '%s' collection on DB", collection),
+		"filter", filter,
+		"sort", sort,
+		"projection", projection,
+		"start", start,
+		"limit", limit)
 	coll := Db.Collection(collection)
-	logging.Logger.Debug(fmt.Sprintf("collection=%v", coll)) // TODO: remove
 
 	logging.Logger.Info(fmt.Sprintf("Querying for '%s'...", collection))
-	sortStage := bson.D{{"$sort", bson.D{{sortField, 1}}}}
-	logging.Logger.Debug(fmt.Sprintf("sort=%v", sortStage))
-	skipStage := bson.D{{"$skip", math.Max(0, float64(start))}}
-	logging.Logger.Debug(fmt.Sprintf("skip=%v", skipStage))
-	limitStage := bson.D{{"$limit", int(math.Max(0, math.Min(float64(limit), float64(constants.QueryMaxSize))))}}
-	logging.Logger.Debug(fmt.Sprintf("limit=%v", limitStage))
-	pipeline := mongo.Pipeline{sortStage, skipStage, limitStage}
-	cursor, err := coll.Aggregate(context.TODO(), pipeline)
+	// sortStage := bson.D{{"$sort", sort}}
+	// logging.Logger.Debug(fmt.Sprintf("sort=%v", sortStage))
+	// skipStage := bson.D{{"$skip", math.Max(0, float64(start))}}
+	// logging.Logger.Debug(fmt.Sprintf("skip=%v", skipStage))
+	// limitStage := bson.D{{"$limit", int(math.Max(0, math.Min(float64(limit), float64(constants.QueryMaxSize))))}}
+	// logging.Logger.Debug(fmt.Sprintf("limit=%v", limitStage))
+	// pipeline := mongo.Pipeline{sortStage, skipStage, limitStage}
+
+	opts := options.Find().
+		SetSort(sort).
+		SetSkip(start).
+		SetLimit(limit)
+
+	if len(projection) > 0 {
+		opts.SetProjection(projection)
+	}
+
+	cursor, err := coll.Find(context.TODO(), filter, opts)
 	if err != nil {
 		logging.Logger.Error(fmt.Sprintf("Error while trying to find '%s' documents", collection), "error", err)
 		return nil, err
@@ -135,7 +148,7 @@ func Query[T any](collection string, query bson.D, sortField string, start int, 
 		return nil, err
 	}
 
-	logging.Logger.Debug("query results", "result", results)
+	logging.Logger.Debug("query results", "results", results)
 	var models []*T
 	for _, r := range results {
 		logging.Logger.Debug(fmt.Sprintf("r=%v", r))
