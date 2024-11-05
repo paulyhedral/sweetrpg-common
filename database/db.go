@@ -152,7 +152,7 @@ func Query[T any](collection string, filter bson.D, sort bson.D, projection bson
 	opts := options.Find().
 		SetSort(sort).
 		SetSkip(start).
-		SetLimit(limit)
+		SetLimit(int64(limit))
 
 	if len(projection) > 0 {
 		opts.SetProjection(projection)
