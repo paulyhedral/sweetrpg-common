@@ -131,7 +131,7 @@ func Get[T any](collection string, id string) (*T, error) {
 // @Param limit The maximum number of documents to return in the query.
 //
 // @Return An array of the documents matching the query parameters, or an error.
-func Query[T any](collection string, filter bson.D, sort bson.D, projection bson.D, start int64, limit int64) ([]*T, error) {
+func Query[T any](collection string, filter bson.D, sort bson.D, projection bson.D, start int64, limit int) ([]*T, error) {
 	logging.Logger.Debug(fmt.Sprintf("Using '%s' collection on DB", collection),
 		"filter", filter,
 		"sort", sort,
