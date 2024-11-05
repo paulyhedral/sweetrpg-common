@@ -108,6 +108,29 @@ func Get[T any](collection string, id string) (*T, error) {
 	return &model, nil
 }
 
+// Query the database for multiple documents.
+//
+// @Param collection The name of the collection to query.
+//
+// @Param filter A BSON document specifying a filter to apply to the query.
+//
+// @Param sort A BSON document specifying how to sort the returned results.
+//
+//	{'field': order}
+//	where 'field' is the name of the field in the database, and <order> is an integer value specifying
+//	whether the field should be sorted ascending (1) or descending (-1)
+//
+// @Param projection A BSON document specifying a specific set of fields to return or ignore
+//
+//	{'field': value}
+//	where 'field' is the name of the field in the database, and <value> is an integer value specifying
+//	whether the field should be returned (1, excluding others) or ignored (0)
+//
+// @Param start The starting document for the query results.
+//
+// @Param limit The maximum number of documents to return in the query.
+//
+// @Return An array of the documents matching the query parameters, or an error.
 func Query[T any](collection string, filter bson.D, sort bson.D, projection bson.D, start int64, limit int64) ([]*T, error) {
 	logging.Logger.Debug(fmt.Sprintf("Using '%s' collection on DB", collection),
 		"filter", filter,
