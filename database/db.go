@@ -151,6 +151,7 @@ func Query[T any](collection string, filter bson.D, sort bson.D, projection bson
 
 	// If no sort key is specified, sort by ID
 	if len(sort) == 0 {
+		logging.Logger.Info("Set default sort on _id, since no sort was specified.")
 		sort = bson.D{{"_id", 1}}
 	}
 
@@ -158,12 +159,15 @@ func Query[T any](collection string, filter bson.D, sort bson.D, projection bson
 		SetSort(sort).
 		SetSkip(start).
 		SetLimit(int64(limit))
+	logging.Logger.Debug("find options", "opts", opts)
 
 	if len(projection) > 0 {
+		logging.Logger.Info("Setting projection", "projection", projection)
 		opts.SetProjection(projection)
 	}
 
 	cursor, err := coll.Find(context.TODO(), filter, opts)
+	logging.Logger.Debug("find results", "cursor", cursor, "err", err)
 	if err != nil {
 		logging.Logger.Error(fmt.Sprintf("Error while trying to find '%s' documents", collection), "error", err)
 		return nil, err
@@ -171,6 +175,7 @@ func Query[T any](collection string, filter bson.D, sort bson.D, projection bson
 
 	var results []*T
 	err = cursor.All(context.TODO(), &results)
+	logging.Logger.Debug("cursor.All", "results", results, "err", err)
 	if err != nil {
 		logging.Logger.Error(fmt.Sprintf("Error while trying to fetch '%s' documents", collection), "error", err)
 		return nil, err
@@ -190,11 +195,12 @@ func Query[T any](collection string, filter bson.D, sort bson.D, projection bson
 		if err := bson.Unmarshal(bsonBytes, &model); err != nil {
 			logging.Logger.Error(fmt.Sprintf("Failed to unmarshal BSON to struct: %v", err))
 		}
-		logging.Logger.Debug(fmt.Sprintf("model=%v", model))
 
+		logging.Logger.Debug("appending model", "model", model)
 		models = append(models, model)
 	}
 	// err = bson.Unmarshal(result, &licenses)
 
+	logging.Logger.Debug("returing", "models", models)
 	return models, nil
 }
