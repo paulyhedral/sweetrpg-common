@@ -13,7 +13,8 @@ const (
 )
 
 const (
-	QueryMaxSize    = 50
-	PageStartOption = "start"
-	PageLimitOption = "limit"
+	QueryMaxSize     = 100
+	QueryDefaultSize = 50
+	PageStartOption  = "start"
+	PageLimitOption  = "limit"
 )
