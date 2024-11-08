@@ -150,10 +150,10 @@ func Query[T any](collection string, filter bson.D, sort bson.D, projection bson
 	// pipeline := mongo.Pipeline{sortStage, skipStage, limitStage}
 
 	// If no sort key is specified, sort by ID
-	if len(sort) == 0 {
-		logging.Logger.Info("Set default sort on _id, since no sort was specified.")
-		sort = bson.D{{"_id", 1}}
-	}
+	// if len(sort) == 0 {
+	// 	logging.Logger.Info("Set default sort on _id, since no sort was specified.")
+	// 	sort = bson.D{{"_id", 1}}
+	// }
 
 	opts := options.Find().
 		SetSort(sort).

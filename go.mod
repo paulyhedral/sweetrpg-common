@@ -3,6 +3,7 @@ module github.com/sweetrpg/db
 go 1.23.2
 
 require (
+	github.com/mongo-go/testdb v0.0.0-20201209140737-c4845cc6fe67
 	github.com/stretchr/testify v1.9.0
 	github.com/sweetrpg/common v0.0.7
 	go.mongodb.org/mongo-driver v1.17.1
