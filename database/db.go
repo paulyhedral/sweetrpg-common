@@ -75,19 +75,19 @@ func TeardownDatabase() {
 	}
 }
 
-func Get[T any](collection string, id string) (*T, error) {
+func Get[T any](collection string, id primitive.ObjectID) (*T, error) {
 	logging.Logger.Debug(fmt.Sprintf("Using '%s' collection on DB", collection))
 	coll := Db.Collection(collection)
 	logging.Logger.Debug(fmt.Sprintf("collection=%v", coll)) // TODO: remove
 
-	objectId, err := primitive.ObjectIDFromHex(id)
-	if err != nil {
-		logging.Logger.Error(fmt.Sprintf("Unable to created ObjectID from %s: %s", id, err.Error()))
-		return nil, err
-	}
-	filter := bson.D{{"_id", objectId}}
+	// objectId, err := primitive.ObjectIDFromHex(id)
+	// if err != nil {
+	// 	logging.Logger.Error(fmt.Sprintf("Unable to create ObjectID from %s: %s", id, err.Error()))
+	// 	return nil, err
+	// }
+	filter := bson.D{{Key: "_id", Value: id}}
 	var model T
-	err = coll.FindOne(context.TODO(), filter).Decode(&model)
+	err := coll.FindOne(context.TODO(), filter).Decode(&model)
 	// bsonBytes, err := bson.Marshal(result)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
@@ -201,6 +201,74 @@ func Query[T any](collection string, filter bson.D, sort bson.D, projection bson
 	}
 	// err = bson.Unmarshal(result, &licenses)
 
-	logging.Logger.Debug("returing", "models", models)
+	logging.Logger.Debug("returning", "models", models)
 	return models, nil
+}
+
+func Insert[T any](collection string, doc T) (primitive.ObjectID, error) {
+	logging.Logger.Debug(fmt.Sprintf("Using '%s' collection on DB", collection),
+		"doc", doc)
+	coll := Db.Collection(collection)
+
+	logging.Logger.Info(fmt.Sprintf("Inserting new document into collection '%s'...", collection))
+
+	result, err := coll.InsertOne(context.TODO(), doc)
+	if err != nil {
+		logging.Logger.Error("Error while trying to insert documents into collection", "collection", collection, "error", err)
+		return primitive.NilObjectID, err
+	}
+
+	id, ok := result.InsertedID.(primitive.ObjectID)
+	logging.Logger.Info("Document inserted", "id", id, "ok", ok)
+	return id, nil
+}
+
+func Update[T any](collection string, id primitive.ObjectID, doc T) (int, int, error) {
+	logging.Logger.Debug(fmt.Sprintf("Using '%s' collection on DB", collection),
+		"id", id,
+		"doc", doc)
+	coll := Db.Collection(collection)
+
+	filter := bson.D{{Key: "_id", Value: id}}
+
+	data, err := bson.Marshal(doc) //   D{} // TODO:
+	if err != nil {
+		logging.Logger.Error("Error while trying prepare document for update in collection", "collection", collection, "id", id, "error", err)
+		return 0, 0, err
+	}
+	logging.Logger.Debug("marshal document", "data", data)
+	var update bson.D
+	err = bson.Unmarshal(data, &update)
+	logging.Logger.Debug("unmarshaled", "update", update, "err", err)
+	if err != nil {
+		logging.Logger.Error("Error while trying prepare document for update in collection", "collection", collection, "id", id, "data", data, "error", err)
+		return 0, 0, err
+	}
+	logging.Logger.Debug("unmarshal document", "updates", update)
+
+	result, err := coll.UpdateOne(context.TODO(), filter, bson.D{{Key: "$set", Value: update}})
+	if err != nil {
+		logging.Logger.Error("Error while trying to update document in collection", "collection", collection, "id", id, "error", err)
+		return 0, 0, err
+	}
+
+	logging.Logger.Info("Document updated", "id", id, "matched", result.MatchedCount, "modified", result.ModifiedCount)
+	return int(result.MatchedCount), int(result.ModifiedCount), nil
+}
+
+func Delete[T any](collection string, id primitive.ObjectID) (bool, error) {
+	logging.Logger.Debug(fmt.Sprintf("Using '%s' collection on DB", collection),
+		"id", id)
+	coll := Db.Collection(collection)
+
+	filter := bson.D{{Key: "_id", Value: id}}
+
+	result, err := coll.DeleteOne(context.TODO(), filter)
+	if err != nil {
+		logging.Logger.Error("Error while trying to delete documents from collection", "collection", collection, "id", id, "error", err)
+		return false, err
+	}
+
+	logging.Logger.Info("Deleted document", "count", result.DeletedCount)
+	return (result.DeletedCount > 0), nil
 }
